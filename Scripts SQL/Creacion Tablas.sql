@@ -10,17 +10,18 @@ DROP TABLE PUBLICACIONESRUBROS
 DROP TABLE TIPOSPUBLICACIONES
 DROP TABLE Clientes
 DROP TABLE Empresas
+DROP TABLE RolesFuncionalidades
 DROP TABLE Funcionalidades
 DROP TABLE Roles
 DROP TABLE TiposDocumentos
 DROP TABLE CALIFICACIONES
 DROP TABLE COMPRAS
 DROP TABLE FORMASPAGO
-DROP TABLE VISIBILIDADES
 DROP TABLE RUBROS
 DROP TABLE PUBLICACIONES
 DROP TABLE TIPOSCOMPRAS
 DROP TABLE Usuarios
+DROP TABLE Visibilidades
 DROP TABLE Estados
 DROP TABLE Tablas
 */
@@ -41,11 +42,19 @@ CREATE TABLE Funcionalidades
 
 CREATE TABLE Roles
 (
-	idRol INT IDENTITY(1,1) NOT NULL,
-	nombre VARCHAR(20) NOT NULL,
-	idEstado INT NOT NULL,
+	IdRol INT IDENTITY(1,1) NOT NULL,
+	Nombre VARCHAR(20) NOT NULL,
+	IdEstado INT NOT NULL,
 	CONSTRAINT PK_Roles PRIMARY KEY (idRol ASC) ON [PRIMARY],
 	CONSTRAINT FK_RolesEstados FOREIGN KEY (idEstado) REFERENCES Estados(idEstado)
+)
+
+CREATE TABLE RolesFuncionalidades
+(
+	IdRol INT NOT NULL,
+	IdFuncionalidad INT NOT NULL,
+	CONSTRAINT FK_RolesFuncionalidades_Roles FOREIGN KEY (IdRol) REFERENCES Roles(IdRol),
+	CONSTRAINT FK_RolesFuncionalidades_Funcionalidades FOREIGN KEY (IdFuncionalidad) REFERENCES Funcionalidades(IdFuncionalidad)
 )
 
 CREATE TABLE Tablas
@@ -65,7 +74,8 @@ CREATE TABLE Usuarios
 	fallos INT NULL,
 	idEstado INT NULL,
 	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (idUsuario ASC) ON [PRIMARY],
-	CONSTRAINT FK_Uuarios_Tablas FOREIGN KEY (idTabla) REFERENCES Tablas(idTabla)
+	CONSTRAINT FK_Usuarios_Tablas FOREIGN KEY (idTabla) REFERENCES Tablas(idTabla),
+	CONSTRAINT FK_Usuarios_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
 CREATE TABLE Rubros
@@ -149,6 +159,7 @@ CREATE TABLE Publicaciones
 (
 	IdPublicacion INT IDENTITY (1,1) NOT NULL,
 	IdTipoPublicacion INT NOT NULL,
+	IdVisibilidad INT NOT NULL,
 	Valor NUMERIC(15,2) NOT NULL,
 	IdEstado INT NOT NULL,
 	FechaInicio DATE NOT NULL,
@@ -160,7 +171,9 @@ CREATE TABLE Publicaciones
 	IdUsuario INT NOT NULL,
 	PermiteRealizarPreguntas BIT NOT NULL DEFAULT(1),
 	CONSTRAINT PK_Publicaciones PRIMARY KEY (IdPublicacion),
-	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
+	CONSTRAINT FK_Publicaciones_Visibilidad FOREIGN KEY (IdVisibilidad) REFERENCES Visibilidades(IdVisibilidad),
+	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
 CREATE TABLE PublicacionesRubros
@@ -177,6 +190,7 @@ CREATE TABLE Preguntas
 	IdPublicacion INT NOT NULL,
 	IdUsuario INT NOT NULL,
 	Descripcion VARCHAR(50) NULL,
+	Fecha DATETIME NOT NULL,
 	CONSTRAINT PK_Preguntas PRIMARY KEY (IdPregunta),
 	CONSTRAINT FK_Preguntas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
 	CONSTRAINT FK_Preguntas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
@@ -186,13 +200,14 @@ CREATE TABLE Respuestas
 (
 	IdRespuesta INT IDENTITY(1,1) NOT NULL,
 	IdPregunta INT NOT NULL,
-	IdPublicacion INT NOT NULL,
-	IdUsuario INT NOT NULL,
+	--IdPublicacion INT NOT NULL,
+	--IdUsuario INT NOT NULL,
 	Descripcion VARCHAR(50) NULL,
+	Fecha DATETIME NOT NULL,
 	CONSTRAINT PK_Respuestas PRIMARY KEY (IdRespuesta),
-	CONSTRAINT FK_Respuestas_Preguntas FOREIGN KEY (IdPregunta) REFERENCES Preguntas(IdPregunta),
-	CONSTRAINT FK_Respuestas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
-	CONSTRAINT FK_Respuestas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT FK_Respuestas_Preguntas FOREIGN KEY (IdPregunta) REFERENCES Preguntas(IdPregunta)
+	--CONSTRAINT FK_Respuestas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
+	--CONSTRAINT FK_Respuestas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 )
 
 CREATE TABLE TiposCompras
@@ -213,7 +228,8 @@ CREATE TABLE Compras
 	CONSTRAINT PK_Compras PRIMARY KEY (IdCompra),
 	CONSTRAINT FK_Compras_TipoCompra FOREIGN KEY (IdTipoCompra) REFERENCES TiposCompras(IdTipoCompra),
 	CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (IdUsrComprador) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion)
+	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
+	CONSTRAINT FK_Compras_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
 CREATE TABLE Calificaciones
@@ -229,10 +245,12 @@ CREATE TABLE Calificaciones
 CREATE TABLE Historiales
 (
 	IdHistorial INT IDENTITY(1,1) NOT NULL,
+	IdUsuario INT NOT NULL,
 	IdTabla INT NOT NULL,
 	IdNumero INT NOT NULL,
 	FechaAlta DATE NOT NULL,
-	CONSTRAINT PK_Historiales PRIMARY KEY (IdHistorial)
+	CONSTRAINT PK_Historiales PRIMARY KEY (IdHistorial),
+	CONSTRAINT FK_Historiales_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 )
 
 CREATE TABLE FormasPago
@@ -251,6 +269,10 @@ CREATE TABLE Facturas
 	IdUsuario INT NOT NULL,
 	IdFormaPago INT NOT NULL,
 	IdEstado INT NOT NULL,
+	NroTarjeta NUMERIC(18,0) NULL,
+	FechaVencTarjeta DATETIME NULL,
+	CodigoSeguridad INT NULL,
+	TitularTarjeta VARCHAR(30) NULL,
 	CONSTRAINT PK_Facturas PRIMARY KEY (IdFactura),
 	CONSTRAINT FK_Facturas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
 	CONSTRAINT FK_Facturas_FormasPago FOREIGN KEY (IdFormaPago) REFERENCES FormasPago(IdFormaPago),
