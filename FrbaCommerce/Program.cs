@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace FrbaCommerce
 {
@@ -15,7 +16,17 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Vista.Registro_de_Usuario.Form1());
+
+            //Form vtnUsuario = new Vista.Registro_de_Usuario.Form1();
+            //vtnUsuario.Show();
+            /*
+            Model.Usuarios usr = new Model.Usuarios();
+            usr.AltaUsuarios(1,2,"fballarini");
+            
+            DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+            usrDAL.InsertarUsuario(usr);
+            */
         }
     }
 }
