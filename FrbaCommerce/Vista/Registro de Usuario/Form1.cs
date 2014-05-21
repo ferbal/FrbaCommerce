@@ -34,10 +34,32 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
         {
             if ( (int)cmbTiposPersona.SelectedValue == 1)
             {
-                pnlCliente.Visible = true;
-
+                txtRazonSocial.Enabled = false;
+                lblRazonSocial.Enabled = false;
+                txtNombreContacto.Enabled = false;
+                lblNombreContacto.Enabled = false;
+                lblNombre.Enabled = true;
+                txtNombre.Enabled = true;
+                lblApellido.Enabled = true;
+                txtApellido.Enabled = true;
+                lblTipoDocumento.Enabled = true;
+                cmbTipoDocumento.Enabled = true;
+                lblNroDocumento.Enabled = true;
+                txtDNI.Enabled = true;
             }else{
-                pnlCliente.Visible = false;
+                txtRazonSocial.Enabled = true;
+                lblRazonSocial.Enabled = true;
+                txtNombreContacto.Enabled = true;
+                lblNombreContacto.Enabled = true;
+                lblNombre.Enabled = false;
+                txtNombre.Enabled = false;
+                lblApellido.Enabled = false;
+                txtApellido.Enabled = false;
+                lblTipoDocumento.Enabled = false;
+                cmbTipoDocumento.Enabled = false;
+                lblNroDocumento.Enabled = false;
+                txtDNI.Enabled = false;
+
             }
             
         }
@@ -59,6 +81,21 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
 
             DAL.ClientesDAL cliDAL = new FrbaCommerce.DAL.ClientesDAL();
             cliDAL.InsertarCliente(cli);
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCuit_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
