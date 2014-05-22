@@ -20,11 +20,13 @@ DROP TABLE FORMASPAGO
 DROP TABLE RUBROS
 DROP TABLE PUBLICACIONES
 DROP TABLE TIPOSCOMPRAS
+DROP TABLE TiposPersonas
 DROP TABLE Usuarios
 DROP TABLE Visibilidades
 DROP TABLE Estados
 DROP TABLE Tablas
 */
+begin transaction
 
 CREATE TABLE Estados
 (
@@ -64,17 +66,24 @@ CREATE TABLE Tablas
 	CONSTRAINT PK_TiposUsuarios PRIMARY KEY (idTabla)
 )
 
+CREATE TABLE TiposPersonas
+(
+	IdTipoPersona INT IDENTITY(1,1) NOT NULL,
+	Descripcion VARCHAR(20),
+	CONSTRAINT PK_TiposPersonas PRIMARY KEY CLUSTERED (idTipoPersona ASC) ON [PRIMARY]
+)
+
 CREATE TABLE Usuarios
 (
 	idUsuario INT IDENTITY(1,1) NOT NULL,
-	idTabla INT NULL,
+	idTipoPersona INT NULL,
 	idNumeroTabla INT NOT NULL,
 	login VARCHAR(10) NOT NULL,
 	password VARCHAR(50) NULL,
 	fallos INT NULL,
 	idEstado INT NULL,
 	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (idUsuario ASC) ON [PRIMARY],
-	CONSTRAINT FK_Usuarios_Tablas FOREIGN KEY (idTabla) REFERENCES Tablas(idTabla),
+	CONSTRAINT FK_Usuarios_TiposPersonas FOREIGN KEY (idTipoPersona) REFERENCES TiposPersonas(idTipoPersona),
 	CONSTRAINT FK_Usuarios_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
@@ -312,3 +321,5 @@ INSERT TiposDocumentos
 INSERT Estados
 (Descripcion) VALUES ('Inicial'),('Borrador'),('Activo'),('Pausado'),('Finalizado'),('Suspendido')
 
+;
+Commit transaction
