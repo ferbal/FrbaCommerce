@@ -5,15 +5,9 @@ using System.Text;
 
 namespace FrbaCommerce.Model
 {
-    class TiposPersonas
+    class TiposDocumentos
     {
-        public int IdTipoPersona { get; set; }
+        public int IdTipoDocumento { get; set; }
         public String Descripcion { get; set; }
-
-        public enum TiposPersonasEnum
-        {
-            Cliente = 1,
-            Empresa = 2
-        }
     }
 }

@@ -48,101 +48,105 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\TiposDocumentosDAL.cs" />
+    <Compile Include="DAL\EmpresaDAL.cs" />
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
+    <Compile Include="Model\TiposDocumentos.cs" />
+    <Compile Include="Model\Empresas.cs" />
     <Compile Include="Model\Clientes.cs" />
     <Compile Include="Model\TiposPersonas.cs" />
     <Compile Include="Model\Usuarios.cs" />
     <Compile Include="DAL\Conexion.cs" />
-    <Compile Include="Vista\Abm Cliente\Form1.cs">
+    <Compile Include="View\Abm Cliente\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Abm Cliente\Form1.Designer.cs">
+    <Compile Include="View\Abm Cliente\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Abm Empresa\Form1.cs">
+    <Compile Include="View\Abm Empresa\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Abm Empresa\Form1.Designer.cs">
+    <Compile Include="View\Abm Empresa\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\ABM Rol\Form1.cs">
+    <Compile Include="View\ABM Rol\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\ABM Rol\Form1.Designer.cs">
+    <Compile Include="View\ABM Rol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Abm Rubro\Form1.cs">
+    <Compile Include="View\Abm Rubro\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Abm Rubro\Form1.Designer.cs">
+    <Compile Include="View\Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Abm Visibilidad\Form1.cs">
+    <Compile Include="View\Abm Visibilidad\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Abm Visibilidad\Form1.Designer.cs">
+    <Compile Include="View\Abm Visibilidad\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Calificar Vendedor\Form1.cs">
+    <Compile Include="View\Calificar Vendedor\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Calificar Vendedor\Form1.Designer.cs">
+    <Compile Include="View\Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Comprar-Ofertar\Form1.cs">
+    <Compile Include="View\Comprar-Ofertar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Comprar-Ofertar\Form1.Designer.cs">
+    <Compile Include="View\Comprar-Ofertar\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Editar Publicacion\Form1.cs">
+    <Compile Include="View\Editar Publicacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Editar Publicacion\Form1.Designer.cs">
+    <Compile Include="View\Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Facturar Publicaciones\Form1.cs">
+    <Compile Include="View\Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Facturar Publicaciones\Form1.Designer.cs">
+    <Compile Include="View\Facturar Publicaciones\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Form1.cs">
+    <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Form1.Designer.cs">
+    <Compile Include="View\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Generar Publicacion\Form1.cs">
+    <Compile Include="View\Generar Publicacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Generar Publicacion\Form1.Designer.cs">
+    <Compile Include="View\Generar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Gestion de Preguntas\Form1.cs">
+    <Compile Include="View\Gestion de Preguntas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Gestion de Preguntas\Form1.Designer.cs">
+    <Compile Include="View\Gestion de Preguntas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Historial Cliente\Form1.cs">
+    <Compile Include="View\Historial Cliente\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Historial Cliente\Form1.Designer.cs">
+    <Compile Include="View\Historial Cliente\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Listado Estadistico\Form1.cs">
+    <Compile Include="View\Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Listado Estadistico\Form1.Designer.cs">
+    <Compile Include="View\Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Vista\Login\Form1.cs">
+    <Compile Include="View\Login\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Login\Form1.Designer.cs">
+    <Compile Include="View\Login\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -152,13 +156,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Form1.resx">
+    <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Login\Form1.resx">
+    <EmbeddedResource Include="View\Login\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Vista\Registro de Usuario\Form1.resx">
+    <EmbeddedResource Include="View\Registro de Usuario\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -174,10 +178,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Vista\Registro de Usuario\Form1.cs">
+    <Compile Include="View\Registro de Usuario\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vista\Registro de Usuario\Form1.Designer.cs">
+    <Compile Include="View\Registro de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
   </ItemGroup>
