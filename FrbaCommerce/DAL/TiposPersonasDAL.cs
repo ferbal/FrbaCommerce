@@ -12,16 +12,19 @@ namespace FrbaCommerce.DAL
         public DataTable obtenerTiposPersonas()
         {
             SqlConnection cn = DAL.Conexion.getConexion();
-            //SqlDataAdapter adap = new SqlDataAdapter();
-            SqlCommand commando = new SqlCommand("SELECT idTipoPersona, Descripcion FROM TiposPersonas", cn);
-            DataTable dt = new DataTable();
-            dt.TableName = "TiposPersonas";
-            dt.Load(commando.ExecuteReader());
-            
-            //adap.SelectCommand = commando;            
-            //adap.Fill(dt);
+            try
+            {
+                SqlCommand commando = new SqlCommand("SELECT idTipoPersona, Descripcion FROM TiposPersonas", cn);
+                DataTable dt = new DataTable();
+                dt.TableName = "TiposPersonas";
+                dt.Load(commando.ExecuteReader());
 
-            return dt;
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

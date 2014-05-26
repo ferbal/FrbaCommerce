@@ -12,16 +12,24 @@ namespace FrbaCommerce.DAL
         public DataTable obtenerTiposDocumentos()
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
-            DataTable dt = new DataTable();
+            try
+            {
 
-            SqlCommand comando = new SqlCommand(@"SELECT IdTipoDocumento, Descripcion
-                                                  FROM TiposDocumentos",conexion);
+                DataTable dt = new DataTable();
 
-            dt.TableName = "TiposDocumentos";
+                SqlCommand comando = new SqlCommand(@"SELECT IdTipoDocumento, Descripcion
+                                                  FROM TiposDocumentos", conexion);
 
-            dt.Load(comando.ExecuteReader());
+                dt.TableName = "TiposDocumentos";
 
-            return dt;
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

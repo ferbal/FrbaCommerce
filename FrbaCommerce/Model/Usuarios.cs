@@ -15,12 +15,24 @@ namespace FrbaCommerce.Model
         public int fallos { get; set; }
         public int idEstado { get; set; }
 
-        public void AltaUsuarios(int tabla, int numero, String login)
+        public Usuarios(int idTipoPersona, int idNumero, String login,String pass,int fallos,int idEstado)
         {
-            this.idTipoPersona = tabla;
-            this.idNumero = numero;
+            this.idTipoPersona = idTipoPersona;
+            this.idNumero = idNumero;
             this.login = login;
-            this.idEstado = 1;
+            this.password = pass;
+            this.idEstado = idEstado;
+            this.fallos = fallos;
+        }
+
+        public Usuarios()
+        { 
+        }
+
+        public enum Estados
+        {
+            Habilitado = 1,
+            Inhabilitado = 2
         }
 
     }

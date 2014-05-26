@@ -28,9 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmbTiposPersona = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.txtNombreUsuario = new System.Windows.Forms.TextBox();
+            this.lblNombreDeUsuario = new System.Windows.Forms.Label();
             this.txtNombreContacto = new System.Windows.Forms.TextBox();
             this.lblNombreContacto = new System.Windows.Forms.Label();
             this.lblFechaNac = new System.Windows.Forms.Label();
@@ -61,12 +67,20 @@
             this.lblNroDocumento = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.lblNombreDeUsuario = new System.Windows.Forms.Label();
-            this.txtNombreUsuario = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.epFecha = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epTelefono = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epLogin = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epPass = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epApellido = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtError = new System.Windows.Forms.Label();
             this.pnlCliente.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.epFecha)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epLogin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epPass)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epApellido)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbTiposPersona
@@ -93,6 +107,7 @@
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.txtError);
             this.pnlCliente.Controls.Add(this.btnAceptar);
             this.pnlCliente.Controls.Add(this.txtPassword);
             this.pnlCliente.Controls.Add(this.lblPassword);
@@ -130,9 +145,53 @@
             this.pnlCliente.Controls.Add(this.lblNombre);
             this.pnlCliente.Location = new System.Drawing.Point(12, 27);
             this.pnlCliente.Name = "pnlCliente";
-            this.pnlCliente.Size = new System.Drawing.Size(574, 292);
+            this.pnlCliente.Size = new System.Drawing.Size(578, 292);
             this.pnlCliente.TabIndex = 2;
             this.pnlCliente.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCliente_Paint);
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Location = new System.Drawing.Point(487, 259);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.TabIndex = 3;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = true;
+            this.btnAceptar.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(462, 12);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(100, 20);
+            this.txtPassword.TabIndex = 29;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(319, 12);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(56, 13);
+            this.lblPassword.TabIndex = 28;
+            this.lblPassword.Text = "Password:";
+            // 
+            // txtNombreUsuario
+            // 
+            this.txtNombreUsuario.Location = new System.Drawing.Point(175, 9);
+            this.txtNombreUsuario.Name = "txtNombreUsuario";
+            this.txtNombreUsuario.Size = new System.Drawing.Size(121, 20);
+            this.txtNombreUsuario.TabIndex = 27;
+            this.txtNombreUsuario.TextChanged += new System.EventHandler(this.txtNombreUsuario_TextChanged);
+            // 
+            // lblNombreDeUsuario
+            // 
+            this.lblNombreDeUsuario.AutoSize = true;
+            this.lblNombreDeUsuario.Location = new System.Drawing.Point(6, 12);
+            this.lblNombreDeUsuario.Name = "lblNombreDeUsuario";
+            this.lblNombreDeUsuario.Size = new System.Drawing.Size(101, 13);
+            this.lblNombreDeUsuario.TabIndex = 4;
+            this.lblNombreDeUsuario.Text = "Nombre de Usuario:";
             // 
             // txtNombreContacto
             // 
@@ -165,6 +224,7 @@
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(121, 20);
             this.txtRazonSocial.TabIndex = 1;
+            this.txtRazonSocial.TextChanged += new System.EventHandler(this.txtRazonSocial_TextChanged);
             // 
             // lblRazonSocial
             // 
@@ -192,7 +252,6 @@
             this.lblLocalidad.Size = new System.Drawing.Size(59, 13);
             this.lblLocalidad.TabIndex = 23;
             this.lblLocalidad.Text = "Localidad: ";
-            this.lblLocalidad.Click += new System.EventHandler(this.label11_Click);
             // 
             // lblDepto
             // 
@@ -236,6 +295,7 @@
             this.txtFechaNac.Name = "txtFechaNac";
             this.txtFechaNac.Size = new System.Drawing.Size(100, 20);
             this.txtFechaNac.TabIndex = 18;
+            this.txtFechaNac.TextChanged += new System.EventHandler(this.txtFechaNac_TextChanged);
             // 
             // txtCodigoPostal
             // 
@@ -254,9 +314,11 @@
             // txtDepto
             // 
             this.txtDepto.Location = new System.Drawing.Point(462, 100);
+            this.txtDepto.MaxLength = 1;
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(100, 20);
             this.txtDepto.TabIndex = 15;
+            this.txtDepto.TextChanged += new System.EventHandler(this.txtDepto_TextChanged);
             // 
             // txtPisoNro
             // 
@@ -286,6 +348,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(121, 20);
             this.txtTelefono.TabIndex = 11;
+            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
             // 
             // lblTelefono
             // 
@@ -309,7 +372,6 @@
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(121, 20);
             this.txtCuit.TabIndex = 8;
-            this.txtCuit.TextChanged += new System.EventHandler(this.txtCuit_TextChanged);
             // 
             // txtDNI
             // 
@@ -317,7 +379,6 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(121, 20);
             this.txtDNI.TabIndex = 7;
-            this.txtDNI.TextChanged += new System.EventHandler(this.txtDNI_TextChanged);
             // 
             // txtApellido
             // 
@@ -325,6 +386,7 @@
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(121, 20);
             this.txtApellido.TabIndex = 6;
+            this.txtApellido.TextChanged += new System.EventHandler(this.txtApellido_TextChanged);
             // 
             // txtNombre
             // 
@@ -379,53 +441,43 @@
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Nombre:";
             // 
-            // btnAceptar
+            // epFecha
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(487, 259);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 3;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = true;
-            this.btnAceptar.Click += new System.EventHandler(this.button1_Click);
+            this.epFecha.ContainerControl = this;
             // 
-            // lblNombreDeUsuario
+            // epTelefono
             // 
-            this.lblNombreDeUsuario.AutoSize = true;
-            this.lblNombreDeUsuario.Location = new System.Drawing.Point(6, 12);
-            this.lblNombreDeUsuario.Name = "lblNombreDeUsuario";
-            this.lblNombreDeUsuario.Size = new System.Drawing.Size(101, 13);
-            this.lblNombreDeUsuario.TabIndex = 4;
-            this.lblNombreDeUsuario.Text = "Nombre de Usuario:";
+            this.epTelefono.ContainerControl = this;
             // 
-            // txtNombreUsuario
+            // epLogin
             // 
-            this.txtNombreUsuario.Location = new System.Drawing.Point(175, 9);
-            this.txtNombreUsuario.Name = "txtNombreUsuario";
-            this.txtNombreUsuario.Size = new System.Drawing.Size(121, 20);
-            this.txtNombreUsuario.TabIndex = 27;
+            this.epLogin.ContainerControl = this;
             // 
-            // lblPassword
+            // epPass
             // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(319, 12);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(56, 13);
-            this.lblPassword.TabIndex = 28;
-            this.lblPassword.Text = "Password:";
+            this.epPass.ContainerControl = this;
             // 
-            // txtPassword
+            // epApellido
             // 
-            this.txtPassword.Location = new System.Drawing.Point(462, 12);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(100, 20);
-            this.txtPassword.TabIndex = 29;
+            this.epApellido.ContainerControl = this;
+            // 
+            // epRazonSocial
+            // 
+            this.epRazonSocial.ContainerControl = this;
+            // 
+            // txtError
+            // 
+            this.txtError.AutoSize = true;
+            this.txtError.Location = new System.Drawing.Point(317, 216);
+            this.txtError.Name = "txtError";
+            this.txtError.Size = new System.Drawing.Size(0, 13);
+            this.txtError.TabIndex = 30;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 331);
+            this.ClientSize = new System.Drawing.Size(604, 331);
             this.Controls.Add(this.pnlCliente);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbTiposPersona);
@@ -434,6 +486,12 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.pnlCliente.ResumeLayout(false);
             this.pnlCliente.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.epFecha)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epLogin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epPass)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epApellido)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,5 +537,12 @@
         private System.Windows.Forms.TextBox txtNombreUsuario;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.ErrorProvider epFecha;
+        private System.Windows.Forms.ErrorProvider epTelefono;
+        private System.Windows.Forms.ErrorProvider epLogin;
+        private System.Windows.Forms.ErrorProvider epPass;
+        private System.Windows.Forms.ErrorProvider epApellido;
+        private System.Windows.Forms.ErrorProvider epRazonSocial;
+        private System.Windows.Forms.Label txtError;
     }
 }

@@ -27,7 +27,11 @@ namespace FrbaCommerce.DAL
         public int insertarEmpresa(Model.Empresas empresa)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
-            SqlCommand comando = new SqlCommand(@"INSERT INTO Empresas 
+
+            try
+            {
+                
+                SqlCommand comando = new SqlCommand(@"INSERT INTO Empresas 
                                                         (
                                                             RazonSocial,
                                                             Cuit,
@@ -55,35 +59,50 @@ namespace FrbaCommerce.DAL
                                                             @CodigoPostal,
                                                             @FechaCreacion
                                                         )"
-                                                        , conexion);
+                                                            , conexion);
 
-            comando.Parameters.Add("@RazonSocial",empresa.RazonSocial);
-            comando.Parameters.Add("@Cuit",empresa.Cuit);
-            comando.Parameters.Add("@NombreContacto",empresa.NombreContacto);
-            comando.Parameters.Add("@Mail",empresa.Mail);
-            comando.Parameters.Add("@Telefono",empresa.Telefono);
-            comando.Parameters.Add("@Calle",empresa.Calle);
-            comando.Parameters.Add("@PisoNro",empresa.PisoNro);
-            comando.Parameters.Add("@Depto",empresa.Depto);
-            comando.Parameters.Add("@Localidad",empresa.Localidad);
-            comando.Parameters.Add("@CodigoPostal",empresa.CodigoPostal);
-            comando.Parameters.Add("@FechaCreacion",empresa.FechaCreacion);
+                comando.Parameters.AddWithValue("@RazonSocial", empresa.RazonSocial);
+                comando.Parameters.AddWithValue("@Cuit", empresa.Cuit);
+                comando.Parameters.AddWithValue("@NombreContacto", empresa.NombreContacto);
+                comando.Parameters.AddWithValue("@Mail", empresa.Mail);
+                comando.Parameters.AddWithValue("@Telefono", empresa.Telefono);
+                comando.Parameters.AddWithValue("@Calle", empresa.Calle);
+                comando.Parameters.AddWithValue("@PisoNro", empresa.PisoNro);
+                comando.Parameters.AddWithValue("@Depto", empresa.Depto);
+                comando.Parameters.AddWithValue("@Localidad", empresa.Localidad);
+                comando.Parameters.AddWithValue("@CodigoPostal", empresa.CodigoPostal);
+                comando.Parameters.AddWithValue("@FechaCreacion", empresa.FechaCreacion);
 
-            return (int) comando.ExecuteNonQuery();
+                return (int)comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;               
+            }
         }
 
         public int loadPorCuit(String Cuit)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
-            DataTable dt = new DataTable();
+            
+            try
+            {
+            
+                DataTable dt = new DataTable();
 
-            SqlCommand comando = new SqlCommand(@"SELECT IdEmpresa
+                SqlCommand comando = new SqlCommand(@"SELECT IdEmpresa
                                                   FROM Empresas
                                                   WHERE Cuit = @Cuit", conexion);
-            comando.Parameters.Add("@Cuit", Cuit);
-            dt.Load(comando.ExecuteReader());
+                comando.Parameters.AddWithValue("@Cuit", Cuit);
+                dt.Load(comando.ExecuteReader());
 
-            return (int)dt.Rows[0][0];
+                return (int)dt.Rows[0][0];
+            
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
  
     }

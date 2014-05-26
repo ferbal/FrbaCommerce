@@ -20,11 +20,10 @@ DROP TABLE FORMASPAGO
 DROP TABLE RUBROS
 DROP TABLE PUBLICACIONES
 DROP TABLE TIPOSCOMPRAS
-DROP TABLE TiposPersonas
 DROP TABLE Usuarios
+DROP TABLE TiposPersonas
 DROP TABLE Visibilidades
 DROP TABLE Estados
-DROP TABLE Tablas
 */
 begin transaction
 
@@ -59,13 +58,6 @@ CREATE TABLE RolesFuncionalidades
 	CONSTRAINT FK_RolesFuncionalidades_Funcionalidades FOREIGN KEY (IdFuncionalidad) REFERENCES Funcionalidades(IdFuncionalidad)
 )
 
-CREATE TABLE Tablas
-(
-	idTabla INT IDENTITY(1,1) NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
-	CONSTRAINT PK_TiposUsuarios PRIMARY KEY (idTabla)
-)
-
 CREATE TABLE TiposPersonas
 (
 	IdTipoPersona INT IDENTITY(1,1) NOT NULL,
@@ -79,7 +71,7 @@ CREATE TABLE Usuarios
 	idTipoPersona INT NULL,
 	idNumeroTabla INT NOT NULL,
 	login VARCHAR(10) NOT NULL,
-	password VARCHAR(50) NULL,
+	password VARCHAR(255) NULL,
 	fallos INT NULL,
 	idEstado INT NULL,
 	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (idUsuario ASC) ON [PRIMARY],
@@ -303,7 +295,7 @@ CREATE TABLE FacturasItems
 
 --Carga de Datos
 
-INSERT Tablas 
+INSERT TiposPersonas
 (Descripcion) VALUES ('Cliente'),('Empresa')
 
 INSERT FormasPago 

@@ -19,5 +19,24 @@ namespace FrbaCommerce.Model
         public String Localidad { get; set; }
         public int CodigoPostal { get; set; }
         public DateTime FechaCreacion { get; set; }
-    }
+
+        public Empresas()
+        {
+        }
+
+        public Empresas(String razonSocial, String cuit, String nombreContacto, String mail, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha)
+        {
+            this.RazonSocial = razonSocial;
+            this.Cuit = cuit;
+            this.NombreContacto = nombreContacto;
+            this.Mail = mail;
+            this.Telefono = telefono;
+            this.Calle = calle;
+            this.PisoNro = pisoNro;
+            this.Depto = depto;
+            this.Localidad = localidad;
+            this.CodigoPostal = codPost;
+            this.FechaCreacion = fecha;
+        }
+    }   
 }

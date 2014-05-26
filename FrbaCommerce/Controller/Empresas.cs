@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace FrbaCommerce.Controller
+{
+    class Empresas
+    {
+        public static int ingresarNuevaEmpresa(String razonSocial, String cuit, String nombreContacto, String mail, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha)
+        {
+            try
+            {
+                Model.Empresas emp = new FrbaCommerce.Model.Empresas(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha);
+                DAL.EmpresaDAL empDAL = new FrbaCommerce.DAL.EmpresaDAL();
+
+                empDAL.insertarEmpresa(emp);
+
+                return empDAL.loadPorCuit(emp.Cuit);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+}

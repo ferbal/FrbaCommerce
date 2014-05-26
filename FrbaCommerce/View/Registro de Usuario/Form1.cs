@@ -71,93 +71,162 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Model.Usuarios usr = new FrbaCommerce.Model.Usuarios();
-            int idNumero = 0;
-            if ((int)cmbTiposPersona.SelectedValue == (int)Model.TiposPersonas.TiposPersonasEnum.Cliente)
+            int NroDocumento;
+            int piso;
+            int codigoPostal;
+            char depto;
+            try
             {
-                idNumero = ingresarClienteNuevo();
+                
+                if (String.IsNullOrEmpty(txtDNI.Text))
+                {
+                    NroDocumento = 0;
+                }
+                else
+                {
+                    NroDocumento = Convert.ToInt32(txtDNI.Text);
+                }
+
+                if (String.IsNullOrEmpty(txtPisoNro.Text))
+                {
+                    piso = 0;
+                }
+                else
+                {
+                    piso = Convert.ToInt32(txtPisoNro.Text);
+                }
+
+                if (String.IsNullOrEmpty(txtCodigoPostal.Text))
+                {
+                    codigoPostal = 0;
+                }
+                else
+                {
+                    codigoPostal = Convert.ToInt32(txtCodigoPostal.Text);
+                }
+
+                if (String.IsNullOrEmpty(txtDepto.Text))
+                {
+                    depto = ' ';
+                }
+                else
+                {
+                    depto = txtDepto.Text[0];
+                }
+
+                if(validarDatos())                
+                    Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,txtPassword.Text,txtNombreUsuario.Text);
                 
             }
-            else
+            catch (Exception ex)
             {
-                idNumero = ingresarEmpresaNueva();
+                txtError.Text = ex.Message;
             }
-            usr.idNumero = idNumero;
-            usr.idTipoPersona = (int)cmbTiposPersona.SelectedValue;
-            usr.password = txtPassword.Text;
-            usr.login = txtNombreUsuario.Text;
-            usr.idEstado = 1;
-            usr.fallos = 0;
+        }      
 
-            DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
-            usrDAL.InsertarUsuario(usr);
-            
+        private void txtDepto_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Char c = txtDepto.Text[0];
+                if(Char.IsDigit(c)|| Char.IsWhiteSpace(c)||Char.IsPunctuation(c))
+                    throw (new Exception("El Depto ingresado debe ser un caracter."));
+
+                if (Char.IsLetter(c))
+                    txtError.Text = "";
+            }
+            catch(Exception ex)
+            {
+                if(!String.IsNullOrEmpty(ex.Message))
+                    txtError.Text = ex.Message;
+
+            }
         }
 
-        private void label11_Click(object sender, EventArgs e)
+        private Boolean validarDatos()
         {
+            Boolean estado = true;
+            if (String.IsNullOrEmpty(txtFechaNac.Text))
+            {
+                epFecha.SetError(lblFechaNac, "La FECHA es un campo requerido.");
+                estado = false;
+            }
+
+            if (String.IsNullOrEmpty(txtTelefono.Text))
+            {
+                epTelefono.SetError(lblTelefono, "El TELEFONO es un campo requerido.");
+                estado = false;
+            }
+
+            if (String.IsNullOrEmpty(txtApellido.Text) && (int)cmbTiposPersona.SelectedValue == (int) Model.TiposPersonas.TiposPersonasEnum.Cliente)
+            {
+                epApellido.SetError(txtApellido, "El APELLIDO es un campo requerido.");
+                estado = false;
+            }
+
+            if (String.IsNullOrEmpty(txtRazonSocial.Text) && (int)cmbTiposPersona.SelectedValue == (int)Model.TiposPersonas.TiposPersonasEnum.Empresa)
+            {
+                epRazonSocial.SetError(txtRazonSocial,"La RAZON SOCIAL es un campo requerido.");
+                estado = false;
+            }
+
+            if (String.IsNullOrEmpty(txtNombreUsuario.Text))
+            {
+                epLogin.SetError(txtNombreUsuario, "El NOMBRE DE USUARIO es un campo requerido.");
+                estado = false;
+            }
+
+            if (String.IsNullOrEmpty(txtPassword.Text))
+            {
+                epPass.SetError(txtPassword, "El PASSWORD es un campo requerido.");
+                estado = false;
+            }
+            return estado;
+        }
+
+        private void txtFechaNac_TextChanged(object sender, EventArgs e)
+        {
+            if (txtFechaNac.Text.Length == 2 || txtFechaNac.Text.Length == 5)
+                txtFechaNac.AppendText("/");
+
+            epFecha.Clear();
 
         }
 
-        private void txtDNI_TextChanged(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void txtCuit_TextChanged(object sender, EventArgs e)
-        {
-
+            txtError.Text = Controller.Usuarios.encriptarPassword(txtPassword.Text);
         }
 
         private void pnlCliente_Paint(object sender, PaintEventArgs e)
         {
 
         }
-        private int ingresarClienteNuevo()
+
+        private void txtApellido_TextChanged(object sender, EventArgs e)
         {
-            Model.Clientes cli = new FrbaCommerce.Model.Clientes();
-            DAL.ClientesDAL cliDAL = new FrbaCommerce.DAL.ClientesDAL();
-
-            cli.Nombre = txtNombre.Text;
-            cli.Apellido = txtApellido.Text;
-            cli.IdTipoDocumento = Convert.ToInt32(cmbTipoDocumento.SelectedValue);
-            cli.NroDocumento = Convert.ToInt32(txtDNI.Text);
-            cli.Cuil = Convert.ToInt32(txtCuit.Text);
-            cli.mail = txtMail.Text;
-            cli.FechaNacimiento = DateTime.Now;
-            cli.telefono = txtTelefono.Text;
-            cli.Calle = txtCalle.Text;
-            cli.PisoNro = Convert.ToInt32( txtPisoNro.Text);
-            cli.Depto = txtDepto.Text[0];
-            cli.CodigoPostal = Convert.ToInt32(txtCodigoPostal.Text);
-            cli.Localidad = txtLocalidad.Text;
-            cli.FechaNacimiento = Convert.ToDateTime(txtFechaNac.Text);
-            
-            cliDAL.InsertarCliente(cli);
-
-            return cliDAL.loadPorNroDoc(cli.NroDocumento);
+            epApellido.Clear();
         }
 
-        private int ingresarEmpresaNueva()
+        private void txtTelefono_TextChanged(object sender, EventArgs e)
         {
-            Model.Empresas emp = new FrbaCommerce.Model.Empresas();
-            DAL.EmpresaDAL empDAL = new FrbaCommerce.DAL.EmpresaDAL();
-
-            emp.RazonSocial = txtRazonSocial.Text;
-            emp.Cuit = txtCuit.Text;
-            emp.NombreContacto = txtNombreContacto.Text;
-            emp.Mail = txtMail.Text;
-            emp.Telefono = txtTelefono.Text;
-            emp.Calle = txtCalle.Text;
-            emp.PisoNro = Convert.ToInt32(txtPisoNro.Text);
-            emp.Depto = txtDepto.Text[0];
-            emp.Localidad = txtLocalidad.Text;
-            emp.CodigoPostal = Convert.ToInt32(txtCodigoPostal.Text);
-            emp.FechaCreacion = Convert.ToDateTime(txtFechaNac.Text);
-
-            empDAL.insertarEmpresa(emp);
-
-            return empDAL.loadPorCuit(emp.Cuit);
+            epTelefono.Clear();
         }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            epPass.Clear();
+        }
+
+        private void txtRazonSocial_TextChanged(object sender, EventArgs e)
+        {
+            epRazonSocial.Clear();
+        }
+
+        private void txtNombreUsuario_TextChanged(object sender, EventArgs e)
+        {
+            epLogin.Clear();
+        }
+        
     }
 }
