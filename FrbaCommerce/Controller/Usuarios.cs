@@ -14,8 +14,8 @@ namespace FrbaCommerce.Controller
             try
             {
                 DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
-                int count = usrDAL.ExisteLogin(login);
-                if (count>0)
+                
+                if (usrDAL.ExisteLogin(login))
                     throw new Exception("El Nombre de Usuario ya existe.");    
                 
                 usrDAL.InsertarUsuario(idTipoPersona, idNumero, login, pass, (int)Model.Usuarios.Estados.Habilitado, 0);
@@ -52,7 +52,7 @@ namespace FrbaCommerce.Controller
                 int idNumero = 0;
 
                 if (idTipoPersona == (int)Model.TiposPersonas.TiposPersonasEnum.Cliente)
-                {
+                {                   
                     idNumero = Controller.Cientes.ingresarClienteNuevo(nombre, apellido, tipoDoc, nroDoc, cuit, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad);
                 }
                 else

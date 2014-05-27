@@ -104,6 +104,31 @@ namespace FrbaCommerce.DAL
                 throw ex;
             }
         }
- 
+
+        public Boolean ExisteEmpresaPorCuit(String Cuit)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+
+            try
+            {
+
+                DataTable dt = new DataTable();
+
+                SqlCommand comando = new SqlCommand(@"SELECT *
+                                                      FROM Empresas
+                                                      WHERE Cuit = @Cuit", conexion);
+                
+                comando.Parameters.AddWithValue("@Cuit", Cuit);
+                dt.Load(comando.ExecuteReader());
+
+                return (dt.Rows.Count>0);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

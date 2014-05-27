@@ -89,6 +89,31 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
+
+        }
+
+        public Boolean existeClientePorNroDoc(int nroDoc,int idTipoDoc)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"SELECT *                                                            
+                                                        FROM Clientes
+                                                        WHERE NroDocumento = @NroDocumento
+                                                        AND IdTipoDocumento = @IdTipoDocumento", conexion);
+
+                comando.Parameters.AddWithValue("@NroDocumento", nroDoc);
+                comando.Parameters.AddWithValue("@IdTipoDocumento",idTipoDoc);
+                dt.Load(comando.ExecuteReader());
+
+                return (dt.Rows.Count>0);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

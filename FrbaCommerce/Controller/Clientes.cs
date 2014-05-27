@@ -14,6 +14,9 @@ namespace FrbaCommerce.Controller
                 Model.Clientes cli = new FrbaCommerce.Model.Clientes(nombre, apellido, tipoDoc, nroDoc, nroCuil, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad);
                 DAL.ClientesDAL cliDAL = new FrbaCommerce.DAL.ClientesDAL();
 
+                if (cliDAL.existeClientePorNroDoc(nroDoc, tipoDoc))
+                    throw new Exception("El Cliente ya existe.");
+
                 cliDAL.InsertarCliente(cli);
 
                 return cliDAL.loadPorNroDoc(cli.NroDocumento);

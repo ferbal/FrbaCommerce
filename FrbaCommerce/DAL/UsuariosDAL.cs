@@ -77,7 +77,7 @@ namespace FrbaCommerce.DAL
             }
         }
 
-        public int ExisteLogin(String login)
+        public Boolean ExisteLogin(String login)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
             DataTable dt = new DataTable();
@@ -96,7 +96,7 @@ namespace FrbaCommerce.DAL
                 comando.Parameters.AddWithValue("@login", login);
                 dt.Load(comando.ExecuteReader());
 
-                return dt.Rows.Count;                
+                return (dt.Rows.Count>0);                
             }
             catch (Exception ex)
             {

@@ -14,6 +14,9 @@ namespace FrbaCommerce.Controller
                 Model.Empresas emp = new FrbaCommerce.Model.Empresas(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha);
                 DAL.EmpresaDAL empDAL = new FrbaCommerce.DAL.EmpresaDAL();
 
+                if (empDAL.ExisteEmpresaPorCuit(cuit))
+                    throw new Exception("La Empresa ya existe.");
+
                 empDAL.insertarEmpresa(emp);
 
                 return empDAL.loadPorCuit(emp.Cuit);
