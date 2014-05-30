@@ -51,6 +51,7 @@
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
     <Compile Include="Controller\Usuarios.cs" />
+    <Compile Include="Controller\UsuariosRoles.cs" />
     <Compile Include="DAL\UsuariosRolesDAL.cs" />
     <Compile Include="DAL\RolesDAL.cs" />
     <Compile Include="DAL\TiposDocumentosDAL.cs" />
@@ -171,10 +172,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Error\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
-    <EmbeddedResource Include="View\Abm Empresa\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Error\Form1.resx">
+    <EmbeddedResource Include="View\Abm Empresa\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Form1.resx">

@@ -83,7 +83,7 @@ namespace FrbaCommerce.Controller
 
         }
 
-        public static Boolean verficarLogin(String user, String pass)
+        public static int verficarLogin(String user, String pass)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace FrbaCommerce.Controller
                 if (usuario.password.Equals(hashPass))
                 {
                     usrDAL.limpiarIngresosFallidos(usuario.idUsuario);
-                    return true;
+                    return usuario.idUsuario;
                 }
                 else
                 {
@@ -113,9 +113,7 @@ namespace FrbaCommerce.Controller
                         throw new Exception("Usuario Inhabilitado.");
                     }
                     throw new Exception("Contraseña Incorrecta.");
-                }
-
-                return false;
+                }                
             }
             catch (Exception ex)
             {

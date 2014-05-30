@@ -36,15 +36,27 @@ namespace FrbaCommerce.View.Login
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            int idUsuario = -1;
+            List<Model.Roles> lista = new List<FrbaCommerce.Model.Roles>();
+            String msg = String.Empty;
             try
             {
+
                 if (!this.validarExistenciaDeDatos())
                     throw new Exception("Debe completar el Nombre de Usuario y la Contraseña.");
 
-                Boolean result = Controller.Usuarios.verficarLogin(txtNombreUsuario.Text,txtPassword.Text);
+                idUsuario = Controller.Usuarios.verficarLogin(txtNombreUsuario.Text,txtPassword.Text);
 
-                if (result)
-                    throw new Exception("Ingreso Satisfactorio");
+                if (idUsuario > 0)
+                    lista = Controller.UsuariosRoles.obtenerRoles(idUsuario);
+
+                foreach (Model.Roles rol in lista)
+                {
+                    msg += rol.Nombre;
+                }
+
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(msg);
+                vtnError.Visible = true;
 
             }
             catch(Exception ex)
