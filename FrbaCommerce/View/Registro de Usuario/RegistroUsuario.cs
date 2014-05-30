@@ -7,16 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaCommerce.Vista.Registro_de_Usuario
+namespace FrbaCommerce.View.Registro_de_Usuario
 {
-    public partial class Form1 : Form
+    public partial class RegistroUsuario : Form
     {
-        public Form1()
+        private Form ventanaAnterior;
+
+        public RegistroUsuario(Form vtnAnterior)
         {
+            this.ventanaAnterior = vtnAnterior;
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void RegistroUsuario_Load(object sender, EventArgs e)
         {
             DAL.TiposPersonasDAL tpDAL = new FrbaCommerce.DAL.TiposPersonasDAL();
             DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
@@ -28,6 +31,8 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
             cmbTipoDocumento.DisplayMember = "Descripcion";
             cmbTipoDocumento.ValueMember = "IdTipoDocumento";
             cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
+
+            this.cargarListaRoles();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,6 +80,7 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
             int piso;
             int codigoPostal;
             char depto;
+            Boolean result=false;
             try
             {
                 
@@ -113,14 +119,27 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
                 {
                     depto = txtDepto.Text[0];
                 }
+                CheckedListBox.CheckedItemCollection CheckedlistaRoles = clbRoles.CheckedItems;
+                List<int> listaRoles = new List<int>();
+                foreach (DataRowView indexRol in CheckedlistaRoles)
+                {
+                    
+                    listaRoles.Add(Convert.ToInt32( indexRol.Row.ItemArray[0]));
+                }
 
                 if(validarDatos())                
-                    Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,txtPassword.Text,txtNombreUsuario.Text);
-                
+                    result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,txtPassword.Text,txtNombreUsuario.Text,listaRoles);
+
+                if (result)
+                {                    
+                    this.Dispose();
+                }
+    
             }
             catch (Exception ex)
             {
-                txtError.Text = ex.Message;
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }      
 
@@ -226,6 +245,14 @@ namespace FrbaCommerce.Vista.Registro_de_Usuario
         private void txtNombreUsuario_TextChanged(object sender, EventArgs e)
         {
             epLogin.Clear();
+        }
+
+        private void cargarListaRoles()
+        {
+            DAL.RolesDAL rolDAL = new FrbaCommerce.DAL.RolesDAL();
+            clbRoles.DataSource = rolDAL.listarRolesHabilitados();
+            clbRoles.DisplayMember = "Nombre";
+            clbRoles.ValueMember = "IdRol";
         }
         
     }

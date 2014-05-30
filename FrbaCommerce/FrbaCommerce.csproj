@@ -51,12 +51,15 @@
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
     <Compile Include="Controller\Usuarios.cs" />
+    <Compile Include="DAL\UsuariosRolesDAL.cs" />
+    <Compile Include="DAL\RolesDAL.cs" />
     <Compile Include="DAL\TiposDocumentosDAL.cs" />
     <Compile Include="DAL\EmpresaDAL.cs" />
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
     <Compile Include="Model\Estados.cs" />
+    <Compile Include="Model\Roles.cs" />
     <Compile Include="Model\TiposDocumentos.cs" />
     <Compile Include="Model\Empresas.cs" />
     <Compile Include="Model\Clientes.cs" />
@@ -111,11 +114,11 @@
     <Compile Include="View\Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Error\Form1.cs">
+    <Compile Include="View\Error\ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Error\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Error\ErrorForm.Designer.cs">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
@@ -153,11 +156,11 @@
     <Compile Include="View\Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Login\Form1.cs">
+    <Compile Include="View\Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Login\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,17 +169,17 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Error\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\Error\ErrorForm.resx">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Login\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Registro de Usuario\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\Registro de Usuario\RegistroUsuario.resx">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -191,11 +194,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="View\Registro de Usuario\Form1.cs">
+    <Compile Include="View\Registro de Usuario\RegistroUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Registro de Usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Registro de Usuario\RegistroUsuario.Designer.cs">
+      <DependentUpon>RegistroUsuario.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,9 +3,9 @@ C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\bin\Debug\FrbaCommerce
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Properties.Resources.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Form1.resources
-C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Login.Form1.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.csproj.GenerateResource.Cache
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.exe
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.pdb
-C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Vista.Registro_de_Usuario.Form1.resources
-C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Error.Form1.resources
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Login.LoginForm.resources
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Registro_de_Usuario.RegistroUsuario.resources
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Error.ErrorForm.resources

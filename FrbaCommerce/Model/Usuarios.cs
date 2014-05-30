@@ -15,8 +15,9 @@ namespace FrbaCommerce.Model
         public int fallos { get; set; }
         public int idEstado { get; set; }
 
-        public Usuarios(int idTipoPersona, int idNumero, String login,String pass,int fallos,int idEstado)
+        public Usuarios(int idUsuario,int idTipoPersona, int idNumero, String login,String pass,int fallos,int idEstado)
         {
+            this.idUsuario = idUsuario;
             this.idTipoPersona = idTipoPersona;
             this.idNumero = idNumero;
             this.login = login;

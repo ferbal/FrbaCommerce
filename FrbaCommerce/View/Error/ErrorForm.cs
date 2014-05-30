@@ -9,11 +9,17 @@ using System.Windows.Forms;
 
 namespace FrbaCommerce.View.Error
 {
-    public partial class Form1 : Form
+    public partial class ErrorForm : Form
     {
-        public Form1()
+        public ErrorForm(String msg)
         {
             InitializeComponent();
+            lblError.Text = msg;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

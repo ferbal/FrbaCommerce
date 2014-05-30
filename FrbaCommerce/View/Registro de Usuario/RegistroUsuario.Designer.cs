@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Vista.Registro_de_Usuario
+﻿namespace FrbaCommerce.View.Registro_de_Usuario
 {
-    partial class Form1
+    partial class RegistroUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -13,6 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            if(ventanaAnterior!=null)
+                this.ventanaAnterior.Visible = true;
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -32,6 +35,7 @@
             this.cmbTiposPersona = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.txtError = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
@@ -73,7 +77,7 @@
             this.epPass = new System.Windows.Forms.ErrorProvider(this.components);
             this.epApellido = new System.Windows.Forms.ErrorProvider(this.components);
             this.epRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtError = new System.Windows.Forms.Label();
+            this.clbRoles = new System.Windows.Forms.CheckedListBox();
             this.pnlCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).BeginInit();
@@ -107,6 +111,7 @@
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.clbRoles);
             this.pnlCliente.Controls.Add(this.txtError);
             this.pnlCliente.Controls.Add(this.btnAceptar);
             this.pnlCliente.Controls.Add(this.txtPassword);
@@ -145,13 +150,21 @@
             this.pnlCliente.Controls.Add(this.lblNombre);
             this.pnlCliente.Location = new System.Drawing.Point(12, 27);
             this.pnlCliente.Name = "pnlCliente";
-            this.pnlCliente.Size = new System.Drawing.Size(578, 292);
+            this.pnlCliente.Size = new System.Drawing.Size(578, 330);
             this.pnlCliente.TabIndex = 2;
             this.pnlCliente.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCliente_Paint);
             // 
+            // txtError
+            // 
+            this.txtError.AutoSize = true;
+            this.txtError.Location = new System.Drawing.Point(317, 216);
+            this.txtError.Name = "txtError";
+            this.txtError.Size = new System.Drawing.Size(0, 13);
+            this.txtError.TabIndex = 30;
+            // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(487, 259);
+            this.btnAceptar.Location = new System.Drawing.Point(487, 296);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 3;
@@ -465,25 +478,25 @@
             // 
             this.epRazonSocial.ContainerControl = this;
             // 
-            // txtError
+            // clbRoles
             // 
-            this.txtError.AutoSize = true;
-            this.txtError.Location = new System.Drawing.Point(317, 216);
-            this.txtError.Name = "txtError";
-            this.txtError.Size = new System.Drawing.Size(0, 13);
-            this.txtError.TabIndex = 30;
+            this.clbRoles.FormattingEnabled = true;
+            this.clbRoles.Location = new System.Drawing.Point(324, 216);
+            this.clbRoles.Name = "clbRoles";
+            this.clbRoles.Size = new System.Drawing.Size(238, 64);
+            this.clbRoles.TabIndex = 31;
             // 
-            // Form1
+            // RegistroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 331);
+            this.ClientSize = new System.Drawing.Size(604, 370);
             this.Controls.Add(this.pnlCliente);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbTiposPersona);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "RegistroUsuario";
+            this.Text = "Registro de Usuario";
+            this.Load += new System.EventHandler(this.RegistroUsuario_Load);
             this.pnlCliente.ResumeLayout(false);
             this.pnlCliente.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).EndInit();
@@ -544,5 +557,6 @@
         private System.Windows.Forms.ErrorProvider epApellido;
         private System.Windows.Forms.ErrorProvider epRazonSocial;
         private System.Windows.Forms.Label txtError;
+        private System.Windows.Forms.CheckedListBox clbRoles;
     }
 }

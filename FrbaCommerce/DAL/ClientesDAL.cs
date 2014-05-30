@@ -101,7 +101,7 @@ namespace FrbaCommerce.DAL
                 SqlCommand comando = new SqlCommand(@"SELECT *                                                            
                                                         FROM Clientes
                                                         WHERE NroDocumento = @NroDocumento
-                                                        AND IdTipoDocumento = @IdTipoDocumento", conexion);
+                                                        AND IdTipoDoc = @IdTipoDocumento", conexion);
 
                 comando.Parameters.AddWithValue("@NroDocumento", nroDoc);
                 comando.Parameters.AddWithValue("@IdTipoDocumento",idTipoDoc);
@@ -113,7 +113,6 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
-
         }
     }
 }
