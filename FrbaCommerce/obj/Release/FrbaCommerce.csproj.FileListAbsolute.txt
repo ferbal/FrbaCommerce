@@ -1,0 +1,12 @@
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\bin\Release\FrbaCommerce.exe
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\bin\Release\FrbaCommerce.pdb
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.Properties.Resources.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.View.Error.Form1.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.Form1.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.Login.Form1.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.Vista.Registro_de_Usuario.Form1.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.csproj.GenerateResource.Cache
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.exe
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.pdb
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.Vista.AM_de_Empresa.Form1.resources
