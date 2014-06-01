@@ -152,7 +152,7 @@
             this.pnlCliente.Name = "pnlCliente";
             this.pnlCliente.Size = new System.Drawing.Size(578, 330);
             this.pnlCliente.TabIndex = 2;
-            this.pnlCliente.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCliente_Paint);
+            
             // 
             // txtError
             // 

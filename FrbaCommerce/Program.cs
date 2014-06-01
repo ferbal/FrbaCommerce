@@ -16,7 +16,7 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new View.Login.LoginForm());
+            Application.Run(new View.ABM_Rol.AdminRol());
 
             //Form vtnUsuario = new Vista.Registro_de_Usuario.Form1();
             //vtnUsuario.Show();

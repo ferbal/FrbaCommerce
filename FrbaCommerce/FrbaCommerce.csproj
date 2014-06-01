@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
+    <Compile Include="Controller\Roles.cs" />
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
     <Compile Include="DAL\UsuariosRolesDAL.cs" />
@@ -79,11 +80,17 @@
     <Compile Include="View\Abm Empresa\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\ABM Rol\Form1.cs">
+    <Compile Include="View\ABM Rol\AdminRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ABM Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\ABM Rol\AdminRol.Designer.cs">
+      <DependentUpon>AdminRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ABM Rol\RolAM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ABM Rol\RolAM.Designer.cs">
+      <DependentUpon>RolAM.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Abm Rubro\Form1.cs">
       <SubType>Form</SubType>
@@ -169,6 +176,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ABM Rol\AdminRol.resx">
+      <DependentUpon>AdminRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ABM Rol\RolAM.resx">
+      <DependentUpon>RolAM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Error\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>

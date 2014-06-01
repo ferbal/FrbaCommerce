@@ -121,6 +121,7 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                 }
                 CheckedListBox.CheckedItemCollection CheckedlistaRoles = clbRoles.CheckedItems;
                 List<int> listaRoles = new List<int>();
+                
                 foreach (DataRowView indexRol in CheckedlistaRoles)
                 {
                     
@@ -215,11 +216,6 @@ namespace FrbaCommerce.View.Registro_de_Usuario
         private void button1_Click_1(object sender, EventArgs e)
         {
             txtError.Text = Controller.Usuarios.encriptarPassword(txtPassword.Text);
-        }
-
-        private void pnlCliente_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void txtApellido_TextChanged(object sender, EventArgs e)
