@@ -32,7 +32,9 @@ namespace FrbaCommerce.View.ABM_Rol
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            clbFuncionalidades.DataSource = Controller.Funcionalidades.CargarListadoFuncionalidades();
+            clbFuncionalidades.DisplayMember = "Descripcion";
+            clbFuncionalidades.ValueMember = "IdFuncionalidad";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -48,7 +50,7 @@ namespace FrbaCommerce.View.ABM_Rol
                 {
                     if (this.idRol == -1)
                     {
-                        Controller.Roles.IngresarNuevoRol(txtNombre.Text);                        
+                        Controller.Roles.IngresarNuevoRol(txtNombre.Text,ListarFuncionalidadesSeleccionadas());                        
                     }
                     else
                     {
@@ -79,6 +81,26 @@ namespace FrbaCommerce.View.ABM_Rol
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {            
             epNombre.Clear();
+        }
+
+        private List<int> ListarFuncionalidadesSeleccionadas()
+        {
+            try
+            {
+                List<int> lista = new List<int>();
+                CheckedListBox.CheckedItemCollection cd = clbFuncionalidades.CheckedItems;
+
+                foreach (DataRowView item in cd)
+                {
+                    lista.Add(Convert.ToInt32(item.Row.ItemArray[0]));
+                }
+
+                return lista;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

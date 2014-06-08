@@ -129,7 +129,7 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                 }
 
                 if(validarDatos())                
-                    result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,txtPassword.Text,txtNombreUsuario.Text,listaRoles);
+                    result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,listaRoles);
 
                 if (result)
                 {                    
@@ -190,6 +190,13 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                 estado = false;
             }
 
+            if (String.IsNullOrEmpty(txtMail.Text))
+            {
+                epLogin.SetError(txtMail, "El MAIL es un campo requerido.");
+                estado = false;
+            }
+
+            /* CAMPOS ELIMINADOS
             if (String.IsNullOrEmpty(txtNombreUsuario.Text))
             {
                 epLogin.SetError(txtNombreUsuario, "El NOMBRE DE USUARIO es un campo requerido.");
@@ -201,6 +208,7 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                 epPass.SetError(txtPassword, "El PASSWORD es un campo requerido.");
                 estado = false;
             }
+             * */
             return estado;
         }
 
@@ -211,11 +219,6 @@ namespace FrbaCommerce.View.Registro_de_Usuario
 
             epFecha.Clear();
 
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            txtError.Text = Controller.Usuarios.encriptarPassword(txtPassword.Text);
         }
 
         private void txtApellido_TextChanged(object sender, EventArgs e)
@@ -249,6 +252,11 @@ namespace FrbaCommerce.View.Registro_de_Usuario
             clbRoles.DataSource = rolDAL.listarRolesHabilitados();
             clbRoles.DisplayMember = "Nombre";
             clbRoles.ValueMember = "IdRol";
+        }
+
+        private void pnlCliente_Paint(object sender, PaintEventArgs e)
+        {
+
         }
         
     }

@@ -48,15 +48,24 @@ namespace FrbaCommerce.View.Login
                 idUsuario = Controller.Usuarios.verficarLogin(txtNombreUsuario.Text,txtPassword.Text);
 
                 if (idUsuario > 0)
-                    lista = Controller.UsuariosRoles.obtenerRoles(idUsuario);
-
-                foreach (Model.Roles rol in lista)
                 {
-                    msg += rol.Nombre;
+                    DataTable dt = Controller.UsuariosRoles.obtenerRoles(idUsuario);
+                    if (dt.Rows.Count > 1)
+                    {
+                        View.Login.SeleccionRoles vtnSeleccionRoles = new SeleccionRoles();
+                        vtnSeleccionRoles.cargarInfoUsuario(dt, idUsuario, this);
+                        vtnSeleccionRoles.Visible = true;
+                        this.Visible = false;
+                    }
+                    else
+                    {
+                        Principal vtnPrincipal = new Principal();
+                        DataRow dr = dt.Rows[0];
+                        vtnPrincipal.cargarInfoUsuario(idUsuario,(int)dr.ItemArray[0],this);
+                        vtnPrincipal.Visible = true;
+                        this.Visible = false;
+                    }
                 }
-
-                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(msg);
-                vtnError.Visible = true;
 
             }
             catch(Exception ex)

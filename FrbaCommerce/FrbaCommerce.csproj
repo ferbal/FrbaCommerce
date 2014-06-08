@@ -35,6 +35,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -50,9 +51,19 @@
   <ItemGroup>
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
+    <Compile Include="Controller\Funcionalidades.cs" />
+    <Compile Include="Controller\Publicaciones.cs" />
     <Compile Include="Controller\Roles.cs" />
+    <Compile Include="Controller\RolesFuncionalidades.cs" />
+    <Compile Include="Controller\Rubros.cs" />
+    <Compile Include="Controller\TiposPublicaciones.cs" />
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
+    <Compile Include="DAL\FuncionalidadesDAL.cs" />
+    <Compile Include="DAL\PublicacionesDAL.cs" />
+    <Compile Include="DAL\RolesFuncionalidadesDAL.cs" />
+    <Compile Include="DAL\RubrosDAL.cs" />
+    <Compile Include="DAL\TiposPublicacionesDAL.cs" />
     <Compile Include="DAL\UsuariosRolesDAL.cs" />
     <Compile Include="DAL\RolesDAL.cs" />
     <Compile Include="DAL\TiposDocumentosDAL.cs" />
@@ -61,11 +72,15 @@
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
     <Compile Include="Model\Estados.cs" />
+    <Compile Include="Model\Funcionalidades.cs" />
+    <Compile Include="Model\Publicaciones.cs" />
     <Compile Include="Model\Roles.cs" />
+    <Compile Include="Model\Rubros.cs" />
     <Compile Include="Model\TiposDocumentos.cs" />
     <Compile Include="Model\Empresas.cs" />
     <Compile Include="Model\Clientes.cs" />
     <Compile Include="Model\TiposPersonas.cs" />
+    <Compile Include="Model\TiposPublicaciones.cs" />
     <Compile Include="Model\Usuarios.cs" />
     <Compile Include="DAL\Conexion.cs" />
     <Compile Include="View\Abm Cliente\Form1.cs">
@@ -134,17 +149,23 @@
     <Compile Include="View\Facturar Publicaciones\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Form1.cs">
+    <Compile Include="View\Login\SeleccionRoles.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Login\SeleccionRoles.Designer.cs">
+      <DependentUpon>SeleccionRoles.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Generar Publicacion\Form1.cs">
+    <Compile Include="View\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Generar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Generar Publicacion\GenerarPublicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Generar Publicacion\GenerarPublicacion.Designer.cs">
+      <DependentUpon>GenerarPublicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Gestion de Preguntas\Form1.cs">
       <SubType>Form</SubType>
@@ -189,8 +210,14 @@
     <EmbeddedResource Include="View\Abm Empresa\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="View\Generar Publicacion\GenerarPublicacion.resx">
+      <DependentUpon>GenerarPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Login\SeleccionRoles.resx">
+      <DependentUpon>SeleccionRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -11,11 +11,18 @@ namespace FrbaCommerce.View.ABM_Rol
 {
     public partial class AdminRol : Form
     {
+        private Form vtnAnterior = null;
+        private int idUsuario = -1;
+
         public AdminRol()
         {
             InitializeComponent();
         }
-
+        public void CargarDatos(Form anterior,int usr)
+        {
+            this.vtnAnterior = anterior;
+            this.idUsuario = usr;
+        }
         private void AdminRol_Load(object sender, EventArgs e)
         {
             llenarDataGrid();
@@ -27,9 +34,8 @@ namespace FrbaCommerce.View.ABM_Rol
 
             DataTable dt = rol.listarRoles(txtNombre.Text);
 
-            dgvRoles.DataSource = dt;
-            
-            
+            dgvRoles.DataSource = dt;            
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -116,6 +122,11 @@ namespace FrbaCommerce.View.ABM_Rol
                 View.Error.ErrorForm vtnError = new View.Error.ErrorForm(ex.Message);
                 vtnError.Visible = true;
             }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

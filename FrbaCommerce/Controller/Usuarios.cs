@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using System.Data.SqlClient;
+using System.Transactions;
 
 namespace FrbaCommerce.Controller
 {
@@ -21,6 +22,7 @@ namespace FrbaCommerce.Controller
                 usrDAL.InsertarUsuario(idTipoPersona, idNumero, login, pass, (int)Model.Usuarios.Estados.Habilitado, 0);
 
                 Model.Usuarios usr = usrDAL.loadPorLogin(login);
+                
                 return usr.idUsuario;
 
             }
@@ -48,8 +50,11 @@ namespace FrbaCommerce.Controller
             return sb.ToString(0,sb.Length);
         }
 
-        public static Boolean AltaDeUsuario(String nombre,String apellido,int tipoDoc, int nroDoc,String mail,String razonSocial, String cuit, String nombreContacto, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha,int idTipoPersona,String pass, String login,List<int> listaRoles)
-        {            
+        public static Boolean AltaDeUsuario(String nombre,String apellido,int tipoDoc, int nroDoc,String mail,String razonSocial, String cuit, String nombreContacto, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha,int idTipoPersona,List<int> listaRoles)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            CommittableTransaction ts = new CommittableTransaction();
+            conexion.EnlistTransaction(ts);
             try
             {
                 int idNumero = 0;
@@ -63,9 +68,9 @@ namespace FrbaCommerce.Controller
                     idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha);
                 }
 
-                String password = Controller.Usuarios.encriptarPassword(pass);
+                //String password = Controller.Usuarios.encriptarPassword("");
 
-                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, password, login,listaRoles);
+                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, "123456", mail,listaRoles);
 
                 DAL.UsuariosRolesDAL urDAL = new FrbaCommerce.DAL.UsuariosRolesDAL();
 
@@ -73,11 +78,12 @@ namespace FrbaCommerce.Controller
                 {
                     urDAL.insertarRolDeUsuario(idUsr,itemRol);    
                 }
-
+                ts.Commit();
                 return true;
             }
             catch (Exception ex)
             {
+                ts.Rollback();
                 throw ex;
             }
 

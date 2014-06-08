@@ -8,7 +8,7 @@ namespace FrbaCommerce.DAL
 {
     public static class Conexion
     {
-        private static SqlConnection conex;
+        private static SqlConnection conex = null;
 
         public static SqlConnection getConexion()
         {

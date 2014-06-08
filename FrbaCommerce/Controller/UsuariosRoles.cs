@@ -9,7 +9,7 @@ namespace FrbaCommerce.Controller
 {
     class UsuariosRoles
     {
-        public static List<Model.Roles> obtenerRoles(int idUsuario)
+        public static DataTable obtenerRoles(int idUsuario)
         {            
             try
             {
@@ -18,7 +18,7 @@ namespace FrbaCommerce.Controller
                 List<Model.Roles> lista = new List<FrbaCommerce.Model.Roles>();
 
                 DataTable dt = urDAL.listarRolesPorUsuario(idUsuario);
-                
+                /*
                 foreach(DataRow dtRow in dt.Rows){
                     
                     Model.Roles rol = new Model.Roles();
@@ -28,8 +28,8 @@ namespace FrbaCommerce.Controller
                     
                     lista.Add(rol);
                 }
-
-                return lista;
+                */
+                return dt;
             }
             catch (Exception ex)
             {

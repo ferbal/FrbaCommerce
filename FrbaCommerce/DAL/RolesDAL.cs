@@ -39,6 +39,33 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public int ObtenerRolPorNombre(String nombre)
+        {
+
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            DataTable dt = new DataTable();
+            try
+            {
+                String where = String.Empty;
+                if (!String.IsNullOrEmpty(nombre))
+                    where = " WHERE Nombre LIKE '%" + nombre + "%'";
+
+                SqlCommand comando = new SqlCommand(@"  SELECT 
+                                                                R.IdRol,
+                                                                R.Nombre                                                                
+                                                        FROM Roles R " + where, conexion);
+
+                dt.Load(comando.ExecuteReader());
+
+                return Convert.ToInt32(dt.Rows[0].ItemArray[0]);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable listarRoles(String nombre)
         {
 
@@ -72,6 +99,7 @@ namespace FrbaCommerce.DAL
         public void InsertarRol(String nombre)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
+            //SqlTransaction ts = conexion.BeginTransaction();
             try
             {
                 SqlCommand comando = new SqlCommand(@"INSERT INTO Roles
@@ -89,10 +117,13 @@ namespace FrbaCommerce.DAL
                 comando.Parameters.AddWithValue("@Estado",(int)Model.Roles.Estados.Habilitado);
 
                 comando.ExecuteNonQuery();
+
+                //ts.Commit();
             }
             catch (Exception ex)
             {
                 throw ex;
+                //ts.Rollback();
             }
         }
 

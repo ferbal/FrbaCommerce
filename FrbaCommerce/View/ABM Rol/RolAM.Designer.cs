@@ -35,6 +35,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.epNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.clbFuncionalidades = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.epNombre)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(215, 66);
+            this.btnAceptar.Location = new System.Drawing.Point(215, 364);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(133, 66);
+            this.btnCancelar.Location = new System.Drawing.Point(133, 364);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 2;
@@ -79,11 +80,20 @@
             // 
             this.epNombre.ContainerControl = this;
             // 
+            // clbFuncionalidades
+            // 
+            this.clbFuncionalidades.FormattingEnabled = true;
+            this.clbFuncionalidades.Location = new System.Drawing.Point(31, 62);
+            this.clbFuncionalidades.Name = "clbFuncionalidades";
+            this.clbFuncionalidades.Size = new System.Drawing.Size(259, 274);
+            this.clbFuncionalidades.TabIndex = 4;
+            // 
             // RolAM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 103);
+            this.ClientSize = new System.Drawing.Size(326, 399);
+            this.Controls.Add(this.clbFuncionalidades);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -104,5 +114,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.ErrorProvider epNombre;
+        private System.Windows.Forms.CheckedListBox clbFuncionalidades;
     }
 }
