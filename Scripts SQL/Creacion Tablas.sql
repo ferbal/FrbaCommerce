@@ -19,18 +19,21 @@ DROP TABLE COMPRAS
 DROP TABLE FORMASPAGO
 DROP TABLE RUBROS
 DROP TABLE PUBLICACIONES
-DROP TABLE TIPOSCOMPRAS
+DROP TABLE Ofertas
+DROP TABLE DatosTarjetas
 DROP TABLE Usuarios
-DROP TABLE TiposPersonas
 DROP TABLE Visibilidades
 DROP TABLE Estados
+DROP TABLE TiposPersonas
+
 */
+
 begin transaction
 
 CREATE TABLE Estados
 (
 	idEstado INT IDENTITY(1,1) NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_Estados PRIMARY KEY (idEstado ASC) on [PRIMARY]
 )
 
@@ -60,8 +63,8 @@ CREATE TABLE RolesFuncionalidades
 
 CREATE TABLE TiposPersonas
 (
-	IdTipoPersona INT IDENTITY(1,1) NOT NULL,
-	Descripcion VARCHAR(20),
+	idTipoPersona INT IDENTITY(1,1) NOT NULL,
+	Descripcion VARCHAR(20) NOT NULL,
 	CONSTRAINT PK_TiposPersonas PRIMARY KEY CLUSTERED (idTipoPersona ASC) ON [PRIMARY]
 )
 
@@ -69,10 +72,11 @@ CREATE TABLE Usuarios
 (
 	idUsuario INT IDENTITY(1,1) NOT NULL,
 	idTipoPersona INT NULL,
-	idNumeroTabla INT NOT NULL,
-	login VARCHAR(10) NOT NULL,
-	password VARCHAR(255) NULL,
+	--idNumeroTabla INT NOT NULL,
+	login NVARCHAR(255) NOT NULL,
+	password NVARCHAR(255) NULL,
 	fallos INT NULL,
+	reputacion INT NULL,
 	idEstado INT NULL,
 	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (idUsuario ASC) ON [PRIMARY],
 	CONSTRAINT FK_Usuarios_TiposPersonas FOREIGN KEY (idTipoPersona) REFERENCES TiposPersonas(idTipoPersona),
@@ -82,8 +86,7 @@ CREATE TABLE Usuarios
 CREATE TABLE Rubros
 (
 	IdRubro INT IDENTITY(1,1) NOT NULL,
-	Codigo INT NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_Rubros PRIMARY KEY (idRubro)
 )
 
@@ -105,76 +108,95 @@ CREATE TABLE TiposDocumentos
 CREATE TABLE Clientes
 (
 	IdCliente INT IDENTITY(1,1) NOT NULL,
-	Nombre VARCHAR(20) NULL,
-	Apellido VARCHAR(20) NULL,
-	NroDocumento NUMERIC(15,0) NULL,
+	Nombre NVARCHAR(255) NULL,
+	Apellido NVARCHAR(255) NULL,
+	NroDocumento NUMERIC(18,0) NULL,
 	CUIL VARCHAR(11) NULL,
 	IdTipoDoc INT NULL,
-	Mail VARCHAR(25) NULL,
+	Mail NVARCHAR(255) NULL,
 	Telefono VARCHAR(15) NOT NULL,
-	Calle VARCHAR(20) NULL,
-	PisoNro INT NULL,
-	Depto VARCHAR(1) NULL,
-	Localidad VARCHAR(20) NULL,
-	CodigoPostal INT NULL,
-	FechaNacimiento DATE NOT NULL,
+	Calle NVARCHAR(255) NULL,
+	NroCalle NUMERIC(18) NULL,
+	PisoNro NUMERIC(18) NULL,
+	Depto NVARCHAR(50) NULL,
+	Localidad NVARCHAR(20) NULL,
+	CodigoPostal NVARCHAR(50) NULL,
+	FechaNacimiento DATETIME NOT NULL,
+	idUsuario INT NOT NULL,
+	idEstado INT NOT NULL
 	CONSTRAINT PK_Clientes PRIMARY KEY (idCliente),
-	CONSTRAINT FK_Clientes_TiposDocumentos FOREIGN KEY (IdTipoDoc) REFERENCES TiposDocumentos(IdTipoDocumento)
+	CONSTRAINT FK_Clientes_TiposDocumentos FOREIGN KEY (IdTipoDoc) REFERENCES TiposDocumentos(IdTipoDocumento),
+	CONSTRAINT FK_Clientes_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
+	CONSTRAINT FK_Clientes_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
 CREATE TABLE Empresas
 (
 	IdEmpresa INT IDENTITY(1,1) NOT NULL,
-	RazonSocial VARCHAR(50) NULL,
-	CUIT VARCHAR(11) NULL,
-	NombreContacto VARCHAR(20) NULL,
-	Mail VARCHAR(25) NULL,
-	Telefono VARCHAR(15) NOT NULL,
-	Calle VARCHAR(20) NULL,
-	PisoNro INT NULL,
-	Depto VARCHAR(1) NULL,
-	Localidad VARCHAR(20) NULL,
-	CodigoPostal INT NULL,
-	FechaCreacion DATE NOT NULL,
-	CONSTRAINT PK_Empresas PRIMARY KEY (idEmpresa)
+	RazonSocial NVARCHAR(255) NULL,
+	CUIT NVARCHAR(50) NULL,
+	NombreContacto NVARCHAR(20) NULL,
+	Mail NVARCHAR(50) NULL,
+	Telefono NVARCHAR(15) NOT NULL,
+	Calle NVARCHAR(100) NULL,
+	NroCalle NUMERIC(18) NULL,
+	PisoNro NUMERIC(18) NULL,
+	Depto NVARCHAR(50) NULL,
+	Localidad NVARCHAR(20) NULL,
+	CodigoPostal NVARCHAR(50) NULL,
+	FechaCreacion DATETIME NOT NULL,
+	idUsuario INT,
+	idEstado INT NOT NULL
+	
+	
+	CONSTRAINT PK_Empresas PRIMARY KEY (idEmpresa),
+	CONSTRAINT FK_Empresas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
+	CONSTRAINT FK_Empresas_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
 
 CREATE TABLE Visibilidades
 (
 	IdVisibilidad INT IDENTITY(1,1) NOT NULL,
-	Codigo INT NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
-	PrecioPorPublicar NUMERIC(15,2) NOT NULL,
-	PorcentajeVenta NUMERIC(4,2) NOT NULL,
-	CONSTRAINT PK_Visibilidades PRIMARY KEY (idVisibilidad)
+	Codigo NUMERIC(18) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
+	Duracion NUMERIC(18) NOT NULL,
+	PrecioPorPublicar NUMERIC(18,2) NOT NULL,
+	PorcentajeVenta NUMERIC(18,2) NOT NULL,
+	IdEstado INT NOT NULL,
+	CONSTRAINT PK_Visibilidades PRIMARY KEY (idVisibilidad),
+	CONSTRAINT FK_Visibilidades_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	
 )
 
 CREATE TABLE TiposPublicaciones
 (	
 	IdTipoPublicacion INT IDENTITY(1,1) NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_TiposPublicaciones PRIMARY KEY (IdTipoPublicacion)
 )
 
 CREATE TABLE Publicaciones
 (
 	IdPublicacion INT IDENTITY (1,1) NOT NULL,
+	CodPublicacion NUMERIC(18) NOT NULL,
 	IdTipoPublicacion INT NOT NULL,
 	IdVisibilidad INT NOT NULL,
-	Valor NUMERIC(15,2) NOT NULL,
+	--Valor NUMERIC(15,2) NOT NULL,
 	IdEstado INT NOT NULL,
-	FechaInicio DATE NOT NULL,
-	FechaFin DATE NOT NULL,
-	--CodigoPublicacion (Consecutivo entre publicaciones sean o no del mismo vendedor) es el idPublicacion.
-	Descripcion VARCHAR(20) NULL,
-	Stock INT NOT NULL,
-	Precio NUMERIC (15,2) NOT NULL,
+	FechaInicio DATETIME NOT NULL,
+	FechaFin DATETIME NOT NULL,
+	Descripcion NVARCHAR(255) NULL,
+	Stock NUMERIC(18) NOT NULL,
+	Precio NUMERIC (18,2) NOT NULL,
+	IdRubro INT NOT NULL,
 	IdUsuario INT NOT NULL,
 	PermiteRealizarPreguntas BIT NOT NULL DEFAULT(1),
 	CONSTRAINT PK_Publicaciones PRIMARY KEY (IdPublicacion),
 	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
+	CONSTRAINT FK_Publicaciones_TipoPublicaciones FOREIGN KEY (IdTipoPublicacion) REFERENCES TiposPublicaciones(IdTipoPublicacion),
 	CONSTRAINT FK_Publicaciones_Visibilidad FOREIGN KEY (IdVisibilidad) REFERENCES Visibilidades(IdVisibilidad),
-	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado),
+	CONSTRAINT FK_Publicaciones_Rubros FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro)
 )
 
 CREATE TABLE PublicacionesRubros
@@ -211,34 +233,41 @@ CREATE TABLE Respuestas
 	--CONSTRAINT FK_Respuestas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 )
 
-CREATE TABLE TiposCompras
-(
-	IdTipoCompra INT IDENTITY(1,1) NOT NULL,
-	Descripcion VARCHAR(20) NOT NULL,
-	CONSTRAINT PK_TiposCompras PRIMARY KEY (IdTipoCompra)
-)
 
 CREATE TABLE Compras
 (
 	IdCompra INT IDENTITY(1,1) NOT NULL,
-	IdTipoCompra INT NOT NULL,
 	IdUsrComprador INT NOT NULL,
 	IdPublicacion INT NOT NULL,
+	Fecha DATETIME,
+	Cantidad NUMERIC (18),
 	Precio NUMERIC(10,2) NOT NULL,
 	IdEstado INT NOT NULL,
 	CONSTRAINT PK_Compras PRIMARY KEY (IdCompra),
-	CONSTRAINT FK_Compras_TipoCompra FOREIGN KEY (IdTipoCompra) REFERENCES TiposCompras(IdTipoCompra),
 	CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (IdUsrComprador) REFERENCES Usuarios(IdUsuario),
 	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
 	CONSTRAINT FK_Compras_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
 )
+CREATE TABLE Ofertas
+(
+	IdOferta INT IDENTITY (1,1) NOT NULL,
+	IdPublicacion INT NOT NULL,
+	IdUsuario INT NOT NULL,
+	Oferta_Fecha DATETIME,
+	Oferta_Monto NUMERIC(18,2),
+	CONSTRAINT PK_Ofertas PRIMARY KEY (IdOferta),
+	CONSTRAINT FK_Ofertas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
+	CONSTRAINT FK_Ofertas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion)
+	
+)	
 
 CREATE TABLE Calificaciones
 (
 	IdCalificacion INT IDENTITY(1,1) NOT NULL,
 	IdCompra INT NOT NULL,
-	Calificacion INT NOT NULL,
-	Detalle VARCHAR(30) NULL,
+	Codigo NUMERIC(18) NOT NULL,
+	Calificacion NUMERIC(18) NOT NULL,
+	Detalle NVARCHAR(255) NULL,
 	CONSTRAINT PK_Calificaciones PRIMARY KEY (IdCalificacion),
 	CONSTRAINT FK_Calificaciones_Compras FOREIGN KEY (IdCompra) REFERENCES Compras(IdCompra)
 )
@@ -257,7 +286,7 @@ CREATE TABLE Historiales
 CREATE TABLE FormasPago
 (
 	IdFormaPago INT IDENTITY (1,1) NOT NULL,
-	Descripcion VARCHAR(20) NULL,
+	Descripcion NVARCHAR(255) NULL,
 	CONSTRAINT PK_FormasPago PRIMARY KEY (IdFormaPago)
 )
 
@@ -265,15 +294,12 @@ CREATE TABLE Facturas
 (
 	IdFactura INT IDENTITY(1,1) NOT NULL,
 	NroSucursal INT NOT NULL,
-	NroFactura NUMERIC(15,0) NOT NULL,
-	Fecha DATE NOT NULL,
+	NroFactura NUMERIC(18,0) NOT NULL,
+	Fecha DATETIME NOT NULL,
 	IdUsuario INT NOT NULL,
 	IdFormaPago INT NOT NULL,
 	IdEstado INT NOT NULL,
-	NroTarjeta NUMERIC(18,0) NULL,
-	FechaVencTarjeta DATETIME NULL,
-	CodigoSeguridad INT NULL,
-	TitularTarjeta VARCHAR(30) NULL,
+	Total NUMERIC(18,2) NOT NULL,
 	CONSTRAINT PK_Facturas PRIMARY KEY (IdFactura),
 	CONSTRAINT FK_Facturas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
 	CONSTRAINT FK_Facturas_FormasPago FOREIGN KEY (IdFormaPago) REFERENCES FormasPago(IdFormaPago),
@@ -285,13 +311,21 @@ CREATE TABLE FacturasItems
 	IdFacturaItem INT IDENTITY(1,1) NOT NULL,
 	IdFactura INT NOT NULL,
 	IdPublicacion INT NOT NULL,
-	Precio NUMERIC(15,2) NOT NULL,
+	Precio NUMERIC(18,2) NOT NULL,
 	Comision NUMERIC(5,2) NOT NULL,
-	CantVendida INT NOT NULL,
+	CantVendida NUMERIC(18) NOT NULL,
 	CONSTRAINT PK_FacturasItems PRIMARY KEY (IdFacturaItem),
 	CONSTRAINT FK_FacturasItems_Facturas FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura)
 )
-
+CREATE TABLE DatosTarjetas
+(
+	IdFactura INT NOT NULL,
+	NroTarjeta NUMERIC(18,0) NULL,
+	FechaVencTarjeta DATETIME NULL,
+	CodigoSeguridad INT NULL,
+	TitularTarjeta VARCHAR(30) NULL,
+	CONSTRAINT FK_DatosTarjetas_Facturas FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura)
+)	
 
 --Carga de Datos
 
@@ -301,9 +335,6 @@ INSERT TiposPersonas
 INSERT FormasPago 
 (Descripcion) VALUES ('Efectivo'),('Tarjeta de Credito'),('Tarjeta de Debito')
 
-INSERT INTO Estados
-(Descripcion) VALUES ('Inicial'),('Apagado')
-
 INSERT TiposPublicaciones
 (Descripcion) VALUES ('Compra Inmediata'),('Subasta')
 
@@ -311,7 +342,7 @@ INSERT TiposDocumentos
 (Descripcion) VALUES ('DNI'),('LE'),('LC')
 
 INSERT Estados
-(Descripcion) VALUES ('Inicial'),('Borrador'),('Activo'),('Pausado'),('Finalizado'),('Suspendido')
+(Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Borrador'),('Publicada'),('Pausada'),('Finalizada')
 
 ;
 Commit transaction
