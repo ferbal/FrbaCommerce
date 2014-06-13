@@ -28,6 +28,9 @@ namespace FrbaCommerce.View.ABM_Empresa
             DataTable dt = empresa.listarEmpresas(txtRazonSocial.Text, txtCUIT.Text, txtMAIL.Text);
 
             dgvRoles.DataSource = dt;
+
+            dgvRoles.Columns["IdEstado"].Visible = false;
+            dgvRoles.Columns["IdEmpresa"].Visible = false;
             
         }
 
