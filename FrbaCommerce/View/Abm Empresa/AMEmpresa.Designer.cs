@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Vista.AM_de_Empresa
+﻿namespace FrbaCommerce.View.ABM_Empresa
 {
-    partial class Form1
+    partial class AM_de_Empresa
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.chkhabilitado = new System.Windows.Forms.CheckBox();
             this.txtError = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtNombreContacto = new System.Windows.Forms.TextBox();
@@ -74,6 +75,7 @@
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.chkhabilitado);
             this.pnlCliente.Controls.Add(this.txtError);
             this.pnlCliente.Controls.Add(this.btnAceptar);
             this.pnlCliente.Controls.Add(this.txtNombreContacto);
@@ -102,6 +104,16 @@
             this.pnlCliente.Name = "pnlCliente";
             this.pnlCliente.Size = new System.Drawing.Size(606, 292);
             this.pnlCliente.TabIndex = 2;
+            // 
+            // chkhabilitado
+            // 
+            this.chkhabilitado.AutoSize = true;
+            this.chkhabilitado.Location = new System.Drawing.Point(10, 187);
+            this.chkhabilitado.Name = "chkhabilitado";
+            this.chkhabilitado.Size = new System.Drawing.Size(124, 17);
+            this.chkhabilitado.TabIndex = 31;
+            this.chkhabilitado.Text = "Habilitar/Deshabilitar";
+            this.chkhabilitado.UseVisualStyleBackColor = true;
             // 
             // txtError
             // 
@@ -327,15 +339,14 @@
             // 
             this.epRazonSocial.ContainerControl = this;
             // 
-            // Form1
+            // AM_de_Empresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 331);
             this.Controls.Add(this.pnlCliente);
-            this.Name = "Form1";
-            this.Text = "Alta y Modificacion de Empresa";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "AM_de_Empresa";
+            this.Text = "Alta, Baja y Modificacion de Empresa";
             this.pnlCliente.ResumeLayout(false);
             this.pnlCliente.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).EndInit();
@@ -381,5 +392,6 @@
         private System.Windows.Forms.ErrorProvider epApellido;
         private System.Windows.Forms.ErrorProvider epRazonSocial;
         private System.Windows.Forms.Label txtError;
+        private System.Windows.Forms.CheckBox chkhabilitado;
     }
 }
