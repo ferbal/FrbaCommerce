@@ -59,6 +59,7 @@
     <Compile Include="Controller\TiposPublicaciones.cs" />
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
+    <Compile Include="DAL\EmpresasDAL.cs" />
     <Compile Include="DAL\FuncionalidadesDAL.cs" />
     <Compile Include="DAL\PublicacionesDAL.cs" />
     <Compile Include="DAL\RolesFuncionalidadesDAL.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="DAL\UsuariosRolesDAL.cs" />
     <Compile Include="DAL\RolesDAL.cs" />
     <Compile Include="DAL\TiposDocumentosDAL.cs" />
-    <Compile Include="DAL\EmpresaDAL.cs" />
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
@@ -89,11 +89,17 @@
     <Compile Include="View\Abm Cliente\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Abm Empresa\Form1.cs">
+    <Compile Include="View\Abm Empresa\AdminEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Abm Empresa\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Abm Empresa\AdminEmpresa.Designer.cs">
+      <DependentUpon>AdminEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Abm Empresa\AMEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Abm Empresa\AMEmpresa.Designer.cs">
+      <DependentUpon>AMEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="View\ABM Rol\AdminRol.cs">
       <SubType>Form</SubType>
@@ -198,6 +204,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Empresa\AdminEmpresa.resx">
+      <DependentUpon>AdminEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ABM Rol\AdminRol.resx">
       <DependentUpon>AdminRol.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,9 +215,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Error\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Abm Empresa\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>

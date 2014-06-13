@@ -65,7 +65,7 @@ namespace FrbaCommerce.Controller
                 }
                 else
                 {
-                    idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha);
+                    idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha, (int)FrbaCommerce.Model.Empresas.Estados.Habilitado);
                 }
 
                 //String password = Controller.Usuarios.encriptarPassword("");
