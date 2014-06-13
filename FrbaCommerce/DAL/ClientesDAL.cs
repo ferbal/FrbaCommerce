@@ -29,7 +29,9 @@ namespace FrbaCommerce.DAL
                                                             Depto,
                                                             Localidad,
                                                             CodigoPostal,
-                                                            FechaNacimiento
+                                                            FechaNacimiento,
+                                                            IdUsuario,
+                                                            IdEstado
                                                         )
                                                         VALUES 
                                                         (
@@ -45,7 +47,9 @@ namespace FrbaCommerce.DAL
                                                             @Depto,
                                                             @Localidad,
                                                             @CodigoPostal,
-                                                            @FechaNacimiento
+                                                            @FechaNacimiento,
+                                                            @IdUsuario,
+                                                            @IdEstado
                                                         )", conexion);
                 commando.Parameters.AddWithValue("@Nombre", cliente.Nombre);
                 commando.Parameters.AddWithValue("@Apellido", cliente.Apellido);
@@ -60,6 +64,8 @@ namespace FrbaCommerce.DAL
                 commando.Parameters.AddWithValue("@Localidad", cliente.Localidad);
                 commando.Parameters.AddWithValue("@CodigoPostal", cliente.CodigoPostal);
                 commando.Parameters.AddWithValue("@FechaNacimiento", cliente.FechaNacimiento);
+                commando.Parameters.AddWithValue("@IdUsuario", cliente.IdUsuario);
+                commando.Parameters.AddWithValue("@IdEstado", cliente.IdEstado);
 
                 commando.ExecuteNonQuery();
             }

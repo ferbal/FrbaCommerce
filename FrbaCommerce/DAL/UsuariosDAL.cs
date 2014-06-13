@@ -9,7 +9,7 @@ namespace FrbaCommerce.DAL
 {
     class UsuariosDAL
     {
-        public void InsertarUsuario(int idTipoPersona, int idNumero, String login, String pass, int idEstado,int fallos)
+        public void InsertarUsuario(int idTipoPersona, String login, String pass, int idEstado,int fallos)
         {            
             SqlConnection conexion = DAL.Conexion.getConexion();
 
@@ -17,8 +17,7 @@ namespace FrbaCommerce.DAL
             {
                 SqlCommand commando = new SqlCommand(@"INSERT INTO Usuarios 
                                                         (
-                                                            idTipoPersona,
-                                                            idNumeroTabla,
+                                                            idTipoPersona,                                                            
                                                             login,
                                                             password,
                                                             fallos,
@@ -27,15 +26,13 @@ namespace FrbaCommerce.DAL
                                                         VALUES 
                                                         (
                                                             @idTipoPersona,
-                                                            @idNumero,
                                                             @login,
                                                             @password,
                                                             @fallos,
                                                             @idEstado
                                                         )", conexion);
 
-                commando.Parameters.AddWithValue("@idTipoPersona", idTipoPersona);
-                commando.Parameters.AddWithValue("@idNumero", idNumero);
+                commando.Parameters.AddWithValue("@idTipoPersona", idTipoPersona);                
                 commando.Parameters.AddWithValue("@login", login);
                 commando.Parameters.AddWithValue("@password", pass);
                 commando.Parameters.AddWithValue("@idEstado", idEstado);
@@ -163,7 +160,7 @@ namespace FrbaCommerce.DAL
 
         public Model.Usuarios llenarUsuario(DataRow dr)
         {
-            Model.Usuarios usr = new FrbaCommerce.Model.Usuarios((int)dr[0],(int)dr[1],(int)dr[2],(String)dr[3],(String)dr[4],(int)dr[5],(int) dr[6]);
+            Model.Usuarios usr = new FrbaCommerce.Model.Usuarios((int)dr[0], (int)dr[1], (String)dr[2], (String)dr[3], (int)dr[4], (int)dr[5]);
             return usr;
         }
     }

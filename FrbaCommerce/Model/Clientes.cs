@@ -21,8 +21,10 @@ namespace FrbaCommerce.Model
         public String Localidad { get; set; }
         public int CodigoPostal { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdEstado { get; set; }
 
-        public Clientes(String nombre, String apellido, int tipoDoc, int nroDoc, String nroCuil, String mail, DateTime fecha, String telefono, String calle, int pisoNro, Char depto, int codPost, String localidad)
+        public Clientes(String nombre, String apellido, int tipoDoc, int nroDoc, String nroCuil, String mail, DateTime fecha, String telefono, String calle, int pisoNro, Char depto, int codPost, String localidad,int usr, int estado)
         {
             this.Nombre = nombre;
             this.Apellido = apellido;
@@ -37,10 +39,18 @@ namespace FrbaCommerce.Model
             this.CodigoPostal = codPost;
             this.Localidad = localidad;
             this.FechaNacimiento = fecha;
+            this.IdUsuario = usr;
+            this.IdEstado = estado;
         }
 
         public Clientes()
         {
+        }
+
+        public enum Estados
+        {
+            Habilitado = 1,
+            Deshabilitado = 2
         }
     }
 }

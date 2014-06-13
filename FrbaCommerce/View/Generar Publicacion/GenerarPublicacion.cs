@@ -79,12 +79,12 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
             if (clbRubros.SelectedItems.Count < 0)
             {
-                epRubros.SetError(lblRubros, "El RUBRO es un campo requerido.");
+                epRubros.SetError(clbRubros, "El RUBRO es un campo requerido.");
                 result = false;
             }
             else if (clbRubros.SelectedItems.Count > 1)
             {
-                epRubros.SetError(lblRubros, "Solo se debe seleccionar 1 rubro.");
+                epRubros.SetError(clbRubros, "Solo se debe seleccionar 1 rubro.");
                 return false;
             }
             

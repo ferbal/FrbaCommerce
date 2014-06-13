@@ -19,7 +19,7 @@ namespace FrbaCommerce.Controller
                 if (usrDAL.ExisteLogin(login))
                     throw new Exception("El Nombre de Usuario ya existe.");    
                 
-                usrDAL.InsertarUsuario(idTipoPersona, idNumero, login, pass, (int)Model.Usuarios.Estados.Habilitado, 0);
+                usrDAL.InsertarUsuario(idTipoPersona, login, pass, (int)Model.Usuarios.Estados.Habilitado, 0);
 
                 Model.Usuarios usr = usrDAL.loadPorLogin(login);
                 
@@ -59,18 +59,20 @@ namespace FrbaCommerce.Controller
             {
                 int idNumero = 0;
 
+                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, "123456", mail, listaRoles);
+
                 if (idTipoPersona == (int)Model.TiposPersonas.TiposPersonasEnum.Cliente)
                 {                   
-                    idNumero = Controller.Cientes.ingresarClienteNuevo(nombre, apellido, tipoDoc, nroDoc, cuit, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad);
+                    idNumero = Controller.Cientes.ingresarClienteNuevo(nombre, apellido, tipoDoc, nroDoc, cuit, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad,idUsr,(int)Model.Clientes.Estados.Habilitado);
                 }
                 else
                 {
-                    idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha);
+                    idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha,idUsr,(int)Model.Empresas.Estados.Habilitado);
                 }
 
                 //String password = Controller.Usuarios.encriptarPassword("");
 
-                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, "123456", mail,listaRoles);
+                
 
                 DAL.UsuariosRolesDAL urDAL = new FrbaCommerce.DAL.UsuariosRolesDAL();
 
