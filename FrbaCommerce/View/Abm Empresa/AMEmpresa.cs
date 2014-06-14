@@ -125,7 +125,7 @@ namespace FrbaCommerce.View.ABM_Empresa
                     if (String.Equals(this.Text,"Alta de Empresa")) 
                     //if (this.idEmpresa == -1)
                     {
-                        Controller.Empresas.ingresarNuevaEmpresa(txtRazonSocial.Text, txtCuit.Text, txtNombreContacto.Text, txtMail.Text, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), estado);
+                        Controller.Empresas.ingresarNuevaEmpresa(txtRazonSocial.Text, txtCuit.Text, txtNombreContacto.Text, txtMail.Text, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), 0,estado);
 
                     }else{
                         if (String.Equals(this.Text,"Modificacion de Empresa")) {

@@ -19,15 +19,8 @@ namespace FrbaCommerce.Model
         public String Localidad { get; set; }
         public int CodigoPostal { get; set; }
         public DateTime FechaCreacion { get; set; }
-<<<<<<< HEAD
         public int IdUsuario { get; set; }
-=======
->>>>>>> 6d7830e8900e4de3da80f2cac7bdcbefcb0ab6bc
         public int IdEstado { get; set; }
-
-        //public Empresas()
-        //{
-        //}
 
         public enum Estados
         {
@@ -35,11 +28,24 @@ namespace FrbaCommerce.Model
             Inhabilitado = 2
         }
 
-<<<<<<< HEAD
         public Empresas(String razonSocial, String cuit, String nombreContacto, String mail, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha,int usr,int estado)
-=======
+        {
+            this.IdUsuario = usr;
+            this.RazonSocial = razonSocial;
+            this.Cuit = cuit;
+            this.NombreContacto = nombreContacto;
+            this.Mail = mail;
+            this.Telefono = telefono;
+            this.Calle = calle;
+            this.PisoNro = pisoNro;
+            this.Depto = depto;
+            this.Localidad = localidad;
+            this.CodigoPostal = codPost;
+            this.FechaCreacion = fecha;
+            this.IdEstado = estado;
+        }
+
         public Empresas(int IdEmpresa,String razonSocial, String cuit, String nombreContacto, String mail, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha, int estado)
->>>>>>> 6d7830e8900e4de3da80f2cac7bdcbefcb0ab6bc
         {
             this.IdEmpresa = IdEmpresa;
             this.RazonSocial = razonSocial;
@@ -53,19 +59,8 @@ namespace FrbaCommerce.Model
             this.Localidad = localidad;
             this.CodigoPostal = codPost;
             this.FechaCreacion = fecha;
-<<<<<<< HEAD
-            this.IdUsuario = usr;
             this.IdEstado = estado;
-
         }
 
-        public enum Estados
-        {
-            Habilitado = 1,
-            Deshabilitado = 2
-=======
-            this.IdEstado = estado;
->>>>>>> 6d7830e8900e4de3da80f2cac7bdcbefcb0ab6bc
-        }
     }   
 }

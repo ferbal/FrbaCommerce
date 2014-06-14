@@ -8,7 +8,6 @@ C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Login.LoginForm.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Registro_de_Usuario.RegistroUsuario.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Error.ErrorForm.resources
-C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Vista.AM_de_Empresa.Form1.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Rol.RolAM.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Rol.AdminRol.resources
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Principal.resources
@@ -16,3 +15,4 @@ C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Generar_Publicacion.GenerarPublicacion.resources
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.exe
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.pdb
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Empresa.AdminEmpresa.resources

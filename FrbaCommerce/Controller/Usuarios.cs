@@ -67,16 +67,10 @@ namespace FrbaCommerce.Controller
                 }
                 else
                 {
-<<<<<<< HEAD
                     idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha,idUsr,(int)Model.Empresas.Estados.Habilitado);
-=======
-                    idNumero = Controller.Empresas.ingresarNuevaEmpresa(razonSocial, cuit, nombreContacto, mail, telefono, calle, pisoNro, depto, localidad, codPost, fecha, (int)FrbaCommerce.Model.Empresas.Estados.Habilitado);
->>>>>>> 6d7830e8900e4de3da80f2cac7bdcbefcb0ab6bc
                 }
 
                 //String password = Controller.Usuarios.encriptarPassword("");
-
-                
 
                 DAL.UsuariosRolesDAL urDAL = new FrbaCommerce.DAL.UsuariosRolesDAL();
 
