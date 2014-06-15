@@ -74,10 +74,10 @@ namespace FrbaCommerce
 
         private void btnGenerarPubli_Click(object sender, EventArgs e)
         {
-            View.Generar_Publicacion.GenerarPublicacion vtnPublicacion = new FrbaCommerce.View.Generar_Publicacion.GenerarPublicacion();
-            vtnPublicacion.cargarDatos(this,idUsuario);
+            View.Generar_Publicacion.AdminPublicaciones vtnAdminPubli = new FrbaCommerce.View.Generar_Publicacion.AdminPublicaciones();
+            vtnAdminPubli.CargarDatos(this,this.idUsuario);
             this.Visible = false;
-            vtnPublicacion.Visible = true;
+            vtnAdminPubli.Visible = true;
         }
     }
 }

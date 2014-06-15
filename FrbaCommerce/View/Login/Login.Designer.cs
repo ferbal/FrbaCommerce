@@ -35,6 +35,10 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblNuevoPass = new System.Windows.Forms.Label();
+            this.lblConfNuevoPass = new System.Windows.Forms.Label();
+            this.txtNuevoPass = new System.Windows.Forms.TextBox();
+            this.txtConfNuevoPass = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblNombreUsuario
@@ -49,7 +53,7 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(41, 94);
+            this.lblPassword.Location = new System.Drawing.Point(38, 93);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(59, 13);
             this.lblPassword.TabIndex = 1;
@@ -72,7 +76,7 @@
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(249, 123);
+            this.btnAceptar.Location = new System.Drawing.Point(345, 57);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 4;
@@ -82,7 +86,7 @@
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(249, 152);
+            this.btnRegistrar.Location = new System.Drawing.Point(345, 86);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(75, 23);
             this.btnRegistrar.TabIndex = 5;
@@ -97,14 +101,51 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(289, 30);
             this.label1.TabIndex = 6;
-            this.label1.Text = "UTN FRBA Commerce";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "UTN FRBA Commerce";            
+            // 
+            // lblNuevoPass
+            // 
+            this.lblNuevoPass.AutoSize = true;
+            this.lblNuevoPass.Location = new System.Drawing.Point(38, 118);
+            this.lblNuevoPass.Name = "lblNuevoPass";
+            this.lblNuevoPass.Size = new System.Drawing.Size(112, 13);
+            this.lblNuevoPass.TabIndex = 7;
+            this.lblNuevoPass.Text = "Ingresar Nuevo Pass.:";
+            // 
+            // lblConfNuevoPass
+            // 
+            this.lblConfNuevoPass.AutoSize = true;
+            this.lblConfNuevoPass.Location = new System.Drawing.Point(38, 147);
+            this.lblConfNuevoPass.Name = "lblConfNuevoPass";
+            this.lblConfNuevoPass.Size = new System.Drawing.Size(103, 13);
+            this.lblConfNuevoPass.TabIndex = 8;
+            this.lblConfNuevoPass.Text = "Confirmar Password:";
+            // 
+            // txtNuevoPass
+            // 
+            this.txtNuevoPass.Location = new System.Drawing.Point(149, 115);
+            this.txtNuevoPass.Name = "txtNuevoPass";
+            this.txtNuevoPass.PasswordChar = '*';
+            this.txtNuevoPass.Size = new System.Drawing.Size(175, 20);
+            this.txtNuevoPass.TabIndex = 9;
+            // 
+            // txtConfNuevoPass
+            // 
+            this.txtConfNuevoPass.Location = new System.Drawing.Point(149, 144);
+            this.txtConfNuevoPass.Name = "txtConfNuevoPass";
+            this.txtConfNuevoPass.PasswordChar = '*';
+            this.txtConfNuevoPass.Size = new System.Drawing.Size(175, 20);
+            this.txtConfNuevoPass.TabIndex = 10;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(365, 198);
+            this.ClientSize = new System.Drawing.Size(456, 198);
+            this.Controls.Add(this.txtConfNuevoPass);
+            this.Controls.Add(this.txtNuevoPass);
+            this.Controls.Add(this.lblConfNuevoPass);
+            this.Controls.Add(this.lblNuevoPass);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.btnAceptar);
@@ -130,5 +171,9 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNuevoPass;
+        private System.Windows.Forms.Label lblConfNuevoPass;
+        private System.Windows.Forms.TextBox txtNuevoPass;
+        private System.Windows.Forms.TextBox txtConfNuevoPass;
     }
 }

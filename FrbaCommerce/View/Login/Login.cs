@@ -18,12 +18,10 @@ namespace FrbaCommerce.View.Login
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            lblConfNuevoPass.Visible = false;
+            lblNuevoPass.Visible = false;
+            txtConfNuevoPass.Visible = false;
+            txtNuevoPass.Visible = false;
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -45,7 +43,14 @@ namespace FrbaCommerce.View.Login
                 if (!this.validarExistenciaDeDatos())
                     throw new Exception("Debe completar el Nombre de Usuario y la Contraseña.");
 
-                idUsuario = Controller.Usuarios.verficarLogin(txtNombreUsuario.Text,txtPassword.Text);
+                if (txtNuevoPass.Visible && txtNuevoPass.Text.Equals(txtConfNuevoPass.Text))
+                {
+                    idUsuario = Controller.Usuarios.ActualizarPassword(txtNombreUsuario.Text, txtNuevoPass.Text);
+                }
+                else
+                {
+                    idUsuario = Controller.Usuarios.verficarLogin(txtNombreUsuario.Text, txtPassword.Text);
+                }
 
                 if (idUsuario > 0)
                 {
@@ -61,10 +66,18 @@ namespace FrbaCommerce.View.Login
                     {
                         Principal vtnPrincipal = new Principal();
                         DataRow dr = dt.Rows[0];
-                        vtnPrincipal.cargarInfoUsuario(idUsuario,(int)dr.ItemArray[0],this);
+                        vtnPrincipal.cargarInfoUsuario(idUsuario, (int)dr.ItemArray[0], this);
                         vtnPrincipal.Visible = true;
                         this.Visible = false;
                     }
+                }
+                else
+                {
+                    lblConfNuevoPass.Visible = true;
+                    lblNuevoPass.Visible = true;
+                    txtConfNuevoPass.Visible = true;
+                    txtNuevoPass.Visible = true;
+                    txtPassword.Text = String.Empty;
                 }
 
             }

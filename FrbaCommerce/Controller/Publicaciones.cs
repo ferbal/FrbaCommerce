@@ -8,15 +8,29 @@ namespace FrbaCommerce.Controller
 {
     class Publicaciones
     {
-        public static void IngresarPublicacionNueva(int tipoPubli,int visibilidad,Double valor,DateTime fechaInicio,DateTime fechaFin,String descripcion,int stock, Double precio, int idUsuario,Boolean preguntas)
+        public static void IngresarPublicacionNueva(int tipoPubli,int cod,int rubro,int visibilidad,DateTime fechaInicio,DateTime fechaFin,String descripcion,int stock, Double precio, int idUsuario,Boolean preguntas)
         {
             try
             {
                 
                 DAL.PublicacionesDAL publiDAL = new FrbaCommerce.DAL.PublicacionesDAL();
 
-                publiDAL.InsertarPublicacion(tipoPubli,visibilidad,valor,(int)Model.Publicaciones.Estados.Borrador,fechaInicio,fechaFin,descripcion,stock,precio,idUsuario,preguntas);
+                publiDAL.InsertarPublicacion(tipoPubli,cod,rubro,visibilidad,(int)Model.Publicaciones.Estados.Borrador,fechaInicio,fechaFin,descripcion,stock,precio,idUsuario,preguntas);
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void ActualizarPublicacion(int idPublicacion,int tipoPubli, int cod, int rubro, int visibilidad, DateTime fechaInicio, DateTime fechaFin, String desc, int stock, Double precio, int idUsuario, bool preguntas)
+        {
+            try
+            {
+                DAL.PublicacionesDAL publiDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                publiDAL.ActualizarPublicacion(idPublicacion,tipoPubli,cod,rubro,visibilidad,fechaInicio,fechaFin,desc,stock,precio,idUsuario,preguntas);
             }
             catch (Exception ex)
             {
@@ -54,6 +68,48 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
             
+        }
+
+        public static DataTable ListarPublicaciones(int codigo,String descrip, String vendedor, int tipoPub, int estado)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+                
+                return pubDAL.listarPublicaciones(codigo,descrip,vendedor,tipoPub,estado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void ActualizarEstado(int estado, int publicacion)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                pubDAL.ActualizarEstado(estado,publicacion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static DataTable ObtenerListaEstados()
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                return pubDAL.ListarEstados();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

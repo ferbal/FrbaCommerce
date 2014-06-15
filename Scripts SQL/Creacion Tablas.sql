@@ -53,6 +53,7 @@ CREATE TABLE Roles
 	CONSTRAINT FK_RolesEstados FOREIGN KEY (idEstado) REFERENCES Estados(idEstado)
 )
 
+
 CREATE TABLE RolesFuncionalidades
 (
 	IdRol INT NOT NULL,
@@ -344,5 +345,38 @@ INSERT TiposDocumentos
 INSERT Estados
 (Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Borrador'),('Publicada'),('Pausada'),('Finalizada')
 
+INSERT Roles
+(Nombre,IdEstado) VALUES ('Cliente',1),('Administrador',1),('Empresa',1)
+
+Insert into Funcionalidades
+	(Descripcion) 
+VALUES 
+	('ABM de Cliente'),
+    ('ABM de Empresa'),
+    ('ABM de Rol'),
+    ('ABM de Rubro'),
+    ('ABM visibilidad'),
+    ('Calificar al Vend'),
+    ('Comprar/Ofertar'),
+    ('Editar Publicación'),
+    ('Facturar Publi'),
+    ('Generar Publicación'),
+    ('Gestión de Preg'),
+    ('Historial del cli'),
+    ('Listado Estadístico')
+    
+Insert into RolesFuncionalidades
+	(IdRol,IdFuncionalidad)
+	Select	2,
+			idFuncionalidad 
+	From Funcionalidades
+	
+Insert into Visibilidades
+(Codigo,Descripcion,Duracion,PrecioPorPublicar,PorcentajeVenta,IdEstado)
+Values
+(1,'Visibilidad Test',30,100,0.5,1)
+
+Insert into Rubros
+(Descripcion) values('Test1'),('Test2')	
 ;
 Commit transaction

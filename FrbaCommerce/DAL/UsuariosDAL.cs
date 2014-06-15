@@ -55,7 +55,6 @@ namespace FrbaCommerce.DAL
                 SqlCommand comando = new SqlCommand(@"SELECT 
                                                             idUsuario,
                                                             idTipoPersona,
-                                                            idNumeroTabla,
                                                             login,
                                                             password,
                                                             fallos,
@@ -111,6 +110,25 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public void ActualizarPassword(int idUsuario,String pass)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"UPDATE Usuarios
+                                                      SET password = @pass
+                                                      WHERE idUsuario = @idUsuario", conexion);
+                comando.Parameters.AddWithValue("@idUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@pass", pass);
+
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void inhabilitarUsuario(int idUsuario)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
@@ -138,8 +156,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlCommand comando = new SqlCommand(@"SELECT 
-                                                            idTipoPersona,
-                                                            idNumeroTabla,
+                                                            idTipoPersona,                                                            
                                                             login,
                                                             password,
                                                             fallos,

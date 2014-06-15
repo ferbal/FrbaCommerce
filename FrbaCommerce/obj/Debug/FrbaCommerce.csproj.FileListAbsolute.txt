@@ -16,3 +16,4 @@ C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.exe
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.pdb
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Empresa.AdminEmpresa.resources
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Generar_Publicacion.AdminPublicaciones.resources
