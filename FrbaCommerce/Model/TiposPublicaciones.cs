@@ -9,5 +9,13 @@ namespace FrbaCommerce.Model
     {
         public int IdTipoPublicacion { get; set; }
         public String Descripcion { get; set; }
+
+        public enum Tipos
+        {
+            Compra_Inmediata = 1,
+            Subasta = 2
+        }
     }
+
+    
 }
