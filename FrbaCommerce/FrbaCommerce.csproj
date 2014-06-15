@@ -213,6 +213,9 @@
     <EmbeddedResource Include="View\Abm Empresa\AdminEmpresa.resx">
       <DependentUpon>AdminEmpresa.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Empresa\AMEmpresa.resx">
+      <DependentUpon>AMEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ABM Rol\AdminRol.resx">
       <DependentUpon>AdminRol.cs</DependentUpon>
     </EmbeddedResource>

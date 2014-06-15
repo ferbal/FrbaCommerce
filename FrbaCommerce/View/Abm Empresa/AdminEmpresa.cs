@@ -124,14 +124,17 @@ namespace FrbaCommerce.View.ABM_Empresa
                 DateTime FechaCreacion = Convert.ToDateTime(cellFechaCreacion.Value);
                 int IdEstado = Convert.ToInt32(cellIdEstado.Value);
 
-                View.ABM_Empresa.AM_de_Empresa EmpresaMod = new AM_de_Empresa();
-                EmpresaMod.ventana_anterior(this);
-                EmpresaMod.Text = "Baja de Empresa";
+                if(IdEstado == 1){
 
-                EmpresaMod.asignarEmpresaAModificar(id, RZ, CUIT, MAIL, NombreContacto, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaCreacion, IdEstado);
+                    View.ABM_Empresa.AM_de_Empresa EmpresaMod = new AM_de_Empresa();
+                    EmpresaMod.ventana_anterior(this);
+                    EmpresaMod.Text = "Baja de Empresa";
 
-                EmpresaMod.Visible = true;
-                this.Visible = false;
+                    EmpresaMod.asignarEmpresaAModificar(id, RZ, CUIT, MAIL, NombreContacto, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaCreacion, IdEstado);
+
+                    EmpresaMod.Visible = true;
+                    this.Visible = false;
+                }
             }
             catch (Exception ex)
             {
