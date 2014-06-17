@@ -46,7 +46,7 @@ namespace FrbaCommerce
             btnABMVisibilidad.Enabled = dic["ABM visibilidad"];
             btnCalificarVend.Enabled = dic["Calificar al Vend"];
             btnComprarOfertar.Enabled = dic["Comprar/Ofertar"];
-            btnEditarPubli.Enabled = dic["Editar Publicación"];
+            //btnEditarPubli.Enabled = dic["Editar Publicación"];
             btnFacturarPubli.Enabled = dic["Facturar Publi"];
             btnGenerarPubli.Enabled = dic["Generar Publicación"];
             btnGestionarPreg.Enabled = dic["Gestión de Preg"];

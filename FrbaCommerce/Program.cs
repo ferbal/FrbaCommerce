@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace FrbaCommerce
 {
@@ -15,9 +16,29 @@ namespace FrbaCommerce
         static void Main()
         {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);         
-            Application.Run(new View.Login.LoginForm());
+            Application.SetCompatibleTextRenderingDefault(false);
+            View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
+            vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));
+            Application.Run(vtnLogin);            
+        }
 
+        private static String LeerFechaArchConfig()
+        {
+            String str = String.Empty;
+
+            StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\config.txt");
+            str = or.ReadLine();
+
+            if (!String.IsNullOrEmpty(str))
+            {
+                while (str.Substring(0, 6).CompareTo("Fecha=") != 0)                            
+                {
+                    str = or.ReadLine();
+                }
+                if (str.Substring(0, 6).CompareTo("Fecha=") == 0)
+                    str = str.Substring(6);
+            }
+            return str;
         }
     }
 }

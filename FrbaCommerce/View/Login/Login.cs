@@ -11,9 +11,16 @@ namespace FrbaCommerce.View.Login
 {
     public partial class LoginForm : Form
     {
+        private DateTime fechaSistema;
+
         public LoginForm()
         {
             InitializeComponent();
+        }
+
+        public void cargarDatos(DateTime fecha)
+        {
+            this.fechaSistema = fecha;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
