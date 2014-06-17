@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.View.ABM_Empresa
+﻿namespace FrbaCommerce.View.ABM_Cliente
 {
-    partial class AdminEmpresa
+    partial class AdminCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -36,12 +36,16 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.txtRazonSocial = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCUIT = new System.Windows.Forms.TextBox();
+            this.txtDNI = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtMAIL = new System.Windows.Forms.TextBox();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +88,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(455, 237);
+            this.btnVolver.Location = new System.Drawing.Point(865, 237);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 4;
@@ -105,22 +109,22 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(12, 17);
+            this.lblNombre.Location = new System.Drawing.Point(12, 19);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(73, 13);
+            this.lblNombre.Size = new System.Drawing.Size(47, 13);
             this.lblNombre.TabIndex = 7;
-            this.lblNombre.Text = "Razón Social:";
+            this.lblNombre.Text = "Nombre:";
             // 
-            // txtRazonSocial
+            // txtNombre
             // 
-            this.txtRazonSocial.Location = new System.Drawing.Point(88, 16);
-            this.txtRazonSocial.Name = "txtRazonSocial";
-            this.txtRazonSocial.Size = new System.Drawing.Size(174, 20);
-            this.txtRazonSocial.TabIndex = 8;
+            this.txtNombre.Location = new System.Drawing.Point(65, 16);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(174, 20);
+            this.txtNombre.TabIndex = 8;
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(453, 40);
+            this.btnBuscar.Location = new System.Drawing.Point(863, 23);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 9;
@@ -131,18 +135,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(276, 20);
+            this.label1.Location = new System.Drawing.Point(526, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 10;
-            this.label1.Text = "CUIT:";
+            this.label1.Text = "DNI:";
             // 
-            // txtCUIT
+            // txtDNI
             // 
-            this.txtCUIT.Location = new System.Drawing.Point(311, 16);
-            this.txtCUIT.Name = "txtCUIT";
-            this.txtCUIT.Size = new System.Drawing.Size(174, 20);
-            this.txtCUIT.TabIndex = 11;
+            this.txtDNI.Location = new System.Drawing.Point(561, 40);
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(174, 20);
+            this.txtDNI.TabIndex = 11;
             // 
             // label2
             // 
@@ -160,25 +164,63 @@
             this.txtMAIL.Size = new System.Drawing.Size(210, 20);
             this.txtMAIL.TabIndex = 13;
             // 
-            // AdminEmpresa
+            // txtApellido
+            // 
+            this.txtApellido.Location = new System.Drawing.Point(322, 17);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(174, 20);
+            this.txtApellido.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(266, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Apellido:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(521, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(104, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Tipo de Documento:";
+            // 
+            // cmbTipoDocumento
+            // 
+            this.cmbTipoDocumento.FormattingEnabled = true;
+            this.cmbTipoDocumento.Location = new System.Drawing.Point(631, 17);
+            this.cmbTipoDocumento.Name = "cmbTipoDocumento";
+            this.cmbTipoDocumento.Size = new System.Drawing.Size(104, 21);
+            this.cmbTipoDocumento.TabIndex = 16;
+            // 
+            // AdminCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 292);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cmbTipoDocumento);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtMAIL);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtCUIT);
+            this.Controls.Add(this.txtDNI);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.txtRazonSocial);
+            this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.dgvRoles);
-            this.Name = "AdminEmpresa";
-            this.Text = "Administracion de Empresas";
+            this.Name = "AdminCliente";
+            this.Text = "Administracion de Clientes";
+            this.Load += new System.EventHandler(this.AdminCliente_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -193,12 +235,16 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.TextBox txtRazonSocial;
+        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtCUIT;
+        private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtMAIL;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cmbTipoDocumento;
 
     }
 }

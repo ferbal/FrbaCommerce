@@ -69,7 +69,10 @@ namespace FrbaCommerce
 
         private void btnABMEmpresa_Click(object sender, EventArgs e)
         {
-
+            View.ABM_Empresa.AdminEmpresa vtnABMEmpresa = new FrbaCommerce.View.ABM_Empresa.AdminEmpresa();
+            vtnABMEmpresa.ventana_anterior(this);
+            this.Visible = false;
+            vtnABMEmpresa.Visible = true;
         }
 
         private void btnGenerarPubli_Click(object sender, EventArgs e)
@@ -78,6 +81,14 @@ namespace FrbaCommerce
             vtnPublicacion.cargarDatos(this,idUsuario);
             this.Visible = false;
             vtnPublicacion.Visible = true;
+        }
+
+        private void btnABMCliente_Click(object sender, EventArgs e)
+        {
+            View.ABM_Cliente.AdminCliente vtnABMCliente = new FrbaCommerce.View.ABM_Cliente.AdminCliente();
+            vtnABMCliente.ventana_anterior(this);
+            this.Visible = false;
+            vtnABMCliente.Visible = true;
         }
     }
 }

@@ -165,6 +165,7 @@ namespace FrbaCommerce
             this.btnABMCliente.TabIndex = 14;
             this.btnABMCliente.Text = "ABM Cliente";
             this.btnABMCliente.UseVisualStyleBackColor = true;
+            this.btnABMCliente.Click += new System.EventHandler(this.btnABMCliente_Click);
             // 
             // btnSalir
             // 

@@ -63,7 +63,7 @@ namespace FrbaCommerce.Controller
 
                 if (idTipoPersona == (int)Model.TiposPersonas.TiposPersonasEnum.Cliente)
                 {                   
-                    idNumero = Controller.Cientes.ingresarClienteNuevo(nombre, apellido, tipoDoc, nroDoc, cuit, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad,idUsr,(int)Model.Clientes.Estados.Habilitado);
+                    idNumero = Controller.Clientes.ingresarClienteNuevo(nombre, apellido, tipoDoc, nroDoc, cuit, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad,idUsr,(int)Model.Clientes.Estados.Habilitado);
                 }
                 else
                 {

@@ -83,11 +83,17 @@
     <Compile Include="Model\TiposPublicaciones.cs" />
     <Compile Include="Model\Usuarios.cs" />
     <Compile Include="DAL\Conexion.cs" />
-    <Compile Include="View\Abm Cliente\Form1.cs">
+    <Compile Include="View\Abm Cliente\AdminCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Abm Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Abm Cliente\AdminCliente.Designer.cs">
+      <DependentUpon>AdminCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Abm Cliente\ABMCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Abm Cliente\ABMCliente.Designer.cs">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Abm Empresa\AdminEmpresa.cs">
       <SubType>Form</SubType>
@@ -203,6 +209,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Cliente\AdminCliente.resx">
+      <DependentUpon>AdminCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Cliente\ABMCliente.resx">
+      <DependentUpon>ABMCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Abm Empresa\AdminEmpresa.resx">
       <DependentUpon>AdminEmpresa.cs</DependentUpon>

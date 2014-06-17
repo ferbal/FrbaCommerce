@@ -24,8 +24,29 @@ namespace FrbaCommerce.Model
         public int IdUsuario { get; set; }
         public int IdEstado { get; set; }
 
-        public Clientes(String nombre, String apellido, int tipoDoc, int nroDoc, String nroCuil, String mail, DateTime fecha, String telefono, String calle, int pisoNro, Char depto, int codPost, String localidad,int usr, int estado)
+        public Clientes(String nombre, String apellido, int tipoDoc, int nroDoc, String nroCuil, String mail, DateTime fecha, String telefono, String calle, int pisoNro, Char depto, int codPost, String localidad, int estado)
         {
+            //this.IdCliente = idCliente;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.IdTipoDocumento = tipoDoc;
+            this.NroDocumento = nroDoc;
+            this.Cuil = nroCuil;
+            this.mail = mail;
+            this.telefono = telefono;
+            this.Calle = calle;
+            this.PisoNro = pisoNro;
+            this.Depto = depto;
+            this.CodigoPostal = codPost;
+            this.Localidad = localidad;
+            this.FechaNacimiento = fecha;
+            //this.IdUsuario = usr;
+            this.IdEstado = estado;
+        }
+
+        public Clientes(int idCliente, String nombre, String apellido, int tipoDoc, int nroDoc, String nroCuil, String mail, DateTime fecha, String telefono, String calle, int pisoNro, Char depto, int codPost, String localidad,int usr, int estado)
+        {
+            this.IdCliente = idCliente;
             this.Nombre = nombre;
             this.Apellido = apellido;
             this.IdTipoDocumento = tipoDoc;
@@ -50,7 +71,7 @@ namespace FrbaCommerce.Model
         public enum Estados
         {
             Habilitado = 1,
-            Deshabilitado = 2
+            Inhabilitado = 2
         }
     }
 }
