@@ -46,7 +46,7 @@ namespace FrbaCommerce
             btnABMVisibilidad.Enabled = dic["ABM visibilidad"];
             btnCalificarVend.Enabled = dic["Calificar al Vend"];
             btnComprarOfertar.Enabled = dic["Comprar/Ofertar"];
-            btnEditarPubli.Enabled = dic["Editar Publicación"];
+            //btnEditarPubli.Enabled = dic["Editar Publicación"];
             btnFacturarPubli.Enabled = dic["Facturar Publi"];
             btnGenerarPubli.Enabled = dic["Generar Publicación"];
             btnGestionarPreg.Enabled = dic["Gestión de Preg"];
@@ -77,10 +77,10 @@ namespace FrbaCommerce
 
         private void btnGenerarPubli_Click(object sender, EventArgs e)
         {
-            View.Generar_Publicacion.GenerarPublicacion vtnPublicacion = new FrbaCommerce.View.Generar_Publicacion.GenerarPublicacion();
-            vtnPublicacion.cargarDatos(this,idUsuario);
+            View.Generar_Publicacion.AdminPublicaciones vtnAdminPubli = new FrbaCommerce.View.Generar_Publicacion.AdminPublicaciones();
+            vtnAdminPubli.CargarDatos(this,this.idUsuario);
             this.Visible = false;
-            vtnPublicacion.Visible = true;
+            vtnAdminPubli.Visible = true;
         }
 
         private void btnABMCliente_Click(object sender, EventArgs e)

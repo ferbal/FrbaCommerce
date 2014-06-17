@@ -17,7 +17,7 @@ namespace FrbaCommerce.DAL
                 SqlConnection conexion = DAL.Conexion.getConexion();
                 SqlCommand comando = new SqlCommand(@"  SELECT
                                                             IdRubro,
-                                                            Codigo,
+                                                            --Codigo,
                                                             Descripcion
                                                         FROM Rubros",conexion);
 

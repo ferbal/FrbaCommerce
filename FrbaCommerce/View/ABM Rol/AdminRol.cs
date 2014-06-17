@@ -34,7 +34,8 @@ namespace FrbaCommerce.View.ABM_Rol
 
             DataTable dt = rol.listarRoles(txtNombre.Text);
 
-            dgvRoles.DataSource = dt;            
+            dgvRoles.DataSource = dt;
+            dgvRoles.Columns["IdRol"].Visible = false;
 
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace FrbaCommerce
 {
@@ -16,20 +17,35 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             //Application.Run(new View.ABM_Empresa.AdminEmpresa());
             //Application.Run(new View.ABM_Cliente.AdminCliente());
             Application.Run(new Principal());
             //Application.Run(new View.Login.LoginForm());
+=======
+            View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
+            vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));
+            Application.Run(vtnLogin);            
+        }
 
-            //Form vtnUsuario = new Vista.Registro_de_Usuario.Form1();
-            //vtnUsuario.Show();
-            /*
-            Model.Usuarios usr = new Model.Usuarios();
-            usr.AltaUsuarios(1,2,"fballarini");
-            
-            DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
-            usrDAL.InsertarUsuario(usr);
-            */
+        private static String LeerFechaArchConfig()
+        {
+            String str = String.Empty;
+
+            StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\config.txt");
+            str = or.ReadLine();
+>>>>>>> origin/master
+
+            if (!String.IsNullOrEmpty(str))
+            {
+                while (str.Substring(0, 6).CompareTo("Fecha=") != 0)                            
+                {
+                    str = or.ReadLine();
+                }
+                if (str.Substring(0, 6).CompareTo("Fecha=") == 0)
+                    str = str.Substring(6);
+            }
+            return str;
         }
     }
 }

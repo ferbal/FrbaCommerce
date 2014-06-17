@@ -34,7 +34,6 @@ namespace FrbaCommerce
             this.btnHistorialCli = new System.Windows.Forms.Button();
             this.btnComprarOfertar = new System.Windows.Forms.Button();
             this.btnGestionarPreg = new System.Windows.Forms.Button();
-            this.btnEditarPubli = new System.Windows.Forms.Button();
             this.btnGenerarPubli = new System.Windows.Forms.Button();
             this.btnListadoEstadistico = new System.Windows.Forms.Button();
             this.btnFacturarPubli = new System.Windows.Forms.Button();
@@ -58,7 +57,7 @@ namespace FrbaCommerce
             // 
             // btnHistorialCli
             // 
-            this.btnHistorialCli.Location = new System.Drawing.Point(178, 179);
+            this.btnHistorialCli.Location = new System.Drawing.Point(178, 150);
             this.btnHistorialCli.Name = "btnHistorialCli";
             this.btnHistorialCli.Size = new System.Drawing.Size(154, 23);
             this.btnHistorialCli.TabIndex = 3;
@@ -67,7 +66,7 @@ namespace FrbaCommerce
             // 
             // btnComprarOfertar
             // 
-            this.btnComprarOfertar.Location = new System.Drawing.Point(178, 150);
+            this.btnComprarOfertar.Location = new System.Drawing.Point(178, 121);
             this.btnComprarOfertar.Name = "btnComprarOfertar";
             this.btnComprarOfertar.Size = new System.Drawing.Size(154, 23);
             this.btnComprarOfertar.TabIndex = 4;
@@ -76,21 +75,12 @@ namespace FrbaCommerce
             // 
             // btnGestionarPreg
             // 
-            this.btnGestionarPreg.Location = new System.Drawing.Point(178, 121);
+            this.btnGestionarPreg.Location = new System.Drawing.Point(178, 92);
             this.btnGestionarPreg.Name = "btnGestionarPreg";
             this.btnGestionarPreg.Size = new System.Drawing.Size(154, 23);
             this.btnGestionarPreg.TabIndex = 5;
             this.btnGestionarPreg.Text = "Gestionar Preguntas";
             this.btnGestionarPreg.UseVisualStyleBackColor = true;
-            // 
-            // btnEditarPubli
-            // 
-            this.btnEditarPubli.Location = new System.Drawing.Point(178, 92);
-            this.btnEditarPubli.Name = "btnEditarPubli";
-            this.btnEditarPubli.Size = new System.Drawing.Size(154, 23);
-            this.btnEditarPubli.TabIndex = 6;
-            this.btnEditarPubli.Text = "Editar Publicacion";
-            this.btnEditarPubli.UseVisualStyleBackColor = true;
             // 
             // btnGenerarPubli
             // 
@@ -98,7 +88,7 @@ namespace FrbaCommerce
             this.btnGenerarPubli.Name = "btnGenerarPubli";
             this.btnGenerarPubli.Size = new System.Drawing.Size(154, 23);
             this.btnGenerarPubli.TabIndex = 7;
-            this.btnGenerarPubli.Text = "Generar Publicacion";
+            this.btnGenerarPubli.Text = "Administrador Publicaciones";
             this.btnGenerarPubli.UseVisualStyleBackColor = true;
             this.btnGenerarPubli.Click += new System.EventHandler(this.btnGenerarPubli_Click);
             // 
@@ -131,7 +121,7 @@ namespace FrbaCommerce
             // 
             // btnABMVisibilidad
             // 
-            this.btnABMVisibilidad.Location = new System.Drawing.Point(12, 179);
+            this.btnABMVisibilidad.Location = new System.Drawing.Point(343, 150);
             this.btnABMVisibilidad.Name = "btnABMVisibilidad";
             this.btnABMVisibilidad.Size = new System.Drawing.Size(154, 23);
             this.btnABMVisibilidad.TabIndex = 11;
@@ -191,7 +181,6 @@ namespace FrbaCommerce
             this.Controls.Add(this.btnFacturarPubli);
             this.Controls.Add(this.btnListadoEstadistico);
             this.Controls.Add(this.btnGenerarPubli);
-            this.Controls.Add(this.btnEditarPubli);
             this.Controls.Add(this.btnGestionarPreg);
             this.Controls.Add(this.btnComprarOfertar);
             this.Controls.Add(this.btnHistorialCli);
@@ -209,7 +198,6 @@ namespace FrbaCommerce
         private System.Windows.Forms.Button btnHistorialCli;
         private System.Windows.Forms.Button btnComprarOfertar;
         private System.Windows.Forms.Button btnGestionarPreg;
-        private System.Windows.Forms.Button btnEditarPubli;
         private System.Windows.Forms.Button btnGenerarPubli;
         private System.Windows.Forms.Button btnListadoEstadistico;
         private System.Windows.Forms.Button btnFacturarPubli;

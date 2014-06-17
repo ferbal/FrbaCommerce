@@ -16,6 +16,7 @@ C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.exe
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.pdb
 C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Empresa.AdminEmpresa.resources
+<<<<<<< HEAD
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.Properties.Resources.resources
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Cliente.AdminCliente.resources
@@ -33,3 +34,7 @@ C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.csproj.GenerateResource.Cache
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\bin\Debug\FrbaCommerce.exe
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\bin\Debug\FrbaCommerce.pdb
+=======
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.Generar_Publicacion.AdminPublicaciones.resources
+C:\Users\Admin\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Debug\FrbaCommerce.View.ABM_Empresa.AM_de_Empresa.resources
+>>>>>>> origin/master

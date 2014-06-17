@@ -99,6 +99,9 @@ namespace FrbaCommerce.Controller
                 if (usuario.idEstado == (int)Model.Usuarios.Estados.Inhabilitado)
                     throw new Exception("El usuario se encuentra inhabilitado.");
 
+                if (usuario.password.Equals("123456"))
+                    return -1;
+
                 String hashPass = Controller.Usuarios.encriptarPassword(pass);
 
                 if (usuario.password.Equals(hashPass))
@@ -120,6 +123,26 @@ namespace FrbaCommerce.Controller
                     }
                     throw new Exception("Contraseña Incorrecta.");
                 }                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static int ActualizarPassword(String usrNombre,String pass)
+        {
+            try
+            {
+                DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+                
+                String hashPass = Controller.Usuarios.encriptarPassword(pass);                
+                
+                Model.Usuarios usuario = usrDAL.loadPorLogin(usrNombre);
+
+                usrDAL.ActualizarPassword(usuario.idUsuario,hashPass);
+
+                return usuario.idUsuario;
             }
             catch (Exception ex)
             {

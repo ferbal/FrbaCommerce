@@ -1,0 +1,2 @@
+Conexion=Data Source=localhost\SQLSERVER2008;Initial Catalog=GD1C2014;Integrated Security=True
+Fecha=2014/06/16
