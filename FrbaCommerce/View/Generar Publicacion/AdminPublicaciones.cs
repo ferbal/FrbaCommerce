@@ -21,7 +21,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
-            Refresh();
+            RefreshControles();
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -170,7 +170,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado( (int) Model.Publicaciones.Estados.Activa,idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
         private void btnPausar_Click(object sender, EventArgs e)
@@ -182,7 +182,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado((int)Model.Publicaciones.Estados.Pausada, idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
@@ -194,10 +194,10 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado((int)Model.Publicaciones.Estados.Finalizada, idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
-        private void Refresh()
+        private void RefreshControles()
         {
             this.cargarDgvPublicaciones();
             this.cargarCmbEstados();
