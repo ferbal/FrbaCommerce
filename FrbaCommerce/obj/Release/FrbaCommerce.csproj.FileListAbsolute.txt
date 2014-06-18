@@ -17,3 +17,4 @@ C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommer
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.View.ABM_Empresa.AM_de_Empresa.resources
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.View.ABM_Cliente.AdminCliente.resources
 C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.View.ABM_Cliente.ABM_de_Cliente.resources
+C:\Users\Pablo\Documents\GitHub\FrbaCommerce\FrbaCommerce\obj\Release\FrbaCommerce.View.Generar_Publicacion.AdminPublicaciones.resources
