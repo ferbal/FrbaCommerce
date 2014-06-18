@@ -1,5 +1,12 @@
 
 /*Eliminar Tablas Existentes
+DROP TABLE TIPOSPUBLICACIONES
+DROP TABLE DatosTarjetas
+DROP TABLE TiposPersonas
+DROP TABLE Usuarios
+DROP TABLE Visibilidades
+DROP TABLE Estados
+
 DROP TABLE UsuariosRoles
 DROP TABLE FACTURASITEMS
 DROP TABLE FACTURAS
@@ -7,7 +14,6 @@ DROP TABLE HISTORIALES
 DROP TABLE RESPUESTAS
 DROP TABLE PREGUNTAS
 DROP TABLE PUBLICACIONESRUBROS
-DROP TABLE TIPOSPUBLICACIONES
 DROP TABLE Clientes
 DROP TABLE Empresas
 DROP TABLE RolesFuncionalidades
@@ -20,11 +26,6 @@ DROP TABLE FORMASPAGO
 DROP TABLE RUBROS
 DROP TABLE PUBLICACIONES
 DROP TABLE Ofertas
-DROP TABLE DatosTarjetas
-DROP TABLE Usuarios
-DROP TABLE Visibilidades
-DROP TABLE Estados
-DROP TABLE TiposPersonas
 
 */
 
@@ -444,20 +445,21 @@ INSERT Estados
 (Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Borrador'),('Publicada'),('Pausada'),('Finalizada')
 
 INSERT Funcionalidades
-(Descripcion) VALUES  ('Login y seguridad'),
+(Descripcion) VALUES  
+('Login y seguridad'),
 ('ABM de Rol'),
 ('Registro de Usuario'),
-('ABM de Cliente (comprador/vendedor)'),
-('ABM de Empresa (Vendedor)'),
+('ABM de Cliente'),
+('ABM de Empresa'),
 ('ABM de Rubro'),
-('ABM visibilidad de publicación'),
+('ABM visibilidad'),
 ('Generar Publicación'),
 ('Editar Publicación'),
-('Gestión de Preguntas'),
+('Gestión de Preg'),
 ('Comprar/Ofertar'),
-('Historial del cliente'),
-('Calificar al Vendedor'),
-('Facturar Publicaciones'),
+('Historial del cli'),
+('Calificar al Vend'),
+('Facturar Publi'),
 ('Listado Estadístico')
 
 INSERT Roles
@@ -477,9 +479,10 @@ password,
 fallos,
 reputacion,
 idEstado)
-VALUES('1','admin','123456','0','0','3')  
+VALUES('1','admin','12345678','0','0','3')  
 
-
+INSERT UsuariosRoles
+(IdRol,IdUsuario) VALUES (3,1)
 
 
 

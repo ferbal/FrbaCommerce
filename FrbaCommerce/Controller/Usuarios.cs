@@ -99,7 +99,7 @@ namespace FrbaCommerce.Controller
                 if (usuario.idEstado == (int)Model.Usuarios.Estados.Inhabilitado)
                     throw new Exception("El usuario se encuentra inhabilitado.");
 
-                if (usuario.password.Equals("123456"))
+                if (usuario.password.Equals("12345678"))
                     return -1;
 
                 String hashPass = Controller.Usuarios.encriptarPassword(pass);

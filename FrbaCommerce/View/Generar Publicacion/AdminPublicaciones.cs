@@ -143,20 +143,23 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 publicacion.Precio = Convert.ToDouble(cells["Precio"].Value);
                 publicacion.IdRubro = Convert.ToInt32(cells["IdRubro"].Value);
                 publicacion.PermiteRealizarPreguntas = Convert.ToBoolean(cells["PermiteRealizarPreguntas"].Value);
-                if (this.idUsuario == publicacion.IdUsuario)
-                {
+                
+                //if (this.idUsuario == publicacion.IdUsuario)
+                //{
                     View.Generar_Publicacion.GenerarPublicacion vtnModif = new GenerarPublicacion();
                     vtnModif.Text = "Modificar Publicacion";
                     vtnModif.cargarPublicacionModificar(publicacion);
                     vtnModif.cargarDatos(this, publicacion.IdUsuario);
                     vtnModif.Visible = true;
                     this.Visible = false;
+                /*
                 }
                 else
                 {
                     View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm("El Usuario no tiene permiso para modificar la publicacion.");
                     vtnError.Visible = true; 
                 }
+                 */
             }
             
         }

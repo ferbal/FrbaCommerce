@@ -84,7 +84,7 @@ namespace FrbaCommerce.View.Login
                     lblNuevoPass.Visible = true;
                     txtConfNuevoPass.Visible = true;
                     txtNuevoPass.Visible = true;
-                    txtPassword.Text = String.Empty;
+                    txtPassword.Enabled = false;
                 }
 
             }
