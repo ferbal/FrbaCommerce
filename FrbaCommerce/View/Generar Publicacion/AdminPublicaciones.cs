@@ -21,7 +21,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
-            Refresh();
+            RefreshControles();
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -143,20 +143,23 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 publicacion.Precio = Convert.ToDouble(cells["Precio"].Value);
                 publicacion.IdRubro = Convert.ToInt32(cells["IdRubro"].Value);
                 publicacion.PermiteRealizarPreguntas = Convert.ToBoolean(cells["PermiteRealizarPreguntas"].Value);
-                if (this.idUsuario == publicacion.IdUsuario)
-                {
+                
+                //if (this.idUsuario == publicacion.IdUsuario)
+                //{
                     View.Generar_Publicacion.GenerarPublicacion vtnModif = new GenerarPublicacion();
                     vtnModif.Text = "Modificar Publicacion";
                     vtnModif.cargarPublicacionModificar(publicacion);
                     vtnModif.cargarDatos(this, publicacion.IdUsuario);
                     vtnModif.Visible = true;
                     this.Visible = false;
+                /*
                 }
                 else
                 {
                     View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm("El Usuario no tiene permiso para modificar la publicacion.");
                     vtnError.Visible = true; 
                 }
+                 */
             }
             
         }
@@ -170,7 +173,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado( (int) Model.Publicaciones.Estados.Activa,idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
         private void btnPausar_Click(object sender, EventArgs e)
@@ -182,7 +185,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado((int)Model.Publicaciones.Estados.Pausada, idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
@@ -194,10 +197,10 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 Controller.Publicaciones.ActualizarEstado((int)Model.Publicaciones.Estados.Finalizada, idPublicacion);
             }
 
-            Refresh();
+            RefreshControles();
         }
 
-        private void Refresh()
+        private void RefreshControles()
         {
             this.cargarDgvPublicaciones();
             this.cargarCmbEstados();
