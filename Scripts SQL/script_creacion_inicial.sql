@@ -1,11 +1,13 @@
 
 /*Eliminar Tablas Existentes
+DROP TABLE PUBLICACIONES
+DROP TABLE Visibilidades
+DROP TABLE Usuarios
+DROP TABLE RUBROS
+DROP TABLE TiposPersonas
 DROP TABLE TIPOSPUBLICACIONES
 DROP TABLE DatosTarjetas
-DROP TABLE TiposPersonas
-DROP TABLE Usuarios
-DROP TABLE Visibilidades
-DROP TABLE Estados
+DROP TABLE BAZINGUEANDO_EN_SLQ.Estados
 
 DROP TABLE UsuariosRoles
 DROP TABLE FACTURASITEMS
@@ -23,53 +25,69 @@ DROP TABLE TiposDocumentos
 DROP TABLE CALIFICACIONES
 DROP TABLE COMPRAS
 DROP TABLE FORMASPAGO
-DROP TABLE RUBROS
-DROP TABLE PUBLICACIONES
 DROP TABLE Ofertas
+*/
 
+----------------------
+--CREACION DE SCHEMA--
+----------------------
+CREATE SCHEMA BAZINGUEANDO_EN_SLQ AUTHORIZATION gd
+Go
+---------Dar permisos de creacion de tabla al usuario---------------------
+/*
+--GRANT CREATE TABLE ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
+GRANT INSERT ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
+GRANT SELECT ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
+GRANT UPDATE ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
+GRANT EXECUTE ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
+
+GO
+
+--DENY CREATE TABLE TO gd
+GO
 */
 
 begin transaction
 
-CREATE TABLE Estados
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Estados
 (
 	idEstado INT IDENTITY(1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_Estados PRIMARY KEY (idEstado ASC) on [PRIMARY]
 )
 
-CREATE TABLE Funcionalidades
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Funcionalidades
 (
 	idFuncionalidad INT IDENTITY(1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NULL
 	CONSTRAINT PK_Funcionalidades PRIMARY KEY (idFuncionalidad ASC) ON [PRIMARY]
 )
 
-CREATE TABLE Roles
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Roles
 (
 	IdRol INT IDENTITY(1,1) NOT NULL,
 	Nombre VARCHAR(20) NOT NULL,
 	IdEstado INT NOT NULL,
 	CONSTRAINT PK_Roles PRIMARY KEY (idRol ASC) ON [PRIMARY],
-	CONSTRAINT FK_RolesEstados FOREIGN KEY (idEstado) REFERENCES Estados(idEstado)
+	CONSTRAINT FK_RolesEstados FOREIGN KEY (idEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(idEstado)
 )
 
-CREATE TABLE RolesFuncionalidades
+CREATE TABLE BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
 (
 	IdRol INT NOT NULL,
 	IdFuncionalidad INT NOT NULL,
-	CONSTRAINT FK_RolesFuncionalidades_Roles FOREIGN KEY (IdRol) REFERENCES Roles(IdRol),
-	CONSTRAINT FK_RolesFuncionalidades_Funcionalidades FOREIGN KEY (IdFuncionalidad) REFERENCES Funcionalidades(IdFuncionalidad)
+	CONSTRAINT FK_RolesFuncionalidades_Roles FOREIGN KEY (IdRol) REFERENCES BAZINGUEANDO_EN_SLQ.Roles(IdRol),
+	CONSTRAINT FK_RolesFuncionalidades_Funcionalidades FOREIGN KEY (IdFuncionalidad) REFERENCES BAZINGUEANDO_EN_SLQ.Funcionalidades(IdFuncionalidad)
 )
 
-CREATE TABLE TiposPersonas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.TiposPersonas
 (
 	idTipoPersona INT IDENTITY(1,1) NOT NULL,
 	Descripcion VARCHAR(20) NOT NULL,
 	CONSTRAINT PK_TiposPersonas PRIMARY KEY CLUSTERED (idTipoPersona ASC) ON [PRIMARY]
 )
 
-CREATE TABLE Usuarios
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Usuarios
 (
 	idUsuario INT IDENTITY(1,1) NOT NULL,
 	idTipoPersona INT NULL,
@@ -80,33 +98,33 @@ CREATE TABLE Usuarios
 	reputacion INT NULL,
 	idEstado INT NULL,
 	CONSTRAINT PK_Usuarios PRIMARY KEY CLUSTERED (idUsuario ASC) ON [PRIMARY],
-	CONSTRAINT FK_Usuarios_TiposPersonas FOREIGN KEY (idTipoPersona) REFERENCES TiposPersonas(idTipoPersona),
-	CONSTRAINT FK_Usuarios_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Usuarios_TiposPersonas FOREIGN KEY (idTipoPersona) REFERENCES BAZINGUEANDO_EN_SLQ.TiposPersonas(idTipoPersona),
+	CONSTRAINT FK_Usuarios_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado)
 )
 
-CREATE TABLE Rubros
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Rubros
 (
 	IdRubro INT IDENTITY(1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_Rubros PRIMARY KEY (idRubro)
 )
 
-CREATE TABLE UsuariosRoles
+CREATE TABLE BAZINGUEANDO_EN_SLQ.UsuariosRoles
 (
 	IdUsuario INT NOT NULL,
 	IdRol INT NOT NULL,
-	CONSTRAINT FK_UsuariosRoles_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_UsuariosRoles_Roles FOREIGN KEY (IdRol) REFERENCES Roles(IdRol)
+	CONSTRAINT FK_UsuariosRoles_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_UsuariosRoles_Roles FOREIGN KEY (IdRol) REFERENCES BAZINGUEANDO_EN_SLQ.Roles(IdRol)
 )
 
-CREATE TABLE TiposDocumentos
+CREATE TABLE BAZINGUEANDO_EN_SLQ.TiposDocumentos
 (
 	IdTipoDocumento INT IDENTITY(1,1) NOT NULL,
 	Descripcion VARCHAR(10) NOT NULL,
 	CONSTRAINT PK_TiposDocumentos PRIMARY KEY (IdTipoDocumento)
 )
 
-CREATE TABLE Clientes
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Clientes
 (
 	IdCliente INT IDENTITY(1,1) NOT NULL,
 	Nombre NVARCHAR(255) NULL,
@@ -126,12 +144,12 @@ CREATE TABLE Clientes
 	idUsuario INT NOT NULL,
 	idEstado INT NOT NULL
 	CONSTRAINT PK_Clientes PRIMARY KEY (idCliente),
-	CONSTRAINT FK_Clientes_TiposDocumentos FOREIGN KEY (IdTipoDoc) REFERENCES TiposDocumentos(IdTipoDocumento),
-	CONSTRAINT FK_Clientes_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Clientes_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Clientes_TiposDocumentos FOREIGN KEY (IdTipoDoc) REFERENCES BAZINGUEANDO_EN_SLQ.TiposDocumentos(IdTipoDocumento),
+	CONSTRAINT FK_Clientes_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_Clientes_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado)
 )
 
-CREATE TABLE Empresas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Empresas
 (
 	IdEmpresa INT IDENTITY(1,1) NOT NULL,
 	RazonSocial NVARCHAR(255) NULL,
@@ -151,11 +169,11 @@ CREATE TABLE Empresas
 	
 	
 	CONSTRAINT PK_Empresas PRIMARY KEY (idEmpresa),
-	CONSTRAINT FK_Empresas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Empresas_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Empresas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_Empresas_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado)
 )
 
-CREATE TABLE Visibilidades
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Visibilidades
 (
 	IdVisibilidad INT IDENTITY(1,1) NOT NULL,
 	Codigo NUMERIC(18) NOT NULL,
@@ -165,18 +183,18 @@ CREATE TABLE Visibilidades
 	PorcentajeVenta NUMERIC(18,2) NOT NULL,
 	IdEstado INT NOT NULL,
 	CONSTRAINT PK_Visibilidades PRIMARY KEY (idVisibilidad),
-	CONSTRAINT FK_Visibilidades_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Visibilidades_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado)
 	
 )
 
-CREATE TABLE TiposPublicaciones
+CREATE TABLE BAZINGUEANDO_EN_SLQ.TiposPublicaciones
 (	
 	IdTipoPublicacion INT IDENTITY(1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_TiposPublicaciones PRIMARY KEY (IdTipoPublicacion)
 )
 
-CREATE TABLE Publicaciones
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Publicaciones
 (
 	IdPublicacion INT IDENTITY (1,1) NOT NULL,
 	CodPublicacion NUMERIC(18) NOT NULL,
@@ -193,22 +211,22 @@ CREATE TABLE Publicaciones
 	IdUsuario INT NOT NULL,
 	PermiteRealizarPreguntas BIT NOT NULL DEFAULT(1),
 	CONSTRAINT PK_Publicaciones PRIMARY KEY (IdPublicacion),
-	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Publicaciones_TipoPublicaciones FOREIGN KEY (IdTipoPublicacion) REFERENCES TiposPublicaciones(IdTipoPublicacion),
-	CONSTRAINT FK_Publicaciones_Visibilidad FOREIGN KEY (IdVisibilidad) REFERENCES Visibilidades(IdVisibilidad),
-	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado),
-	CONSTRAINT FK_Publicaciones_Rubros FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro)
+	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_Publicaciones_TipoPublicaciones FOREIGN KEY (IdTipoPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.TiposPublicaciones(IdTipoPublicacion),
+	CONSTRAINT FK_Publicaciones_Visibilidad FOREIGN KEY (IdVisibilidad) REFERENCES BAZINGUEANDO_EN_SLQ.Visibilidades(IdVisibilidad),
+	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado),
+	CONSTRAINT FK_Publicaciones_Rubros FOREIGN KEY (IdRubro) REFERENCES BAZINGUEANDO_EN_SLQ.Rubros(IdRubro)
 )
 
-CREATE TABLE PublicacionesRubros
+CREATE TABLE BAZINGUEANDO_EN_SLQ.PublicacionesRubros
 (
 	IdPublicacion INT NOT NULL,
 	IdRubro INT NOT NULL,
-	CONSTRAINT FK_PublicacionesRubros_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
-	CONSTRAINT FK_PublicacionesRubros_Rubros FOREIGN KEY (IdRubro) REFERENCES Rubros(IdRubro)
+	CONSTRAINT FK_PublicacionesRubros_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion),
+	CONSTRAINT FK_PublicacionesRubros_Rubros FOREIGN KEY (IdRubro) REFERENCES BAZINGUEANDO_EN_SLQ.Rubros(IdRubro)
 )
 
-CREATE TABLE Preguntas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Preguntas
 (
 	IdPregunta INT IDENTITY(1,1) NOT NULL,
 	IdPublicacion INT NOT NULL,
@@ -216,11 +234,11 @@ CREATE TABLE Preguntas
 	Descripcion VARCHAR(50) NULL,
 	Fecha DATETIME NOT NULL,
 	CONSTRAINT PK_Preguntas PRIMARY KEY (IdPregunta),
-	CONSTRAINT FK_Preguntas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
-	CONSTRAINT FK_Preguntas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT FK_Preguntas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion),
+	CONSTRAINT FK_Preguntas_Usuario FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario)
 )
 
-CREATE TABLE Respuestas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Respuestas
 (
 	IdRespuesta INT IDENTITY(1,1) NOT NULL,
 	IdPregunta INT NOT NULL,
@@ -229,13 +247,13 @@ CREATE TABLE Respuestas
 	Descripcion VARCHAR(50) NULL,
 	Fecha DATETIME NOT NULL,
 	CONSTRAINT PK_Respuestas PRIMARY KEY (IdRespuesta),
-	CONSTRAINT FK_Respuestas_Preguntas FOREIGN KEY (IdPregunta) REFERENCES Preguntas(IdPregunta)
+	CONSTRAINT FK_Respuestas_Preguntas FOREIGN KEY (IdPregunta) REFERENCES BAZINGUEANDO_EN_SLQ.Preguntas(IdPregunta)
 	--CONSTRAINT FK_Respuestas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
 	--CONSTRAINT FK_Respuestas_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
 )
 
 
-CREATE TABLE Compras
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Compras
 (
 	IdCompra INT IDENTITY(1,1) NOT NULL,
 	IdUsrComprador INT NOT NULL,
@@ -245,11 +263,11 @@ CREATE TABLE Compras
 	--Precio NUMERIC(10,2) NOT NULL,
 	--IdEstado INT NOT NULL,
 	CONSTRAINT PK_Compras PRIMARY KEY (IdCompra),
-	CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (IdUsrComprador) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion),
+	CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (IdUsrComprador) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion),
 )
 
-CREATE TABLE Ofertas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Ofertas
 (
 	IdOferta INT IDENTITY (1,1) NOT NULL,
 	IdPublicacion INT NOT NULL,
@@ -257,12 +275,12 @@ CREATE TABLE Ofertas
 	Oferta_Fecha DATETIME,
 	Oferta_Monto NUMERIC(18,2),
 	CONSTRAINT PK_Ofertas PRIMARY KEY (IdOferta),
-	CONSTRAINT FK_Ofertas_Usuarios FOREIGN KEY (IdUsrOfertante) REFERENCES Usuarios(idUsuario),
-	CONSTRAINT FK_Ofertas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES Publicaciones(IdPublicacion)
+	CONSTRAINT FK_Ofertas_Usuarios FOREIGN KEY (IdUsrOfertante) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(idUsuario),
+	CONSTRAINT FK_Ofertas_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion)
 	
 )	
 
-CREATE TABLE Calificaciones
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Calificaciones
 (
 	IdCalificacion INT IDENTITY(1,1) NOT NULL,
 	IdCompra INT NOT NULL,
@@ -270,10 +288,10 @@ CREATE TABLE Calificaciones
 	Calificacion NUMERIC(18) NOT NULL,
 	Detalle NVARCHAR(255) NULL,
 	CONSTRAINT PK_Calificaciones PRIMARY KEY (IdCalificacion),
-	CONSTRAINT FK_Calificaciones_Compras FOREIGN KEY (IdCompra) REFERENCES Compras(IdCompra)
+	CONSTRAINT FK_Calificaciones_Compras FOREIGN KEY (IdCompra) REFERENCES BAZINGUEANDO_EN_SLQ.Compras(IdCompra)
 )
 
-CREATE TABLE Historiales
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Historiales
 (
 	IdHistorial INT IDENTITY(1,1) NOT NULL,
 	IdUsuario INT NOT NULL,
@@ -281,17 +299,17 @@ CREATE TABLE Historiales
 	IdNumero INT NOT NULL,
 	FechaAlta DATE NOT NULL,
 	CONSTRAINT PK_Historiales PRIMARY KEY (IdHistorial),
-	CONSTRAINT FK_Historiales_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario)
+	CONSTRAINT FK_Historiales_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario)
 )
 
-CREATE TABLE FormasPago
+CREATE TABLE BAZINGUEANDO_EN_SLQ.FormasPago
 (
 	IdFormaPago INT IDENTITY (1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NULL,
 	CONSTRAINT PK_FormasPago PRIMARY KEY (IdFormaPago)
 )
 
-CREATE TABLE Facturas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.Facturas
 (
 	IdFactura INT IDENTITY(1,1) NOT NULL,
 	NroSucursal INT NOT NULL,
@@ -302,12 +320,12 @@ CREATE TABLE Facturas
 	IdEstado INT NOT NULL,
 	Total NUMERIC(18,2) NOT NULL,
 	CONSTRAINT PK_Facturas PRIMARY KEY (IdFactura),
-	CONSTRAINT FK_Facturas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(IdUsuario),
-	CONSTRAINT FK_Facturas_FormasPago FOREIGN KEY (IdFormaPago) REFERENCES FormasPago(IdFormaPago),
-	CONSTRAINT FK_Facturas_Estados FOREIGN KEY (IdEstado) REFERENCES Estados(IdEstado)
+	CONSTRAINT FK_Facturas_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
+	CONSTRAINT FK_Facturas_FormasPago FOREIGN KEY (IdFormaPago) REFERENCES BAZINGUEANDO_EN_SLQ.FormasPago(IdFormaPago),
+	CONSTRAINT FK_Facturas_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado)
 )
 
-CREATE TABLE FacturasItems
+CREATE TABLE BAZINGUEANDO_EN_SLQ.FacturasItems
 (
 	IdFacturaItem INT IDENTITY(1,1) NOT NULL,
 	IdFactura INT NOT NULL,
@@ -316,25 +334,25 @@ CREATE TABLE FacturasItems
 	Comision NUMERIC(18,2) NOT NULL,
 	CantVendida NUMERIC(18) NOT NULL,
 	CONSTRAINT PK_FacturasItems PRIMARY KEY (IdFacturaItem),
-	CONSTRAINT FK_FacturasItems_Facturas FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura)
+	CONSTRAINT FK_FacturasItems_Facturas FOREIGN KEY (IdFactura) REFERENCES BAZINGUEANDO_EN_SLQ.Facturas(IdFactura)
 )
-CREATE TABLE DatosTarjetas
+CREATE TABLE BAZINGUEANDO_EN_SLQ.DatosTarjetas
 (
 	IdFactura INT NOT NULL,
 	NroTarjeta NUMERIC(18,0) NULL,
 	FechaVencTarjeta DATETIME NULL,
 	CodigoSeguridad INT NULL,
 	TitularTarjeta VARCHAR(30) NULL,
-	CONSTRAINT FK_DatosTarjetas_Facturas FOREIGN KEY (IdFactura) REFERENCES Facturas(IdFactura)
+	CONSTRAINT FK_DatosTarjetas_Facturas FOREIGN KEY (IdFactura) REFERENCES BAZINGUEANDO_EN_SLQ.Facturas(IdFactura)
 )	
 
 Commit transaction
 go
 create trigger TRIGGER_CLIENTES_USUARIOS
-  on Usuarios
+  on BAZINGUEANDO_EN_SLQ.Usuarios
   for insert
   as
-  INSERT INTO Clientes
+  INSERT INTO BAZINGUEANDO_EN_SLQ.Clientes
    (Nombre,
 	Apellido,
 	NroDocumento,
@@ -368,20 +386,30 @@ create trigger TRIGGER_CLIENTES_USUARIOS
 			Cli_Cod_Postal,
 			Cli_Fecha_Nac,
 			inserted.idUsuario,
-			'1' idEstado
-			
+			'1' idEstado			
 	FROM gd_esquema.Maestra,inserted
 	WHERE Cli_Mail=inserted.login
-	Group by Cli_Dni,Cli_Nombre,Cli_Apeliido,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,Cli_Depto,Cli_Cod_Postal,Cli_Fecha_Nac,inserted.idUsuario,idEstado
+	Group by	Cli_Dni,
+				Cli_Nombre,
+				Cli_Apeliido,
+				Cli_Mail,
+				Cli_Dom_Calle,
+				Cli_Nro_Calle,
+				Cli_Piso,
+				Cli_Depto,
+				Cli_Cod_Postal,
+				Cli_Fecha_Nac,
+				inserted.idUsuario,
+				idEstado
 	order by Cli_Apeliido 
 
 go
 	
 create trigger TRIGGER_EMPRESAS_USUARIOS
-  on Usuarios
+  on BAZINGUEANDO_EN_SLQ.Usuarios
   for insert
   as
-  INSERT INTO Empresas
+  INSERT INTO BAZINGUEANDO_EN_SLQ.Empresas
    (RazonSocial,
 	CUIT,
 	NombreContacto,
@@ -413,12 +441,17 @@ select  Publ_Empresa_Razon_Social,
 		'3' IdEstado
 	FROM gd_esquema.Maestra,inserted
 	WHERE Publ_Empresa_Mail=inserted.login
-	group by Publ_Empresa_Cuit,Publ_Empresa_Razon_Social,
-	Publ_Empresa_Fecha_Creacion,Publ_Empresa_Mail,
-	Publ_Empresa_Dom_Calle,Publ_Empresa_Nro_Calle,
-	Publ_Cli_Piso,Publ_Empresa_Depto,
-	Publ_Empresa_Cod_Postal,
-	inserted.idUsuario,idEstado
+	group by	Publ_Empresa_Cuit,
+				Publ_Empresa_Razon_Social,
+				Publ_Empresa_Fecha_Creacion,
+				Publ_Empresa_Mail,
+				Publ_Empresa_Dom_Calle,
+				Publ_Empresa_Nro_Calle,
+				Publ_Cli_Piso,
+				Publ_Empresa_Depto,
+				Publ_Empresa_Cod_Postal,
+				inserted.idUsuario,
+				idEstado
 
 	order by Publ_Empresa_Razon_Social
 go
@@ -429,22 +462,22 @@ DROP TRIGGER TRIGGER_EMPRESAS_USUARIOS
 */
 --------Carga de Datos iniciales
 
-INSERT TiposPersonas
+INSERT BAZINGUEANDO_EN_SLQ.TiposPersonas
 (Descripcion) VALUES ('Fisica'),('Juridica')
 
-INSERT FormasPago 
+INSERT BAZINGUEANDO_EN_SLQ.FormasPago 
 (Descripcion) VALUES ('Efectivo'),('Tarjeta de Credito'),('Tarjeta de Debito')
 
-INSERT TiposPublicaciones
+INSERT BAZINGUEANDO_EN_SLQ.TiposPublicaciones
 (Descripcion) VALUES ('Compra Inmediata'),('Subasta')
 
-INSERT TiposDocumentos 
+INSERT BAZINGUEANDO_EN_SLQ.TiposDocumentos 
 (Descripcion) VALUES ('DNI'),('LE'),('LC')
 
-INSERT Estados
+INSERT BAZINGUEANDO_EN_SLQ.Estados
 (Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Borrador'),('Publicada'),('Pausada'),('Finalizada')
 
-INSERT Funcionalidades
+INSERT BAZINGUEANDO_EN_SLQ.Funcionalidades
 (Descripcion) VALUES  
 ('Login y seguridad'),
 ('ABM de Rol'),
@@ -462,17 +495,17 @@ INSERT Funcionalidades
 ('Facturar Publi'),
 ('Listado Estadístico')
 
-INSERT Roles
+INSERT BAZINGUEANDO_EN_SLQ.Roles
 (Nombre,IdEstado) VALUES ('Cliente','1')  ,('Empresa','1'),('Administrativo','1')
 
 
-INSERT RolesFuncionalidades
+INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
 (IdRol,IdFuncionalidad)
 select
 '3',IdFuncionalidad 
-from Funcionalidades
+from BAZINGUEANDO_EN_SLQ.Funcionalidades
 
-INSERT Usuarios
+INSERT BAZINGUEANDO_EN_SLQ.Usuarios
 (idTipoPersona,
 login,
 password,
@@ -481,30 +514,33 @@ reputacion,
 idEstado)
 VALUES('1','admin','12345678','0','0','3')  
 
-INSERT UsuariosRoles
+INSERT BAZINGUEANDO_EN_SLQ.UsuariosRoles
 (IdRol,IdUsuario) VALUES (3,1)
 
 
 
 --------MIGRACION---------------------------------------------------------------------------------------
 
-INSERT INTO Visibilidades
-(Codigo,
-Descripcion,
-Duracion,
-PrecioPorPublicar,
-PorcentajeVenta,
-IdEstado)
-select Publicacion_Visibilidad_Cod,
- Publicacion_Visibilidad_Desc,DATEDIFF(DD, Publicacion_Fecha,Publicacion_Fecha_Venc), 
- Publicacion_Visibilidad_Precio, 
- Publicacion_Visibilidad_Porcentaje,
- '1' IdEstado
- from gd_esquema.Maestra
- group by Publicacion_Visibilidad_Cod,Publicacion_Visibilidad_Desc,DATEDIFF(DD, Publicacion_Fecha,Publicacion_Fecha_Venc),
-  Publicacion_Visibilidad_Precio, 
- Publicacion_Visibilidad_Porcentaje
-order by Publicacion_Visibilidad_Cod
+INSERT INTO BAZINGUEANDO_EN_SLQ.Visibilidades
+		(Codigo,
+		Descripcion,
+		Duracion,
+		PrecioPorPublicar,
+		PorcentajeVenta,
+		IdEstado)
+	select	Publicacion_Visibilidad_Cod,
+			Publicacion_Visibilidad_Desc,
+			DATEDIFF(DD, Publicacion_Fecha,Publicacion_Fecha_Venc), 
+			Publicacion_Visibilidad_Precio, 
+			Publicacion_Visibilidad_Porcentaje,
+			'1' IdEstado
+	from gd_esquema.Maestra
+	group by	Publicacion_Visibilidad_Cod,
+				Publicacion_Visibilidad_Desc,
+				DATEDIFF(DD, Publicacion_Fecha,Publicacion_Fecha_Venc),
+				Publicacion_Visibilidad_Precio, 
+				Publicacion_Visibilidad_Porcentaje
+	order by Publicacion_Visibilidad_Cod
 
 
 --Reputacion Clientes (divide por Operaciones realizadas? aunque no esten calificadas? )
@@ -514,176 +550,241 @@ where Compra_Fecha is not NULL and Calificacion_Cant_Estrellas is not NULL and P
 group by Publ_Cli_Dni
 */
 --INSERT RUBROS
-INSERT INTO Rubros
-(Descripcion)
-select Publicacion_Rubro_Descripcion from gd_esquema.Maestra group by Publicacion_Rubro_Descripcion order by Publicacion_Rubro_Descripcion
+INSERT INTO BAZINGUEANDO_EN_SLQ.Rubros
+	(
+		Descripcion
+	)
+	select	Publicacion_Rubro_Descripcion 
+	from gd_esquema.Maestra 
+	group by Publicacion_Rubro_Descripcion 
+	order by Publicacion_Rubro_Descripcion
 
 
 
 --INSERT USUARIOS CLIENTE
-INSERT INTO Usuarios
-  (idTipoPersona,
-  login,
-  password,
-  fallos,
-  reputacion,
-  idEstado)
-  select '1' idTipoPersona,
-		Cli_Mail,
-		'12345678'password,
-		'0'fallos,
-		/*(select AVG(Calificacion_Cant_Estrellas)
-         from gd_esquema.Maestra 
-		 where Compra_Fecha is not NULL and Calificacion_Cant_Estrellas is not NULL and 
-		 Publ_Cli_Dni=Cli_Dni
-		 group by Publ_Cli_Dni)reputacion,*/
-		 '0' reputacion,
-		'3'idEstado
-		from gd_esquema.Maestra
-		where Cli_Dni is not null
-		group by Cli_Dni,Cli_Mail,Cli_Apeliido
-		order by Cli_Apeliido
+INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
+	(
+		idTipoPersona,
+		login,
+		password,
+		fallos,
+		reputacion,
+		idEstado
+	)
+	select	'1' idTipoPersona,
+			Cli_Mail,
+			'12345678'password,
+			'0'fallos,
+			'0' reputacion,
+			'3'idEstado
+	from gd_esquema.Maestra
+	where Cli_Dni is not null
+	group by	Cli_Dni,
+				Cli_Mail,
+				Cli_Apeliido
+	order by Cli_Apeliido
 		
 --INSERT USUARIOS EMPRESA
-INSERT INTO Usuarios
-  (idTipoPersona,
-  login,
-  password,
-  fallos,
-  reputacion,
-  idEstado)
-  select '2' idTipoPersona,
-		Publ_Empresa_Mail,
-		'12345678'password,
-		'0'fallos,
-		/*(select AVG(Calificacion_Cant_Estrellas)
-         from gd_esquema.Maestra 
-		 where Compra_Fecha is not NULL and Calificacion_Cant_Estrellas is not NULL and 
-		 Publ_Cli_Dni=Cli_Dni
-		 group by Publ_Cli_Dni)reputacion,*/
-		 '0' reputacion,
-		'3'idEstado
-		from gd_esquema.Maestra
-		where Publ_Empresa_Cuit is not null
-		group by Publ_Empresa_Cuit,Publ_Empresa_Mail,Publ_Empresa_Razon_Social
-		order by Publ_Empresa_Razon_Social
+INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
+	(
+		idTipoPersona,
+		login,
+		password,
+		fallos,
+		reputacion,
+		idEstado
+	)
+	select	'2' idTipoPersona,
+			Publ_Empresa_Mail,
+			'12345678'password,
+			'0'fallos,
+			'0' reputacion,
+			'3'idEstado
+	from gd_esquema.Maestra
+	where Publ_Empresa_Cuit is not null
+	group by Publ_Empresa_Cuit,Publ_Empresa_Mail,Publ_Empresa_Razon_Social
+	order by Publ_Empresa_Razon_Social
 			
 --------------------------------
 --INSERT PUBLICACIONES
 
-INSERT INTO Publicaciones
-(CodPublicacion,
-IdTipoPublicacion,
-IdVisibilidad,
---Valor,
-IdEstado,
-FechaInicio,
-FechaFin,
-Descripcion,
-Stock,
-Precio,
---Oferta_Fecha,
---Oferta_Monto,
-IdRubro,
-IdUsuario,
-PermiteRealizarPreguntas)
+INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
+	(
+		CodPublicacion,
+		IdTipoPublicacion,
+		IdVisibilidad,
+		--Valor,
+		IdEstado,
+		FechaInicio,
+		FechaFin,
+		Descripcion,
+		Stock,
+		Precio,
+		--Oferta_Fecha,
+		--Oferta_Monto,
+		IdRubro,
+		IdUsuario,
+		PermiteRealizarPreguntas
+	)
+	select	Publicacion_Cod,
+			(select TiposPublicaciones.IdTipoPublicacion  
+				from BAZINGUEANDO_EN_SLQ.TiposPublicaciones 
+				where Publicacion_Tipo like TiposPublicaciones.Descripcion) tipo,
+			(select Visibilidades.IdVisibilidad 
+				from BAZINGUEANDO_EN_SLQ.Visibilidades 
+				where  Publicacion_Visibilidad_Cod =Visibilidades.Codigo) IdVisibilidad,
+			(select Estados.idEstado 
+				from BAZINGUEANDO_EN_SLQ.Estados 
+				where Publicacion_Estado like Estados.Descripcion)IdEstado,
+			Publicacion_Fecha,
+			Publicacion_Fecha_Venc,
+			Publicacion_Descripcion,
+			Publicacion_Stock,
+			Publicacion_Precio,
 
-select Publicacion_Cod,
-(select TiposPublicaciones.IdTipoPublicacion  from TiposPublicaciones where Publicacion_Tipo like TiposPublicaciones.Descripcion) tipo,
-(select Visibilidades.IdVisibilidad from Visibilidades where  Publicacion_Visibilidad_Cod =Visibilidades.Codigo) IdVisibilidad,
-(select Estados.idEstado from Estados where Publicacion_Estado like Estados.Descripcion)IdEstado,
-Publicacion_Fecha,
-Publicacion_Fecha_Venc,
-Publicacion_Descripcion,
-Publicacion_Stock,
-Publicacion_Precio,
-
-(select Rubros.IdRubro from Rubros where Publicacion_Rubro_Descripcion like Rubros.Descripcion)IdRubro ,
-(select Usuarios.idUsuario from Usuarios where (Publ_Empresa_Mail like Usuarios.login or Publ_Cli_Mail like Usuarios.login))IdUsuario,
-'1' PermiteRealizarPreguntas
-from gd_esquema.Maestra 
-
-group by Publicacion_Cod,Publicacion_Tipo,Publicacion_Visibilidad_Cod,Publicacion_Estado,
-Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Descripcion,Publicacion_Stock,
-Publicacion_Precio,
-Publicacion_Rubro_Descripcion,Publ_Empresa_Mail,Publ_Cli_Mail
-order by Publicacion_Cod
+			(select Rubros.IdRubro 
+				from BAZINGUEANDO_EN_SLQ.Rubros 
+				where Publicacion_Rubro_Descripcion like Rubros.Descripcion)IdRubro ,
+			(select Usuarios.idUsuario 
+				from BAZINGUEANDO_EN_SLQ.Usuarios 
+				where (Publ_Empresa_Mail like Usuarios.login or Publ_Cli_Mail like Usuarios.login))IdUsuario,
+			'1' PermiteRealizarPreguntas
+	from gd_esquema.Maestra 
+	group by	Publicacion_Cod,
+				Publicacion_Tipo,
+				Publicacion_Visibilidad_Cod,
+				Publicacion_Estado,
+				Publicacion_Fecha,
+				Publicacion_Fecha_Venc,
+				Publicacion_Descripcion,
+				Publicacion_Stock,
+				Publicacion_Precio,
+				Publicacion_Rubro_Descripcion,
+				Publ_Empresa_Mail,
+				Publ_Cli_Mail
+	order by Publicacion_Cod
 
 
 ------ INSERT COMPRAS
 
-INSERT INTO Compras
-(IdUsrComprador,
-IdPublicacion,
-Fecha,
-Cantidad)
-select
-(select Usuarios.idUsuario from Usuarios where Cli_Mail like Usuarios.login),
-(select Publicaciones.IdPublicacion from Publicaciones where g.Publicacion_Cod = Publicaciones.CodPublicacion),
---g.Publicacion_Stock,
-g.Compra_Fecha,
-g.Compra_Cantidad
---select Publicacion_Cod,Publicacion_Stock,Cli_Dni,Oferta_Fecha ,Compra_Fecha,Compra_Cantidad,g.Calificacion_Codigo
-from gd_esquema.Maestra g
-where g.Compra_Fecha is not NULL and g.Calificacion_Codigo is NULL
-order by g.Publicacion_Cod
-
+INSERT INTO BAZINGUEANDO_EN_SLQ.Compras
+	(
+		IdUsrComprador,
+		IdPublicacion,
+		Fecha,
+		Cantidad
+	)
+	select
+		(select Usuarios.idUsuario from BAZINGUEANDO_EN_SLQ.Usuarios where Cli_Mail like Usuarios.login),
+		(select Publicaciones.IdPublicacion from BAZINGUEANDO_EN_SLQ.Publicaciones where g.Publicacion_Cod = Publicaciones.CodPublicacion),
+		--g.Publicacion_Stock,
+		g.Compra_Fecha,
+		g.Compra_Cantidad
+		--select Publicacion_Cod,Publicacion_Stock,Cli_Dni,Oferta_Fecha ,Compra_Fecha,Compra_Cantidad,g.Calificacion_Codigo
+	from gd_esquema.Maestra g
+	where	g.Compra_Fecha is not NULL 
+			AND g.Calificacion_Codigo is NULL
+	order by g.Publicacion_Cod
 
 ---INSERT OFERTAS
 
-INSERT INTO Ofertas
-(IdPublicacion,
-IdUsrOfertante,
-Oferta_Fecha,
-Oferta_Monto)
-select
-(select Publicaciones.IdPublicacion from Publicaciones where Publicacion_Cod = Publicaciones.CodPublicacion)IdPublicacion,
-(select Usuarios.idUsuario from Usuarios where (Cli_Mail like Usuarios.login))IdUsr,
-Oferta_Fecha,
-Oferta_Monto
---select Publicacion_Cod,Oferta_Fecha,Oferta_Monto, Calificacion_Codigo
-from gd_esquema.Maestra
-where Oferta_Fecha is NOT NULL
-order by Publicacion_Cod, Oferta_Monto
+INSERT INTO BAZINGUEANDO_EN_SLQ.Ofertas
+	(
+		IdPublicacion,
+		IdUsrOfertante,
+		Oferta_Fecha,
+		Oferta_Monto
+	)
+	select
+		(select Publicaciones.IdPublicacion from BAZINGUEANDO_EN_SLQ.Publicaciones where Publicacion_Cod = Publicaciones.CodPublicacion)IdPublicacion,
+		(select Usuarios.idUsuario from BAZINGUEANDO_EN_SLQ.Usuarios where (Cli_Mail like Usuarios.login))IdUsr,
+		Oferta_Fecha,
+		Oferta_Monto
+		--select Publicacion_Cod,Oferta_Fecha,Oferta_Monto, Calificacion_Codigo
+	from gd_esquema.Maestra
+	where Oferta_Fecha is NOT NULL
+	order by Publicacion_Cod, Oferta_Monto
 
 ---INSERT CALIFICACIONES
 
 -- Tenemos problemas con las compras que se realizaron con el mismo usuario, 
 --misma publicacion y misma fecha de compra.
 
-INSERT INTO Calificaciones
-(IdCompra,
-Codigo,
-Calificacion,
-Detalle)
-select 
-comp.IdCompra,--,pub.IdPublicacion,Publicacion_Cod,usr.idUsuario,Oferta_Fecha,
---(select IddCompra from Compras where Compras.Fecha=g.Compra_Fecha and Compras.IdPublicacion = (select IdPublicacion from Publicaciones where g.Publicacion_Cod= Publicaciones.CodPublicacion) ), 
-Calificacion_Codigo,
-Calificacion_Cant_Estrellas,
-Calificacion_Descripcion
---SELECT COMP.*,PUB.*
-from gd_esquema.Maestra g
-inner join Publicaciones pub
-on pub.CodPublicacion = g.Publicacion_Cod
-inner join Usuarios usr
-on g.Cli_Mail = usr.login
-inner join Compras comp
-	on comp.IdPublicacion = pub.IdPublicacion
-    and comp.idUsrComprador = usr.idUsuario
+--ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NULL;
+
+INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
+	(
+		Codigo,
+		Calificacion
+	)
+	SELECT DISTINCT Calificacion_Codigo,1
+	FROM gd_esquema.Maestra
+	WHERE Calificacion_Codigo IS NOT NULL
+	GROUP BY Calificacion_Codigo
+	ORDER BY Calificacion_Codigo
+	
+	select 
+		comp.IdCompra,
+		Calificacion_Codigo,
+		Calificacion_Cant_Estrellas,
+		Calificacion_Descripcion
+		
+UPDATE BAZINGUEANDO_EN_SLQ.Calificaciones
+SET IdCompra = (SELECT MIN(COMP.IdCompra)
+				FROM BAZINGUEANDO_EN_SLQ.Compras COMP
+				LEFT JOIN BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
+					ON CALIF.IdCompra = COMP.IdCompra
+				WHERE	CALIF.IdCalificacion IS NULL
+						AND COMP.IdPublicacion = PUB.IdPublicacion
+						AND COMP.Fecha = G.Compra_Fecha
+						AND COMP.IdUsrComprador = USR.idUsuario
+						AND COMP.Cantidad = G.Compra_Cantidad
+				GROUP BY COMP.IdPublicacion), 
+	Calificacion=G.Calificacion_Cant_Estrellas, 
+	Detalle= G.Calificacion_Descripcion
+FROM BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
+INNER JOIN gd_esquema.Maestra g
+	ON CALIF.Codigo = G.Calificacion_Codigo
+	AND G.Calificacion_Codigo IS NOT NULL
+INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones pub
+	on pub.CodPublicacion = g.Publicacion_Cod
+Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
+	on g.Cli_Mail = usr.login
+where	g.Compra_Fecha is not NULL 
+		and g.Calificacion_Codigo is NOT NULL		
+
+SELECT CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Codigo,G.Calificacion_Cant_Estrellas,COUNT(*)
+--SELECT *
+--SELECT comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
+--SELECT *
+FROM BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
+INNER JOIN gd_esquema.Maestra g
+	ON CALIF.Codigo = G.Calificacion_Codigo
+	AND G.Calificacion_Codigo IS NOT NULL
+INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones pub
+	on pub.CodPublicacion = g.Publicacion_Cod
+Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
+	on g.Cli_Mail = usr.login
+INNER JOIN BAZINGUEANDO_EN_SLQ.Compras COMP
+	ON COMP.IdPublicacion = PUB.IdPublicacion
 	AND COMP.Fecha = G.Compra_Fecha
-	
-	
+	AND COMP.Cantidad = G.Compra_Cantidad
+	AND COMP.IdUsrComprador = USR.idUsuario
+--inner join BAZINGUEANDO_EN_SLQ.Compras comp
+--	on comp.IdPublicacion = pub.IdPublicacion
+--	and comp.idUsrComprador = usr.idUsuario
+--	AND COMP.Fecha = G.Compra_Fecha
+where	g.Compra_Fecha is not NULL 
+		and g.Calificacion_Codigo is NOT NULL
+--		AND pUB.CodPublicacion = 40365 AND CALIF.Codigo = 63809
+		AND pUB.CodPublicacion = 31403 AND CALIF.Codigo = 48187
+--AND pUB.CodPublicacion = 40365 AND CALIF.Codigo = 63809
+GROUP BY G.Calificacion_Codigo,	CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Cant_Estrellas
+--GROUP BY comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
+HAVING COUNT(*)>1
 
-where g.Compra_Fecha is not NULL and g.Calificacion_Codigo is NOT NULL
-group by comp.IdCompra,--pub.IdPublicacion,Publicacion_Cod,usr.idUsuario,Oferta_Fecha,
-Calificacion_Codigo,	
-Calificacion_Cant_Estrellas,
-Calificacion_Descripcion
-
-order by Calificacion_Codigo
-
-
+SELECT * FROM gd_esquema.Maestra
+WHERE Publicacion_Cod = 31403 AND Calificacion_Codigo = 48187
 
 -----INSERT FACTURAS
 
