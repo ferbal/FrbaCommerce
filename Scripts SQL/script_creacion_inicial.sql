@@ -712,6 +712,8 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Ofertas
 
 --ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NULL;
 
+DELETE BAZINGUEANDO_EN_SLQ.Calificaciones
+
 INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
 	(
 		Codigo,
@@ -723,21 +725,13 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
 	GROUP BY Calificacion_Codigo
 	ORDER BY Calificacion_Codigo
 	
-	select 
-		comp.IdCompra,
-		Calificacion_Codigo,
-		Calificacion_Cant_Estrellas,
-		Calificacion_Descripcion
-		
 UPDATE BAZINGUEANDO_EN_SLQ.Calificaciones
 SET IdCompra = (SELECT MIN(COMP.IdCompra)
-				FROM BAZINGUEANDO_EN_SLQ.Compras COMP
-				LEFT JOIN BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
-					ON CALIF.IdCompra = COMP.IdCompra
-				WHERE	CALIF.IdCalificacion IS NULL
-						AND COMP.IdPublicacion = PUB.IdPublicacion
+				FROM BAZINGUEANDO_EN_SLQ.Compras COMP			
+				WHERE	CALIF.IdCompra IS NULL
+						AND COMP.IdPublicacion= PUB.IdPublicacion
 						AND COMP.Fecha = G.Compra_Fecha
-						AND COMP.IdUsrComprador = USR.idUsuario
+						AND COMP.IdUsrComprador = USR.idUsuario					
 						AND COMP.Cantidad = G.Compra_Cantidad
 				GROUP BY COMP.IdPublicacion), 
 	Calificacion=G.Calificacion_Cant_Estrellas, 
@@ -752,7 +746,11 @@ Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
 	on g.Cli_Mail = usr.login
 where	g.Compra_Fecha is not NULL 
 		and g.Calificacion_Codigo is NOT NULL		
-
+-----------------------------
+/* CASOS PARA CONTROLAR
+CodPublicacion = 31403 AND CALIF.Codigo = 48187
+CodPublicacion = 40365 AND CALIF.Codigo = 63809
+*/
 SELECT CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Codigo,G.Calificacion_Cant_Estrellas,COUNT(*)
 --SELECT *
 --SELECT comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
