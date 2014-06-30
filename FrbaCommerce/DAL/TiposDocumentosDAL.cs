@@ -24,6 +24,10 @@ namespace FrbaCommerce.DAL
 
                 dt.Load(comando.ExecuteReader());
 
+                DataRow row = dt.NewRow();
+                row["Descripcion"] = ""; //insert a blank row
+                dt.Rows.InsertAt(row, 0); //insert new to to index 0 (on top)
+
                 return dt;
             }
             catch (Exception ex)

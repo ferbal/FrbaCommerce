@@ -42,7 +42,7 @@ namespace FrbaCommerce.View.ABM_Cliente
             DAL.ClientesDAL cliente = new FrbaCommerce.DAL.ClientesDAL();
 
             DataTable dt = cliente.listarClientes(txtNombre.Text, txtApellido.Text, cmbTipoDocumento.Text, txtDNI.Text, txtMAIL.Text);
-
+                
             dgvRoles.DataSource = dt;
 
             dgvRoles.Columns["IdEstado"].Visible = false;

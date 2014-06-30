@@ -17,15 +17,12 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-<<<<<<< HEAD
             //Application.Run(new View.ABM_Empresa.AdminEmpresa());
             //Application.Run(new View.ABM_Cliente.AdminCliente());
             Application.Run(new Principal());
             //Application.Run(new Principal());
             //Application.Run(new View.Login.LoginForm());
-=======
 
->>>>>>> origin/master
             View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
             vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));
             Application.Run(vtnLogin);            

@@ -67,6 +67,7 @@
             this.epPass = new System.Windows.Forms.ErrorProvider(this.components);
             this.epApellido = new System.Windows.Forms.ErrorProvider(this.components);
             this.epRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epCuil = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).BeginInit();
@@ -74,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCuil)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlCliente
@@ -354,9 +356,9 @@
             this.lblDNI.Cursor = System.Windows.Forms.Cursors.Default;
             this.lblDNI.Location = new System.Drawing.Point(7, 109);
             this.lblDNI.Name = "lblDNI";
-            this.lblDNI.Size = new System.Drawing.Size(29, 13);
+            this.lblDNI.Size = new System.Drawing.Size(120, 13);
             this.lblDNI.TabIndex = 3;
-            this.lblDNI.Text = "DNI:";
+            this.lblDNI.Text = "Numero de Documento:";
             // 
             // epFecha
             // 
@@ -382,6 +384,10 @@
             // 
             this.epRazonSocial.ContainerControl = this;
             // 
+            // epCuil
+            // 
+            this.epCuil.ContainerControl = this;
+            // 
             // ABM_de_Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -399,6 +405,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCuil)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -441,5 +448,6 @@
         private System.Windows.Forms.ComboBox cmbTipoDocumento;
         private System.Windows.Forms.TextBox txtcuil;
         private System.Windows.Forms.Label lblcuil;
+        private System.Windows.Forms.ErrorProvider epCuil;
     }
 }

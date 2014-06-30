@@ -63,6 +63,7 @@
             this.epPass = new System.Windows.Forms.ErrorProvider(this.components);
             this.epApellido = new System.Windows.Forms.ErrorProvider(this.components);
             this.epRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epCuit = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).BeginInit();
@@ -70,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCuit)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlCliente
@@ -341,6 +343,10 @@
             // 
             this.epRazonSocial.ContainerControl = this;
             // 
+            // epCuit
+            // 
+            this.epCuit.ContainerControl = this;
+            // 
             // AM_de_Empresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,6 +363,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCuit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -395,5 +402,6 @@
         private System.Windows.Forms.ErrorProvider epRazonSocial;
         private System.Windows.Forms.Label txtError;
         private System.Windows.Forms.CheckBox chkhabilitado;
+        private System.Windows.Forms.ErrorProvider epCuit;
     }
 }

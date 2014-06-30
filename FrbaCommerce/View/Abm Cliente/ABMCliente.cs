@@ -91,7 +91,6 @@ namespace FrbaCommerce.View.ABM_Cliente
             char depto;
             int estado;
 
-            //ver validacion CUIL
             try
             {
                 
@@ -127,8 +126,6 @@ namespace FrbaCommerce.View.ABM_Cliente
                 }else{
                     estado = (int)FrbaCommerce.Model.Clientes.Estados.Inhabilitado;
                 }
-
-                //DAL.ClientesDAL cliente = new FrbaCommerce.DAL.ClientesDAL();
 
                 int idTipoDoc = DAL.ClientesDAL.obtenerTipoDoc(cmbTipoDocumento.Text);
 
@@ -182,26 +179,83 @@ namespace FrbaCommerce.View.ABM_Cliente
         private Boolean validarDatos()
         {
             Boolean estado = true;
+
+            epFecha.Dispose();
             if (String.IsNullOrEmpty(txtFechaNac.Text))
             {
                 epFecha.SetError(lblFechaNac, "La FECHA es un campo requerido.");
                 estado = false;
             }
 
+            epTelefono.Dispose();
             if (String.IsNullOrEmpty(txtTelefono.Text))
             {
                 epTelefono.SetError(lblTelefono, "El TELEFONO es un campo requerido.");
                 estado = false;
             }
 
+            epRazonSocial.Dispose();
             if (String.IsNullOrEmpty(txtNombre.Text))
             {
-                epRazonSocial.SetError(txtNombre,"La RAZON SOCIAL es un campo requerido.");
+                epRazonSocial.SetError(lblNombre,"El NOMBRE es un campo requerido.");
+                estado = false;
+            }
+
+            epCuil.Dispose();
+            if (!ValidaCuit(txtcuil.Text))
+            {
+                epCuil.SetError(txtcuil, "El CUIT no es valido.");
                 estado = false;
             }
 
             return estado;
         }
+
+
+        /// <summary>
+        /// Valida el CUIT ingresado.
+        /// </summary>
+        /// <param name="cuit" />Número de CUIT como string con o sin guiones
+        /// <returns>True si el CUIT es válido y False si no.</returns>
+        public static bool ValidaCuit(string cuit)
+        {
+            if (cuit == null)
+            {
+                return false;
+            }
+
+            //Quito los guiones, el cuit resultante debe tener 11 caracteres.
+            cuit = cuit.Replace("-", string.Empty);
+            if (cuit.Length != 11)
+            {
+                return false;
+            }
+            else
+            {
+                int calculado = CalcularDigitoCuit(cuit);
+                int digito = int.Parse(cuit.Substring(10));
+                return calculado == digito;
+            }
+        }
+
+        // <summary>
+        /// Calcula el dígito verificador dado un CUIT completo o sin él.
+        /// </summary>
+        /// <param name="cuit">El CUIT como String sin guiones</param>
+        /// <returns>El valor del dígito verificador calculado.</returns>
+        public static int CalcularDigitoCuit(string cuit)
+        {
+            int[] mult = new[] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
+            char[] nums = cuit.ToCharArray();
+            int total = 0;
+            for (int i = 0; i < mult.Length; i++)
+            {
+                total += int.Parse(nums[i].ToString()) * mult[i];
+            }
+            var resto = total % 11;
+            return resto == 0 ? 0 : resto == 1 ? 9 : 11 - resto;
+        }
+
 
         private void txtFechaNac_TextChanged(object sender, EventArgs e)
         {
