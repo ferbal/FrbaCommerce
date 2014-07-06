@@ -19,7 +19,7 @@ namespace FrbaCommerce.DAL
                                                             IdRubro,
                                                             --Codigo,
                                                             Descripcion
-                                                        FROM Rubros",conexion);
+                                                        FROM BAZINGUEANDO_EN_SLQ.Rubros", conexion);
 
                 dt.Load(comando.ExecuteReader());
 

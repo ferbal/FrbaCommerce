@@ -21,10 +21,10 @@ namespace FrbaCommerce.DAL
                                                                 R.IdRol,
                                                                 R.Nombre,
                                                                 Est.Descripcion Estado
-                                                        FROM Roles R
-                                                        INNER JOIN Estados Est
+                                                        FROM BAZINGUEANDO_EN_SLQ.Roles R
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Estados Est
                                                             ON R.idEstado = Est.idEstado
-                                                        WHERE R.IdEstado = @idEstado",conexion);
+                                                        WHERE R.IdEstado = @idEstado", conexion);
 
                 comando.Parameters.AddWithValue("@idEstado",Model.Roles.Estados.Habilitado);
 
@@ -53,7 +53,8 @@ namespace FrbaCommerce.DAL
                 SqlCommand comando = new SqlCommand(@"  SELECT 
                                                                 R.IdRol,
                                                                 R.Nombre                                                                
-                                                        FROM Roles R " + where, conexion);
+                                                        FROM BAZINGUEANDO_EN_SLQ.Roles R 
+                                                     " + where, conexion);
 
                 dt.Load(comando.ExecuteReader());
 
@@ -81,8 +82,8 @@ namespace FrbaCommerce.DAL
                                                                 R.IdRol,
                                                                 R.Nombre,
                                                                 Est.Descripcion Estado
-                                                        FROM Roles R
-                                                        INNER JOIN Estados Est
+                                                        FROM BAZINGUEANDO_EN_SLQ.Roles R
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Estados Est
                                                             ON R.idEstado = Est.idEstado" + where, conexion);                
 
                 dt.Load(comando.ExecuteReader());
@@ -102,7 +103,7 @@ namespace FrbaCommerce.DAL
             //SqlTransaction ts = conexion.BeginTransaction();
             try
             {
-                SqlCommand comando = new SqlCommand(@"INSERT INTO Roles
+                SqlCommand comando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.Roles
                                                         (
                                                             Nombre,
                                                             IdEstado
@@ -132,7 +133,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"  UPDATE Roles
+                SqlCommand comando = new SqlCommand(@"  UPDATE BAZINGUEANDO_EN_SLQ.Roles
                                                         SET Nombre = @Nombre
                                                         WHERE idRol = @idRol",conexion);
 
@@ -152,7 +153,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"  DELETE Roles
+                SqlCommand comando = new SqlCommand(@"  DELETE BAZINGUEANDO_EN_SLQ.Roles
                                                         WHERE idRol = @idRol", conexion);
 
                 comando.Parameters.AddWithValue("@idRol", id);

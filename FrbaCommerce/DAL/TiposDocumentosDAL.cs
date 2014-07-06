@@ -16,10 +16,11 @@ namespace FrbaCommerce.DAL
             {
 
                 DataTable dt = new DataTable();
+                
 
                 SqlCommand comando = new SqlCommand(@"SELECT IdTipoDocumento, Descripcion
-                                                  FROM TiposDocumentos", conexion);
-
+                                                  FROM BAZINGUEANDO_EN_SLQ.TiposDocumentos", conexion);
+                
                 dt.TableName = "TiposDocumentos";
 
                 dt.Load(comando.ExecuteReader());

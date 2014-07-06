@@ -23,10 +23,10 @@ namespace FrbaCommerce.Model
 
         public enum Estados
         {
-            Borrador = 4,
-            Activa = 5,
-            Pausada = 6,
-            Finalizada = 7
+            Borrador = 1,
+            Activa = 2,
+            Pausada = 3,
+            Finalizada = 4
         }
     }
 }

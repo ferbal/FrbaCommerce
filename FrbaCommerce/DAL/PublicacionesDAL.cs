@@ -14,7 +14,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  INSERT INTO Publicaciones
+                SqlCommand comando = new SqlCommand(@"  INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
                                                         (
                                                             IdTipoPublicacion,
                                                             CodPublicacion,
@@ -71,7 +71,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  UPDATE Publicaciones
+                SqlCommand comando = new SqlCommand(@"  UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
                                                         SET
                                                             IdTipoPublicacion = @IdTipoPublicacion,
                                                             CodPublicacion = @CodPublicacion,
@@ -114,8 +114,8 @@ namespace FrbaCommerce.DAL
                 DataTable dt = new DataTable();
                 SqlConnection conexion = DAL.Conexion.getConexion();
                 SqlCommand comando = new SqlCommand(@"   SELECT MAX(CodPublicacion)
-                                                            FROM Publicaciones
-                                                            GROUP BY CodPublicacion",conexion);
+                                                            FROM BAZINGUEANDO_EN_SLQ.Publicaciones
+                                                            GROUP BY CodPublicacion", conexion);
                 dt.Load(comando.ExecuteReader());
 
                 return dt;
@@ -151,7 +151,7 @@ namespace FrbaCommerce.DAL
 
                 if (!String.IsNullOrEmpty(where))
                     where = "WHERE " + where.Substring(4);
-
+                
                 SqlCommand comando = new SqlCommand(@"  SELECT  IdPublicacion,
                                                                 CodPublicacion Codigo,
                                                                 PUB.IdVisibilidad,
@@ -169,19 +169,23 @@ namespace FrbaCommerce.DAL
                                                                 RUB.Descripcion Rubro,
                                                                 PUB.IdUsuario,
                                                                 PUB.PermiteRealizarPreguntas
-                                                        FROM Publicaciones PUB
-                                                        INNER JOIN TiposPublicaciones TP
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
                                                             ON PUB.IdTipoPublicacion = TP.IdTipoPublicacion
-                                                        INNER JOIN Estados EST
-                                                            ON PUB.IdEstado = EST.IdEstado
-                                                        INNER JOIN Rubros RUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EST
+                                                            ON PUB.IdEstado = EST.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Rubros RUB
                                                             ON RUB.IdRubro = PUB.IdRubro
-                                                        INNER JOIN Visibilidades V
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
                                                             ON V.IdVisibilidad = PUB.IdVisibilidad
-                                                        INNER JOIN Usuarios USR
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
                                                             ON USR.IdUsuario = PUB.IdUsuario
-                                                        " + where,conexion);                
-
+                                                        " + where,conexion);
+                /*
+                SqlCommand comando = new SqlCommand(@"  SELECT *
+                                                        FROM BAZINGUEANDO_EN_SLQ.VistaPublicaciones 
+                                                        " + where, conexion);                
+                */
                 dt.Load(comando.ExecuteReader());
 
                 return dt;
@@ -192,12 +196,87 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public DataTable listarPublicacionesPaginadas(int pDesde,int codigo, String descripcion, String vendedor, int tipoPub, int estado)
+        {
+            try
+            {
+                String where = String.Empty;
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                
+                if(codigo != -1)
+                    where = " AND CodPublicacion = " + codigo.ToString();
+
+                if (!String.IsNullOrEmpty(descripcion))
+                    where = where + " AND PUB.Descripcion LIKE '%" + descripcion + "%'";
+
+                if(!String.IsNullOrEmpty(vendedor))
+                    where = where + " AND USR.Login LIKE '%" + vendedor + "%'";
+
+                if (tipoPub != -1)
+                    where = where + " AND PUB.IdTipoPublicacion = " + tipoPub.ToString();
+
+                if (estado != -1)
+                    where = where + " AND PUB.IdEstado = " + estado.ToString();
+
+                if (pDesde != null)
+                    where = where + " AND PUB.IdPublicacion NOT IN (SELECT TOP " + pDesde.ToString()
+                                    + " IdPublicacion FROM BAZINGUEANDO_EN_SLQ.Publicaciones)";
+               
+
+                if (!String.IsNullOrEmpty(where))
+                    where = "WHERE " + where.Substring(4);
+                
+                SqlCommand comando = new SqlCommand(@"  SELECT  TOP 10
+                                                                IdPublicacion,
+                                                                CodPublicacion Codigo,
+                                                                PUB.IdVisibilidad,
+                                                                V.Descripcion Visibilidad,
+                                                                PUB.IdTipoPublicacion,
+                                                                TP.Descripcion [Tipo Publicacion],
+                                                                PUB.IdEstado,
+                                                                EST.Descripcion Estado,
+                                                                PUB.FechaInicio [Fecha Inicio],
+                                                                PUB.FechaFin [Fecha Fin],
+                                                                PUB.Descripcion,
+                                                                PUB.Stock,
+                                                                PUB.Precio,
+                                                                PUB.IdRubro,
+                                                                RUB.Descripcion Rubro,
+                                                                PUB.IdUsuario,
+                                                                PUB.PermiteRealizarPreguntas
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
+                                                            ON PUB.IdTipoPublicacion = TP.IdTipoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EST
+                                                            ON PUB.IdEstado = EST.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Rubros RUB
+                                                            ON RUB.IdRubro = PUB.IdRubro
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+                                                            ON V.IdVisibilidad = PUB.IdVisibilidad
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
+                                                            ON USR.IdUsuario = PUB.IdUsuario
+                                                        " + where,conexion);
+                /*
+                SqlCommand comando = new SqlCommand(@"  SELECT *
+                                                        FROM BAZINGUEANDO_EN_SLQ.VistaPublicaciones 
+                                                        " + where, conexion);                
+                */
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public void ActualizarEstado(int estado,int publicacion)
         {
             try
             {
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  UPDATE Publicaciones
+                SqlCommand comando = new SqlCommand(@"  UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
                                                         SET IdEstado = @IdEstado
                                                         WHERE IdPublicacion = @IdPublicacion",conexion);
 
@@ -218,9 +297,8 @@ namespace FrbaCommerce.DAL
             {
                 DataTable dt = new DataTable();
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  SELECT IdEstado,Descripcion
-                                                        FROM Estados
-                                                        WHERE IdEstado IN (4,5,6,7)", conexion);
+                SqlCommand comando = new SqlCommand(@"  SELECT IdEstadoPublicacion,Descripcion
+                                                        FROM BAZINGUEANDO_EN_SLQ.EstadosPublicacion", conexion);
 
                 dt.Load(comando.ExecuteReader());
 

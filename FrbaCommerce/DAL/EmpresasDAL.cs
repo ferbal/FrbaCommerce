@@ -64,8 +64,8 @@ namespace FrbaCommerce.DAL
                                                         E.IdEmpresa,
                                                         E.idEstado
 
-                                                        FROM Empresas E
-														INNER JOIN Estados Est
+                                                        FROM BAZINGUEANDO_EN_SLQ.Empresas E
+														INNER JOIN BAZINGUEANDO_EN_SLQ.Estados Est
                                                         ON E.idEstado = Est.idEstado
 
                                                         WHERE E.IdEstado = Est.idEstado
@@ -105,7 +105,7 @@ namespace FrbaCommerce.DAL
             try
             {
 
-                SqlCommand comando = new SqlCommand(@"INSERT INTO Empresas 
+                SqlCommand comando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.Empresas 
                                                         (
                                                             RazonSocial,
                                                             Cuit,
@@ -168,7 +168,7 @@ namespace FrbaCommerce.DAL
                 DataTable dt = new DataTable();
 
                 SqlCommand comando = new SqlCommand(@"SELECT IdEmpresa
-                                                  FROM Empresas
+                                                  FROM BAZINGUEANDO_EN_SLQ.Empresas
                                                   WHERE Cuit = @Cuit", conexion);
                 comando.Parameters.AddWithValue("@Cuit", Cuit);
                 dt.Load(comando.ExecuteReader());
@@ -192,7 +192,7 @@ namespace FrbaCommerce.DAL
                 DataTable dt = new DataTable();
 
                 SqlCommand comando = new SqlCommand(@"SELECT *
-                                                      FROM Empresas
+                                                      FROM BAZINGUEANDO_EN_SLQ.Empresas
                                                       WHERE Cuit = @Cuit", conexion);
 
                 comando.Parameters.AddWithValue("@Cuit", Cuit);
@@ -214,7 +214,7 @@ namespace FrbaCommerce.DAL
             try
             {
 
-                SqlCommand comando = new SqlCommand(@"UPDATE Empresas 
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Empresas 
                                                       SET  
                                                             RazonSocial = @RazonSocial,
                                                             Cuit = @Cuit,
@@ -261,7 +261,7 @@ namespace FrbaCommerce.DAL
             try
             {
 
-                SqlCommand comando = new SqlCommand(@"UPDATE Empresas 
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Empresas 
                                                       SET  
                                                             idEstado = @estado
                                                     WHERE idEmpresa = @idEmpresa"

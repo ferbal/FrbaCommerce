@@ -14,7 +14,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  INSERT INTO RolesFuncionalidades
+                SqlCommand comando = new SqlCommand(@"  INSERT INTO BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
                                                         (
                                                             idRol,
                                                             idFuncionalidad
@@ -40,7 +40,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"  DELETE RolesFuncionalidades
+                SqlCommand comando = new SqlCommand(@"  DELETE BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
                                                         WHERE idRol = @idRol",conexion);
 
                 comando.Parameters.AddWithValue("@idRol",idRol);
@@ -60,8 +60,8 @@ namespace FrbaCommerce.DAL
                 SqlConnection conexion = DAL.Conexion.getConexion();
                 DataTable dt = new DataTable();
                 SqlCommand comando = new SqlCommand(@"  SELECT F.Descripcion
-                                                        FROM RolesFuncionalidades RF
-                                                        INNER JOIN Funcionalidades F
+                                                        FROM BAZINGUEANDO_EN_SLQ.RolesFuncionalidades RF
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Funcionalidades F
                                                             ON F.idFuncionalidad = RF.idFuncionalidad
                                                         WHERE idRol = @idRol", conexion);
 

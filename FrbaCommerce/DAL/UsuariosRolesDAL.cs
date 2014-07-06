@@ -14,7 +14,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"INSERT INTO UsuariosRoles
+                SqlCommand comando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.UsuariosRoles
                                                         (
                                                             IdUsuario,
                                                             IdRol
@@ -44,11 +44,11 @@ namespace FrbaCommerce.DAL
             {
                 SqlCommand comando = new SqlCommand(@"  SELECT  R.idRol,
                                                                 R.Nombre
-                                                        FROM Roles R
-                                                        INNER JOIN UsuariosRoles UR
+                                                        FROM BAZINGUEANDO_EN_SLQ.Roles R
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.UsuariosRoles UR
                                                             ON UR.idRol = R.idRol
                                                         WHERE UR.idUsuario = @idUsuario
-                                                            AND R.idEstado = @idEstado",conexion);
+                                                            AND R.idEstado = @idEstado", conexion);
 
                 comando.Parameters.AddWithValue("@idUsuario",idUsuario);
                 comando.Parameters.AddWithValue("@idEstado",Model.Roles.Estados.Habilitado);

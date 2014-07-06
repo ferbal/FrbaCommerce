@@ -14,7 +14,9 @@ namespace FrbaCommerce.DAL
             SqlConnection cn = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand commando = new SqlCommand("SELECT idTipoPersona, Descripcion FROM TiposPersonas", cn);
+                SqlCommand commando = new SqlCommand(@"SELECT idTipoPersona, Descripcion 
+                                                      FROM BAZINGUEANDO_EN_SLQ.TiposPersonas"
+                                                     , cn);
                 DataTable dt = new DataTable();
                 dt.TableName = "TiposPersonas";
                 dt.Load(commando.ExecuteReader());

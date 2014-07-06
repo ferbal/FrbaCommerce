@@ -15,7 +15,7 @@ namespace FrbaCommerce.DAL
 
             try
             {
-                SqlCommand commando = new SqlCommand(@"INSERT INTO Usuarios 
+                SqlCommand commando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios 
                                                         (
                                                             idTipoPersona,                                                            
                                                             login,
@@ -59,7 +59,7 @@ namespace FrbaCommerce.DAL
                                                             password,
                                                             fallos,
                                                             idEstado
-                                                       FROM Usuarios
+                                                       FROM BAZINGUEANDO_EN_SLQ.Usuarios
                                                        WHERE login = @login", conexion);
 
                 comando.Parameters.AddWithValue("@login", login);
@@ -79,7 +79,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"UPDATE Usuarios
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
                                                       SET fallos = fallos + 1
                                                       WHERE idUsuario = @idUsuario",conexion);
                 comando.Parameters.AddWithValue("@idUsuario",idUsuario);
@@ -97,7 +97,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"UPDATE Usuarios
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
                                                       SET fallos = 0
                                                       WHERE idUsuario = @idUsuario", conexion);
                 comando.Parameters.AddWithValue("@idUsuario", idUsuario);
@@ -115,7 +115,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"UPDATE Usuarios
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
                                                       SET password = @pass
                                                       WHERE idUsuario = @idUsuario", conexion);
                 comando.Parameters.AddWithValue("@idUsuario", idUsuario);
@@ -134,7 +134,7 @@ namespace FrbaCommerce.DAL
             SqlConnection conexion = DAL.Conexion.getConexion();
             try
             {
-                SqlCommand comando = new SqlCommand(@"UPDATE Usuarios
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
                                                       SET idEstado = @idEstado
                                                       WHERE idUsuario = @idUsuario", conexion);
 
@@ -161,7 +161,7 @@ namespace FrbaCommerce.DAL
                                                             password,
                                                             fallos,
                                                             idEstado
-                                                       FROM Usuarios
+                                                       FROM BAZINGUEANDO_EN_SLQ.Usuarios
                                                        WHERE login = @login", conexion);
 
                 comando.Parameters.AddWithValue("@login", login);

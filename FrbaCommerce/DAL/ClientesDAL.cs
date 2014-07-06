@@ -63,32 +63,34 @@ namespace FrbaCommerce.DAL
 
                 if (!String.IsNullOrEmpty(tipoDoc))
                 {
-                    where = where + " AND IdTipoDoc = (SELECT IdTipoDocumento FROM TiposDocumentos WHERE Descripcion LIKE '%" + tipoDoc + "%')";
+                    where = where + @" AND IdTipoDoc = (SELECT IdTipoDocumento 
+                                                        FROM BAZINGUEANDO_EN_SLQ.TiposDocumentos 
+                                                        WHERE Descripcion LIKE '%" + tipoDoc + "%')";
                 }
 
                 SqlCommand comando = new SqlCommand(@"  SELECT 
-                                                        C.Nombre,
-                                                        T.Descripcion,
-                                                        C.NroDocumento,
-                                                        C.Mail,
-	                                                    C.Apellido,
-	                                                    C.Telefono,
-	                                                    C.Calle,
-	                                                    C.PisoNro,
-	                                                    C.Depto,
-	                                                    C.Localidad,
-	                                                    C.CodigoPostal,
-	                                                    C.FechaNacimiento,
-                                                        C.CUIL,
-                                                        est.Descripcion,
-                                                        C.IdCliente,
-                                                        C.idEstado
-
-                                                        FROM Clientes C
-														INNER JOIN Estados Est
-                                                        ON C.idEstado = Est.idEstado
-                                                        
-                                                        " + where + " inner join TiposDocumentos T ON idTipoDocumento = C.idTipoDoc", conexion);
+                                                            C.Nombre,
+                                                            T.Descripcion,
+                                                            C.NroDocumento,
+                                                            C.Mail,
+	                                                        C.Apellido,
+	                                                        C.Telefono,
+	                                                        C.Calle,
+	                                                        C.PisoNro,
+	                                                        C.Depto,
+	                                                        C.Localidad,
+	                                                        C.CodigoPostal,
+	                                                        C.FechaNacimiento,
+                                                            C.CUIL,
+                                                            est.Descripcion,
+                                                            C.IdCliente,
+                                                            C.idEstado
+                                                        FROM BAZINGUEANDO_EN_SLQ.Clientes C
+														INNER JOIN BAZINGUEANDO_EN_SLQ.Estados Est
+                                                            ON C.idEstado = Est.idEstado
+                                                        inner join BAZINGUEANDO_EN_SLQ.TiposDocumentos T 
+                                                            ON idTipoDocumento = C.idTipoDoc 
+                                                        " + where, conexion);
 
 
                 dt.Load(comando.ExecuteReader());
@@ -108,7 +110,7 @@ namespace FrbaCommerce.DAL
 
             try
             {
-                SqlCommand commando = new SqlCommand(@"INSERT INTO Clientes 
+                SqlCommand commando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.Clientes 
                                                         (
                                                             Nombre,
                                                             Apellido,
@@ -173,7 +175,7 @@ namespace FrbaCommerce.DAL
             try
             {
 
-                SqlCommand comando = new SqlCommand(@"UPDATE Clientes 
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Clientes 
                                                       SET  
                                                             Nombre = @Nombre,
                                                             Cuil = @Cuil,
@@ -224,7 +226,7 @@ namespace FrbaCommerce.DAL
             try
             {
 
-                SqlCommand comando = new SqlCommand(@"UPDATE Clientes 
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Clientes 
                                                       SET  
                                                             idEstado = @estado
                                                     WHERE idCliente = @idCliente"
@@ -249,9 +251,9 @@ namespace FrbaCommerce.DAL
 
                 DataTable dt = new DataTable();
 
-                SqlCommand comando = new SqlCommand(@"SELECT IdCliente
-                                                  FROM Clientes
-                                                  WHERE NroDocumento = @NroDocumento", conexion);
+                SqlCommand comando = new SqlCommand(@"  SELECT IdCliente
+                                                        FROM BAZINGUEANDO_EN_SLQ.Clientes
+                                                        WHERE NroDocumento = @NroDocumento", conexion);
                 comando.Parameters.AddWithValue("@NroDocumento", nroDoc);
                 dt.Load(comando.ExecuteReader());
 
@@ -271,7 +273,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlCommand comando = new SqlCommand(@"SELECT *                                                            
-                                                        FROM Clientes
+                                                        FROM BAZINGUEANDO_EN_SLQ.Clientes
                                                         WHERE NroDocumento = @NroDocumento
                                                         AND IdTipoDoc = @IdTipoDocumento", conexion);
 
@@ -295,7 +297,7 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlCommand comando = new SqlCommand(@"SELECT idTipoDocumento                                                            
-                                                        FROM TiposDocumentos
+                                                        FROM BAZINGUEANDO_EN_SLQ.TiposDocumentos
                                                         WHERE Descripcion = @TipoDoc
                                                         ", conexion);
 

@@ -13,6 +13,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
     {
         private Form vtnAnterior = null;
         private int idUsuario = -1;
+        private int paginaActual = 0;
 
         public AdminPublicaciones()
         {
@@ -50,14 +51,18 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
             if (cmbEstado.SelectedValue != null)
                 estado = (int)cmbEstado.SelectedValue;
+            
+            //DataTable dt = Controller.Publicaciones.ListarPublicaciones(codigo, descripcion, usrVend, tipoPubli, estado);
+            DataTable dtPaginado = Controller.Publicaciones.ListarPublicaciones(this.paginaActual,codigo,descripcion,usrVend,tipoPubli,estado);
 
-            dgvPublicaciones.DataSource = Controller.Publicaciones.ListarPublicaciones(codigo,descripcion,usrVend,tipoPubli,estado);
+            dgvPublicaciones.DataSource = dtPaginado;
             dgvPublicaciones.Columns["IdPublicacion"].Visible = false;
             dgvPublicaciones.Columns["IdEstado"].Visible = false;
             dgvPublicaciones.Columns["IdUsuario"].Visible = false;
             dgvPublicaciones.Columns["IdRubro"].Visible = false;
             dgvPublicaciones.Columns["IdVisibilidad"].Visible = false;
             dgvPublicaciones.Columns["IdTipoPublicacion"].Visible = false;
+            
         }
 
         private void AdminPublicaciones_VisibleChanged(object sender, EventArgs e)
@@ -226,13 +231,13 @@ namespace FrbaCommerce.View.Generar_Publicacion
             DataTable dt = Controller.Publicaciones.ObtenerListaEstados();
             DataRow dr = dt.NewRow();
             
-            dr["IdEstado"] = -1;
+            dr["IdEstadoPublicacion"] = -1;
             dr["Descripcion"] = "Todos";
             dt.Rows.InsertAt(dr,0);
             
             cmbEstado.DataSource = dt;            
             cmbEstado.DisplayMember = "Descripcion";
-            cmbEstado.ValueMember = "IdEstado";
+            cmbEstado.ValueMember = "IdEstadoPublicacion";
             
         }
 

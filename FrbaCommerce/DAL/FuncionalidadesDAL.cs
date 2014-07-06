@@ -17,7 +17,7 @@ namespace FrbaCommerce.DAL
                 DataTable dt = new DataTable();
                 SqlCommand comando = new SqlCommand(@"  SELECT  IdFuncionalidad,
                                                                 Descripcion
-                                                        FROM Funcionalidades",conexion);
+                                                        FROM BAZINGUEANDO_EN_SLQ.Funcionalidades", conexion);
 
                 dt.Load(comando.ExecuteReader());
 

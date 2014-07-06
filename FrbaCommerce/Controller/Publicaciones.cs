@@ -70,13 +70,13 @@ namespace FrbaCommerce.Controller
             
         }
 
-        public static DataTable ListarPublicaciones(int codigo,String descrip, String vendedor, int tipoPub, int estado)
+        public static DataTable ListarPublicaciones(int desde,int codigo,String descrip, String vendedor, int tipoPub, int estado)
         {
             try
             {
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
                 
-                return pubDAL.listarPublicaciones(codigo,descrip,vendedor,tipoPub,estado);
+                return pubDAL.listarPublicacionesPaginadas(desde,codigo,descrip,vendedor,tipoPub,estado);
             }
             catch (Exception ex)
             {

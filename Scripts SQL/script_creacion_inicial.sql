@@ -56,6 +56,13 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.Estados
 	CONSTRAINT PK_Estados PRIMARY KEY (idEstado ASC) on [PRIMARY]
 )
 
+CREATE TABLE BAZINGUEANDO_EN_SLQ.EstadosPublicacion
+(
+	idEstadoPublicacion INT IDENTITY(1,1) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
+	CONSTRAINT PK_EstadosPublicacion PRIMARY KEY (idEstadoPublicacion ASC)
+)
+
 CREATE TABLE BAZINGUEANDO_EN_SLQ.Funcionalidades
 (
 	idFuncionalidad INT IDENTITY(1,1) NOT NULL,
@@ -475,47 +482,60 @@ INSERT BAZINGUEANDO_EN_SLQ.TiposDocumentos
 (Descripcion) VALUES ('DNI'),('LE'),('LC')
 
 INSERT BAZINGUEANDO_EN_SLQ.Estados
-(Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Borrador'),('Publicada'),('Pausada'),('Finalizada')
+(Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial')
+
+INSERT BAZINGUEANDO_EN_SLQ.EstadosPublicacion
+		(Descripcion)
+	VALUES
+		('Borrador'),('Publicada'),('Pausada'),('Finalizada')
 
 INSERT BAZINGUEANDO_EN_SLQ.Funcionalidades
-(Descripcion) VALUES  
-('Login y seguridad'),
-('ABM de Rol'),
-('Registro de Usuario'),
-('ABM de Cliente'),
-('ABM de Empresa'),
-('ABM de Rubro'),
-('ABM visibilidad'),
-('Generar Publicación'),
-('Editar Publicación'),
-('Gestión de Preg'),
-('Comprar/Ofertar'),
-('Historial del cli'),
-('Calificar al Vend'),
-('Facturar Publi'),
-('Listado Estadístico')
+		(Descripcion) 
+	VALUES  
+		('Login y seguridad'),
+		('ABM de Rol'),
+		('Registro de Usuario'),
+		('ABM de Cliente'),
+		('ABM de Empresa'),
+		('ABM de Rubro'),
+		('ABM visibilidad'),
+		('Generar Publicación'),
+		('Editar Publicación'),
+		('Gestión de Preg'),
+		('Comprar/Ofertar'),
+		('Historial del cli'),
+		('Calificar al Vend'),
+		('Facturar Publi'),
+		('Listado Estadístico')
 
 INSERT BAZINGUEANDO_EN_SLQ.Roles
-(Nombre,IdEstado) VALUES ('Cliente','1')  ,('Empresa','1'),('Administrativo','1')
+		(Nombre,IdEstado) 
+	VALUES	
+		('Cliente','1'),
+		('Empresa','1'),
+		('Administrativo','1')
 
 
 INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
-(IdRol,IdFuncionalidad)
-select
-'3',IdFuncionalidad 
-from BAZINGUEANDO_EN_SLQ.Funcionalidades
+		(IdRol,IdFuncionalidad)
+	select
+		'3',IdFuncionalidad 
+	from BAZINGUEANDO_EN_SLQ.Funcionalidades
 
 INSERT BAZINGUEANDO_EN_SLQ.Usuarios
-(idTipoPersona,
-login,
-password,
-fallos,
-reputacion,
-idEstado)
-VALUES('1','admin','12345678','0','0','3')  
+		(idTipoPersona,
+		login,
+		password,
+		fallos,
+		reputacion,
+		idEstado)
+	VALUES
+		('1','admin','12345678','0','0','3')  
 
 INSERT BAZINGUEANDO_EN_SLQ.UsuariosRoles
-(IdRol,IdUsuario) VALUES (3,1)
+		(IdRol,IdUsuario) 
+	VALUES 
+		(3,1)
 
 
 
@@ -706,14 +726,13 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Ofertas
 	order by Publicacion_Cod, Oferta_Monto
 
 ---INSERT CALIFICACIONES
+----------------------------
+--MIGRACION CALIFICACIONES--
+----------------------------
+--MODIFICAMOS LA TABLA PARA QUE ADMITA NULL EN IDCOMPRA
+ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NULL;
 
--- Tenemos problemas con las compras que se realizaron con el mismo usuario, 
---misma publicacion y misma fecha de compra.
-
---ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NULL;
-
-DELETE BAZINGUEANDO_EN_SLQ.Calificaciones
-
+--INSERTAMOS LOS CODIGOS DE CALIFICACIONES EXISTENTES EN LA TABLA MAESTRA
 INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
 	(
 		Codigo,
@@ -724,7 +743,8 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
 	WHERE Calificacion_Codigo IS NOT NULL
 	GROUP BY Calificacion_Codigo
 	ORDER BY Calificacion_Codigo
-	
+
+--ACTUALIZAMOS LAS CALIFICACIONES CRUZANDO POR CODIGO DE CALIFICACION PARA COMPLETAR LOS DATOS FALTANTES
 UPDATE BAZINGUEANDO_EN_SLQ.Calificaciones
 SET IdCompra = (SELECT MIN(COMP.IdCompra)
 				FROM BAZINGUEANDO_EN_SLQ.Compras COMP			
@@ -746,11 +766,15 @@ Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
 	on g.Cli_Mail = usr.login
 where	g.Compra_Fecha is not NULL 
 		and g.Calificacion_Codigo is NOT NULL		
+
+--VOLVEMOS A MODIFICAR LA TABLA CALIFICACIONES PARA QUE NO ADMITA NULL IDCOMPRA		
+ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NOT NULL;
 -----------------------------
 /* CASOS PARA CONTROLAR
 CodPublicacion = 31403 AND CALIF.Codigo = 48187
 CodPublicacion = 40365 AND CALIF.Codigo = 63809
-*/
+
+
 SELECT CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Codigo,G.Calificacion_Cant_Estrellas,COUNT(*)
 --SELECT *
 --SELECT comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
@@ -783,56 +807,51 @@ HAVING COUNT(*)>1
 
 SELECT * FROM gd_esquema.Maestra
 WHERE Publicacion_Cod = 31403 AND Calificacion_Codigo = 48187
-
+*/
 -----INSERT FACTURAS
 
-INSERT INTO Facturas
-(NroSucursal,
-NroFactura,
-Fecha,
-IdUsuario,
-IdFormaPago,
-IdEstado,
-Total)
+INSERT INTO BAZINGUEANDO_EN_SLQ.Facturas
+	(NroSucursal,
+	NroFactura,
+	Fecha,
+	IdUsuario,
+	IdFormaPago,
+	IdEstado,
+	Total)
 select 
- '1' NroSucursal,
- Factura_Nro ,
- Factura_Fecha ,
- (select IdUsuario from Usuarios where Usuarios.login = g.Publ_Cli_Mail or Usuarios.login=g.Publ_Empresa_Mail),
- (select IdFormaPago from FormasPago where FormasPago.Descripcion like g.Forma_Pago_Desc), 
- '3' IdEstado,
- Factura_Total  
-
+	'1' NroSucursal,
+	Factura_Nro ,
+	Factura_Fecha ,
+	(select IdUsuario from Usuarios where Usuarios.login = g.Publ_Cli_Mail or Usuarios.login=g.Publ_Empresa_Mail),
+	(select IdFormaPago from FormasPago where FormasPago.Descripcion like g.Forma_Pago_Desc), 
+	'3' IdEstado,
+	Factura_Total  
  from gd_esquema.Maestra g
-
-
  where Factura_Nro IS NOT NULL 
  group by Factura_Nro , Factura_Fecha , Factura_Total,g.Publ_Cli_Mail,g.Publ_Empresa_Mail,
  g.Forma_Pago_Desc
-  
  order by Factura_Nro
  
  
 ------INSERT ITEMS FACTURAS
 INSERT INTO FacturasItems
-(
-IdFactura,
-IdPublicacion,
-Precio,
-Comision,
-CantVendida)
-select IdFactura,
- IdPublicacion,
-Item_Factura_Monto,
-(Publicaciones.Precio*Visibilidades.PorcentajeVenta) comision,
- Item_Factura_Cantidad
-from gd_esquema.Maestra g
-inner join Facturas
-on Facturas.NroFactura=g.Factura_Nro
-inner join Publicaciones
-on g.Publicacion_Cod =Publicaciones.CodPublicacion
-inner join Visibilidades
-on Visibilidades.IdVisibilidad = Publicaciones.IdVisibilidad
-where Factura_Nro is not NULL 
-
-order by Factura_Nro
+		(
+		IdFactura,
+		IdPublicacion,
+		Precio,
+		Comision,
+		CantVendida)
+	select IdFactura,
+	 IdPublicacion,
+	Item_Factura_Monto,
+	(Publicaciones.Precio*Visibilidades.PorcentajeVenta) comision,
+	 Item_Factura_Cantidad
+	from gd_esquema.Maestra g
+	inner join Facturas
+	on Facturas.NroFactura=g.Factura_Nro
+	inner join Publicaciones
+	on g.Publicacion_Cod =Publicaciones.CodPublicacion
+	inner join Visibilidades
+	on Visibilidades.IdVisibilidad = Publicaciones.IdVisibilidad
+	where Factura_Nro is not NULL 
+	order by Factura_Nro

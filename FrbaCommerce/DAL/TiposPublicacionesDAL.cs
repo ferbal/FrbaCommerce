@@ -18,7 +18,7 @@ namespace FrbaCommerce.DAL
                 SqlCommand comando = new SqlCommand(@"  SELECT 
                                                             IdTipoPublicacion,
                                                             Descripcion
-                                                        FROM TiposPublicaciones",conexion);
+                                                        FROM BAZINGUEANDO_EN_SLQ.TiposPublicaciones", conexion);
 
                 dt.Load(comando.ExecuteReader());
 
