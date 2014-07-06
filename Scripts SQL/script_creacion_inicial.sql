@@ -1,31 +1,32 @@
 
 /*Eliminar Tablas Existentes
-DROP TABLE PUBLICACIONES
-DROP TABLE Visibilidades
-DROP TABLE Usuarios
-DROP TABLE RUBROS
-DROP TABLE TiposPersonas
-DROP TABLE TIPOSPUBLICACIONES
-DROP TABLE DatosTarjetas
+DROP TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES
+DROP TABLE BAZINGUEANDO_EN_SLQ.COMPRAS
+DROP TABLE BAZINGUEANDO_EN_SLQ.FACTURASITEMS
+DROP TABLE BAZINGUEANDO_EN_SLQ.DatosTarjetas
+DROP TABLE BAZINGUEANDO_EN_SLQ.FACTURAS
+DROP TABLE BAZINGUEANDO_EN_SLQ.UsuariosRoles
+DROP TABLE BAZINGUEANDO_EN_SLQ.PUBLICACIONESRUBROS
+DROP TABLE BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
+DROP TABLE BAZINGUEANDO_EN_SLQ.Roles
+DROP TABLE BAZINGUEANDO_EN_SLQ.Funcionalidades
+DROP TABLE BAZINGUEANDO_EN_SLQ.FORMASPAGO
+DROP TABLE BAZINGUEANDO_EN_SLQ.Ofertas
+DROP TABLE BAZINGUEANDO_EN_SLQ.RESPUESTAS
+DROP TABLE BAZINGUEANDO_EN_SLQ.PREGUNTAS
+DROP TABLE BAZINGUEANDO_EN_SLQ.HISTORIALES
+DROP TABLE BAZINGUEANDO_EN_SLQ.PUBLICACIONES
+DROP TABLE BAZINGUEANDO_EN_SLQ.Visibilidades
+DROP TABLE BAZINGUEANDO_EN_SLQ.RUBROS
+DROP TABLE BAZINGUEANDO_EN_SLQ.TIPOSPUBLICACIONES
+DROP TABLE BAZINGUEANDO_EN_SLQ.Empresas
+DROP TABLE BAZINGUEANDO_EN_SLQ.Clientes
+DROP TABLE BAZINGUEANDO_EN_SLQ.Usuarios
+DROP TABLE BAZINGUEANDO_EN_SLQ.TiposPersonas
+DROP TABLE BAZINGUEANDO_EN_SLQ.TiposDocumentos
 DROP TABLE BAZINGUEANDO_EN_SLQ.Estados
-
-DROP TABLE UsuariosRoles
-DROP TABLE FACTURASITEMS
-DROP TABLE FACTURAS
-DROP TABLE HISTORIALES
-DROP TABLE RESPUESTAS
-DROP TABLE PREGUNTAS
-DROP TABLE PUBLICACIONESRUBROS
-DROP TABLE Clientes
-DROP TABLE Empresas
-DROP TABLE RolesFuncionalidades
-DROP TABLE Funcionalidades
-DROP TABLE Roles
-DROP TABLE TiposDocumentos
-DROP TABLE CALIFICACIONES
-DROP TABLE COMPRAS
-DROP TABLE FORMASPAGO
-DROP TABLE Ofertas
+DROP TABLE BAZINGUEANDO_EN_SLQ.EstadosPublicacion
+DROP SCHEMA BAZINGUEANDO_EN_SLQ
 */
 
 ----------------------
@@ -653,9 +654,9 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
 			(select Visibilidades.IdVisibilidad 
 				from BAZINGUEANDO_EN_SLQ.Visibilidades 
 				where  Publicacion_Visibilidad_Cod =Visibilidades.Codigo) IdVisibilidad,
-			(select Estados.idEstado 
-				from BAZINGUEANDO_EN_SLQ.Estados 
-				where Publicacion_Estado like Estados.Descripcion)IdEstado,
+			(select idEstadoPublicacion 
+				from BAZINGUEANDO_EN_SLQ.EstadosPublicacion
+				where Publicacion_Estado = Descripcion)IdEstado,
 			Publicacion_Fecha,
 			Publicacion_Fecha_Venc,
 			Publicacion_Descripcion,
@@ -822,8 +823,8 @@ select
 	'1' NroSucursal,
 	Factura_Nro ,
 	Factura_Fecha ,
-	(select IdUsuario from Usuarios where Usuarios.login = g.Publ_Cli_Mail or Usuarios.login=g.Publ_Empresa_Mail),
-	(select IdFormaPago from FormasPago where FormasPago.Descripcion like g.Forma_Pago_Desc), 
+	(select IdUsuario from BAZINGUEANDO_EN_SLQ.Usuarios where Usuarios.login = g.Publ_Cli_Mail or Usuarios.login=g.Publ_Empresa_Mail),
+	(select IdFormaPago from BAZINGUEANDO_EN_SLQ.FormasPago where FormasPago.Descripcion like g.Forma_Pago_Desc), 
 	'3' IdEstado,
 	Factura_Total  
  from gd_esquema.Maestra g
@@ -834,7 +835,7 @@ select
  
  
 ------INSERT ITEMS FACTURAS
-INSERT INTO FacturasItems
+INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
 		(
 		IdFactura,
 		IdPublicacion,
@@ -847,11 +848,11 @@ INSERT INTO FacturasItems
 	(Publicaciones.Precio*Visibilidades.PorcentajeVenta) comision,
 	 Item_Factura_Cantidad
 	from gd_esquema.Maestra g
-	inner join Facturas
+	inner join BAZINGUEANDO_EN_SLQ.Facturas
 	on Facturas.NroFactura=g.Factura_Nro
-	inner join Publicaciones
+	inner join BAZINGUEANDO_EN_SLQ.Publicaciones
 	on g.Publicacion_Cod =Publicaciones.CodPublicacion
-	inner join Visibilidades
+	inner join BAZINGUEANDO_EN_SLQ.Visibilidades
 	on Visibilidades.IdVisibilidad = Publicaciones.IdVisibilidad
 	where Factura_Nro is not NULL 
 	order by Factura_Nro
