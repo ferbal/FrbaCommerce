@@ -121,5 +121,11 @@ namespace FrbaCommerce.View.Comprar_Ofertar
             if (this.Visible)
                 this.cargarDGV();
         }
+
+        public void CargarDatos(Form vtn, int idUsr)
+        {
+            this.vtnAnterior = vtn;
+            this.idUsuario = idUsr;
+        }
     }
 }

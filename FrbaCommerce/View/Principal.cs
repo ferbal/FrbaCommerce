@@ -90,5 +90,13 @@ namespace FrbaCommerce
             this.Visible = false;
             vtnABMCliente.Visible = true;
         }
+
+        private void btnComprarOfertar_Click(object sender, EventArgs e)
+        {
+            View.Comprar_Ofertar.AdminCompraOferta vtnAdminCO = new FrbaCommerce.View.Comprar_Ofertar.AdminCompraOferta();
+            vtnAdminCO.CargarDatos(this,this.idUsuario);
+            this.Visible = false;
+            vtnAdminCO.Visible = true;
+        }
     }
 }

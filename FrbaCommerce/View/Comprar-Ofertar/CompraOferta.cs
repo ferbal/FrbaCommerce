@@ -44,7 +44,7 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         public void CargarValoresVentana(Form vtn, int usr,int publicacion)
         {
             this.vtnAnterior = vtn;
-            this.idUsuario = 1;//usr;
+            this.idUsuario = usr;
             this.idPublicacion = publicacion;
         }
 

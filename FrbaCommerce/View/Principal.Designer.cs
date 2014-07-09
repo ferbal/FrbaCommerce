@@ -72,6 +72,7 @@ namespace FrbaCommerce
             this.btnComprarOfertar.TabIndex = 4;
             this.btnComprarOfertar.Text = "Comprar / Ofertar";
             this.btnComprarOfertar.UseVisualStyleBackColor = true;
+            this.btnComprarOfertar.Click += new System.EventHandler(this.btnComprarOfertar_Click);
             // 
             // btnGestionarPreg
             // 
