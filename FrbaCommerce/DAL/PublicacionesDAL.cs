@@ -126,6 +126,25 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public int obtenerCantidadPublicaciones()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"   SELECT COUNT(*)
+                                                         FROM BAZINGUEANDO_EN_SLQ.Publicaciones"
+                                                        , conexion);
+                dt.Load(comando.ExecuteReader());
+
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable listarPublicaciones(int codigo, String descripcion, String vendedor, int tipoPub, int estado)
         {
             try
@@ -181,11 +200,6 @@ namespace FrbaCommerce.DAL
                                                         INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
                                                             ON USR.IdUsuario = PUB.IdUsuario
                                                         " + where,conexion);
-                /*
-                SqlCommand comando = new SqlCommand(@"  SELECT *
-                                                        FROM BAZINGUEANDO_EN_SLQ.VistaPublicaciones 
-                                                        " + where, conexion);                
-                */
                 dt.Load(comando.ExecuteReader());
 
                 return dt;
@@ -309,5 +323,138 @@ namespace FrbaCommerce.DAL
                 throw ex;
             }
         }
+
+        public DataTable ListarParaCompraOferta(int desde, int rubro, String descripcion)
+        {
+            try
+            {
+                String where = String.Empty;
+                //String whereRubro = String.Empty;
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+
+                if (rubro != -1)
+                    where = where + " AND PUB.IdRubro = " + rubro.ToString();
+
+                if (!String.IsNullOrEmpty(descripcion))
+                    where = where + " AND PUB.Descripcion LIKE '%" + descripcion + "%'";
+
+                if (desde != 0)
+                    where = where + @" AND PUB.IdPublicacion NOT IN (SELECT TOP " + desde +
+                                                                        @" IdPublicacion
+                                                                FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EP
+	                                                        ON PUB.IdEstado = EP.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
+                                                        WHERE	PUB.IdEstado = 2
+		                                                        AND FechaFin > @FechaActual
+		                                                        AND ((PUB.IdTipoPublicacion = 1 AND PUB.Stock>0) OR PUB.IdTipoPublicacion = 2)"
+                                                        + where + @"
+                                                        ORDER BY    V.PrecioPorPublicar DESC,
+                                                                    PUB.FechaInicio ASC, 
+                                                                    PUB.FechaFin ASC, 
+                                                                    PUB.CodPublicacion ASC)";
+
+                SqlCommand comando = new SqlCommand(@"  
+                                                        SELECT TOP 10	
+                                                                PUB.IdPublicacion,
+		                                                        PUB.CodPublicacion [Codigo Publicacion],
+                                                                TP.Descripcion [Tipo Publicacion],
+		                                                        PUB.Descripcion [Publicacion],
+		                                                        V.Descripcion [Visibilidad],
+		                                                        PUB.FechaInicio [Fecha Inicio],
+		                                                        PUB.FechaFin [Fecha Fin],
+		                                                        EP.Descripcion [Estado]
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EP
+	                                                        ON PUB.IdEstado = EP.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
+                                                            ON TP.IdTipoPublicacion = PUB.IdTipoPublicacion
+                                                        WHERE	PUB.IdEstado = 2
+		                                                        AND FechaFin > @FechaActual
+		                                                        AND ((PUB.IdTipoPublicacion = 1 AND PUB.Stock>0) OR PUB.IdTipoPublicacion = 2)
+                                                        " + where +@"
+                                                        ORDER BY    V.PrecioPorPublicar DESC,
+                                                                    PUB.FechaInicio ASC, 
+                                                                    PUB.FechaFin ASC, 
+                                                                    PUB.CodPublicacion ASC
+                                                        ", conexion);
+
+                comando.Parameters.AddWithValue("@FechaActual","2014-01-01");
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int CantidadPublicacionesParaCompraOferta(int rubro,String descripcion)
+        {
+            try
+            {
+                String where = String.Empty;
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+
+                if (!String.IsNullOrEmpty(descripcion))
+                    where = where + " AND PUB.Descripcion LIKE '%" + descripcion + "%'";
+
+                if (rubro != -1)
+                    where = where + " AND PUB.IdRubro = " + rubro.ToString();
+
+                SqlCommand comando = new SqlCommand(@"  
+                                                        SELECT COUNT(*)
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EP
+	                                                        ON PUB.IdEstado = EP.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
+                                                        WHERE	PUB.IdEstado = 2
+		                                                        AND FechaFin > @FechaActual
+		                                                        AND (PUB.IdTipoPublicacion = 1 AND PUB.Stock>0)                  
+                                                        " + where, conexion);
+
+                comando.Parameters.AddWithValue("@FechaActual", "2014-01-01");
+
+                dt.Load(comando.ExecuteReader());
+
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable LoadById(int publicacion)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conex = DAL.Conexion.getConexion();
+
+                SqlCommand comando = new SqlCommand(@"  SELECT *
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones
+                                                        WHERE idPublicacion = @idPublicacion",conex);
+
+                comando.Parameters.AddWithValue("@idPublicacion",publicacion);
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

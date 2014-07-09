@@ -50,10 +50,10 @@
             this.cmbTipoPublicacion = new System.Windows.Forms.ComboBox();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnUltimo = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnPrimera = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,19 +71,23 @@
             // 
             this.dgvPublicaciones.AllowUserToAddRows = false;
             this.dgvPublicaciones.AllowUserToDeleteRows = false;
+            this.dgvPublicaciones.AllowUserToResizeColumns = false;
+            this.dgvPublicaciones.AllowUserToResizeRows = false;
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPublicaciones.Location = new System.Drawing.Point(12, 144);
+            this.dgvPublicaciones.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvPublicaciones.EnableHeadersVisualStyles = false;
+            this.dgvPublicaciones.Location = new System.Drawing.Point(12, 129);
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.ReadOnly = true;
             this.dgvPublicaciones.RowHeadersVisible = false;
             this.dgvPublicaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPublicaciones.Size = new System.Drawing.Size(670, 220);
+            this.dgvPublicaciones.Size = new System.Drawing.Size(670, 287);
             this.dgvPublicaciones.TabIndex = 1;
             this.dgvPublicaciones.SelectionChanged += new System.EventHandler(this.dgvPublicaciones_SelectionChanged);
             // 
             // btnAlta
             // 
-            this.btnAlta.Location = new System.Drawing.Point(13, 413);
+            this.btnAlta.Location = new System.Drawing.Point(13, 465);
             this.btnAlta.Name = "btnAlta";
             this.btnAlta.Size = new System.Drawing.Size(75, 23);
             this.btnAlta.TabIndex = 2;
@@ -93,7 +97,7 @@
             // 
             // btnActivar
             // 
-            this.btnActivar.Location = new System.Drawing.Point(94, 413);
+            this.btnActivar.Location = new System.Drawing.Point(94, 465);
             this.btnActivar.Name = "btnActivar";
             this.btnActivar.Size = new System.Drawing.Size(75, 23);
             this.btnActivar.TabIndex = 3;
@@ -103,7 +107,7 @@
             // 
             // btnPausar
             // 
-            this.btnPausar.Location = new System.Drawing.Point(175, 413);
+            this.btnPausar.Location = new System.Drawing.Point(175, 465);
             this.btnPausar.Name = "btnPausar";
             this.btnPausar.Size = new System.Drawing.Size(75, 23);
             this.btnPausar.TabIndex = 4;
@@ -113,7 +117,7 @@
             // 
             // btnFinalizar
             // 
-            this.btnFinalizar.Location = new System.Drawing.Point(256, 413);
+            this.btnFinalizar.Location = new System.Drawing.Point(256, 465);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(75, 23);
             this.btnFinalizar.TabIndex = 5;
@@ -123,7 +127,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(337, 413);
+            this.btnModificar.Location = new System.Drawing.Point(337, 465);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 6;
@@ -133,7 +137,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(607, 413);
+            this.btnVolver.Location = new System.Drawing.Point(607, 465);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 7;
@@ -233,51 +237,55 @@
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // button1
+            // btnUltimo
             // 
-            this.button1.Location = new System.Drawing.Point(607, 371);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Ultima Pag.";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnUltimo.Location = new System.Drawing.Point(607, 423);
+            this.btnUltimo.Name = "btnUltimo";
+            this.btnUltimo.Size = new System.Drawing.Size(75, 23);
+            this.btnUltimo.TabIndex = 19;
+            this.btnUltimo.Text = "Ultima Pag.";
+            this.btnUltimo.UseVisualStyleBackColor = true;
+            this.btnUltimo.Click += new System.EventHandler(this.btnUltimo_Click);
             // 
-            // button2
+            // btnSiguiente
             // 
-            this.button2.Location = new System.Drawing.Point(526, 371);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 20;
-            this.button2.Text = "Siguiente";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Location = new System.Drawing.Point(526, 423);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(75, 23);
+            this.btnSiguiente.TabIndex = 20;
+            this.btnSiguiente.Text = "Siguiente";
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
-            // button3
+            // btnAnterior
             // 
-            this.button3.Location = new System.Drawing.Point(445, 370);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "Anterior";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAnterior.Location = new System.Drawing.Point(445, 422);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(75, 23);
+            this.btnAnterior.TabIndex = 21;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
-            // button4
+            // btnPrimera
             // 
-            this.button4.Location = new System.Drawing.Point(364, 370);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 22;
-            this.button4.Text = "Primer Pag.";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnPrimera.Location = new System.Drawing.Point(364, 422);
+            this.btnPrimera.Name = "btnPrimera";
+            this.btnPrimera.Size = new System.Drawing.Size(75, 23);
+            this.btnPrimera.TabIndex = 22;
+            this.btnPrimera.Text = "Primer Pag.";
+            this.btnPrimera.UseVisualStyleBackColor = true;
+            this.btnPrimera.Click += new System.EventHandler(this.btnPrimera_Click);
             // 
             // AdminPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 447);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(694, 497);
+            this.Controls.Add(this.btnPrimera);
+            this.Controls.Add(this.btnAnterior);
+            this.Controls.Add(this.btnSiguiente);
+            this.Controls.Add(this.btnUltimo);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.cmbEstado);
             this.Controls.Add(this.cmbTipoPublicacion);
@@ -310,7 +318,6 @@
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.DataGridView dgvPublicaciones;
         private System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.Button btnActivar;
         private System.Windows.Forms.Button btnPausar;
@@ -328,9 +335,10 @@
         private System.Windows.Forms.ComboBox cmbTipoPublicacion;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnUltimo;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnPrimera;
+        private System.Windows.Forms.DataGridView dgvPublicaciones;
     }
 }

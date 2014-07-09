@@ -14,6 +14,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private Form vtnAnterior = null;
         private int idUsuario = -1;
         private int paginaActual = 0;
+        private int ultimaPagina = 0;
 
         public AdminPublicaciones()
         {
@@ -23,6 +24,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
             RefreshControles();
+            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones();
+            this.ultimaPagina = this.ultimaPagina / 10;            
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -74,8 +77,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
         {
             DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
             if (rows.Count == 1)
-            {
-                
+            {                
                 HabilitarAcciones(Convert.ToInt32(rows[0].Cells["IdEstado"].Value));
             }
             else
@@ -251,5 +253,32 @@ namespace FrbaCommerce.View.Generar_Publicacion
             this.vtnAnterior = anterior;
             this.idUsuario = usuario;
         }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if ((this.paginaActual + 1) <= this.ultimaPagina)
+                this.paginaActual = this.paginaActual + 1;
+            cargarDgvPublicaciones();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if ((this.paginaActual - 1) >= 0)
+                this.paginaActual = this.paginaActual - 1;
+            cargarDgvPublicaciones();
+        }
+
+        private void btnPrimera_Click(object sender, EventArgs e)
+        {
+            this.paginaActual = 0;
+            cargarDgvPublicaciones();
+        }
+
+        private void btnUltimo_Click(object sender, EventArgs e)
+        {
+            this.paginaActual = this.ultimaPagina;
+            cargarDgvPublicaciones();
+        }
+
     }
 }
