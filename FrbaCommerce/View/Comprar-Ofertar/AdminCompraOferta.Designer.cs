@@ -221,6 +221,7 @@
             this.Name = "AdminCompraOferta";
             this.Text = "AdminCompraOferta";
             this.Load += new System.EventHandler(this.AdminCompraOferta_Load);
+            this.VisibleChanged += new System.EventHandler(this.AdminCompraOferta_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

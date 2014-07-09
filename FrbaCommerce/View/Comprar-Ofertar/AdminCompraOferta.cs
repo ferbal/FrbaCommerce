@@ -38,7 +38,8 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         }
 
         private void cargarDGV()
-        {            
+        {
+            dgvPublicaciones.Refresh();
             dgvPublicaciones.DataSource = Controller.Publicaciones.CargarParaCompra(this.paginaActual,Convert.ToInt32(cmbRubro.SelectedValue),txtDescripcion.Text);
             dgvPublicaciones.Columns["IdPublicacion"].Visible = false;
             ArmarEtiquetaPaginas();
@@ -113,6 +114,12 @@ namespace FrbaCommerce.View.Comprar_Ofertar
                 vtnComprarOfertar.Visible = true;
                 this.Visible = false;
             }            
+        }
+
+        private void AdminCompraOferta_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                this.cargarDGV();
         }
     }
 }

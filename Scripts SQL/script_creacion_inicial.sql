@@ -856,3 +856,18 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
 	on Visibilidades.IdVisibilidad = Publicaciones.IdVisibilidad
 	where Factura_Nro is not NULL 
 	order by Factura_Nro
+
+------------------------------------------------------------
+--CREACION DE TRIGGER PARA ACTUALIZAR STOCK DE PUBLICACION--
+------------------------------------------------------------
+CREATE TRIGGER TGR_COMPRAS
+  ON BAZINGUEANDO_EN_SLQ.COMPRAS
+  AFTER INSERT
+  AS
+	begin
+		UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+		SET Stock = Stock - (SELECT Cantidad FROM inserted)
+		WHERE IdPublicacion = (SELECT IdPublicacion FROM inserted)
+	end
+;
+GO
