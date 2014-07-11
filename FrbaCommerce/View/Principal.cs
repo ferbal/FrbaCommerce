@@ -91,22 +91,20 @@ namespace FrbaCommerce
             vtnABMCliente.Visible = true;
         }
 
-<<<<<<< HEAD
         private void btnListadoEstadistico_Click(object sender, EventArgs e)
         {
             View.ListadoEstadistico.ListadoEstadistico vtnListadoEstadistico = new FrbaCommerce.View.ListadoEstadistico.ListadoEstadistico();
             vtnListadoEstadistico.ventana_anterior(this);
             this.Visible = false;
             vtnListadoEstadistico.Visible = true;
+        }
 
-=======
         private void btnComprarOfertar_Click(object sender, EventArgs e)
         {
             View.Comprar_Ofertar.AdminCompraOferta vtnAdminCO = new FrbaCommerce.View.Comprar_Ofertar.AdminCompraOferta();
             vtnAdminCO.CargarDatos(this,this.idUsuario);
             this.Visible = false;
             vtnAdminCO.Visible = true;
->>>>>>> 1c9a86e77918da3e3f914c2a5b1d83c4cda1f31c
         }
     }
 }
