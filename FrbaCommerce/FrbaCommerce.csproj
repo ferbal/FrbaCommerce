@@ -61,6 +61,8 @@
     <Compile Include="Controller\TiposPublicaciones.cs" />
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
+    <Compile Include="DAL\AniosDAL.cs" />
+    <Compile Include="DAL\ListadoEstadisticoDAL.cs" />
     <Compile Include="DAL\CompraOfertaDAL.cs" />
     <Compile Include="DAL\ComprasDAL.cs" />
     <Compile Include="DAL\EmpresasDAL.cs" />
@@ -180,6 +182,12 @@
     <Compile Include="View\Generar Publicacion\AdminPublicaciones.Designer.cs">
       <DependentUpon>AdminPublicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Listado Estadistico\ListadoEstadistico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Listado Estadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Login\SeleccionRoles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,12 +216,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Historial Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\Listado Estadistico\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Login\Login.cs">
@@ -264,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Listado Estadistico\ListadoEstadistico.resx">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login\SeleccionRoles.resx">
       <DependentUpon>SeleccionRoles.cs</DependentUpon>

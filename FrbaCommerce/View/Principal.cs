@@ -91,6 +91,14 @@ namespace FrbaCommerce
             vtnABMCliente.Visible = true;
         }
 
+        private void btnListadoEstadistico_Click(object sender, EventArgs e)
+        {
+            View.ListadoEstadistico.ListadoEstadistico vtnListadoEstadistico = new FrbaCommerce.View.ListadoEstadistico.ListadoEstadistico();
+            vtnListadoEstadistico.ventana_anterior(this);
+            this.Visible = false;
+            vtnListadoEstadistico.Visible = true;
+        }
+
         private void btnComprarOfertar_Click(object sender, EventArgs e)
         {
             View.Comprar_Ofertar.AdminCompraOferta vtnAdminCO = new FrbaCommerce.View.Comprar_Ofertar.AdminCompraOferta();
