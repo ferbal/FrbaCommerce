@@ -100,6 +100,7 @@ namespace FrbaCommerce
             this.btnListadoEstadistico.TabIndex = 8;
             this.btnListadoEstadistico.Text = "Listado Estadistico";
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
+            this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
             // 
             // btnFacturarPubli
             // 
