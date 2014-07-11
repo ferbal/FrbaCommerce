@@ -20,5 +20,19 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
+
+        public static void ArmarListaCompraHasta(int vendedor)
+        {
+            try
+            {
+                DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
+
+                cmpDAL.ListarCompraHasta(vendedor);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using System.Data;
 using System.Data.SqlClient;
 using System.Transactions;
+
 
 namespace FrbaCommerce.Controller
 {
@@ -149,6 +151,20 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-                
+
+        public static DataTable ObtenerListaDeVendedores()
+        {
+            try
+            {
+                DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+
+                return usrDAL.ListarVendedores();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

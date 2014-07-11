@@ -173,7 +173,39 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
-        }        
+        }
+
+        public DataTable ListarVendedores()
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"(
+	                                                        SELECT	U.idUsuario,
+			                                                        C.Apellido + ', '+ C.Nombre Descripcion
+	                                                        FROM BAZINGUEANDO_EN_SLQ.Usuarios U
+	                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Clientes C
+		                                                        ON U.idUsuario = C.idUsuario
+	                                                        UNION ALL
+	                                                        SELECT	U.idUsuario,
+			                                                        E.RazonSocial Descripcion
+	                                                        FROM BAZINGUEANDO_EN_SLQ.Usuarios U
+	                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Empresas E
+		                                                        ON U.idUsuario = E.idUsuario
+                                                        )
+                                                        ORDER BY 1,2", conexion);
+
+                
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }   
 
         public Model.Usuarios llenarUsuario(DataRow dr)
         {

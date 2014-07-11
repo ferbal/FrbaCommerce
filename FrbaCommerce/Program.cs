@@ -21,8 +21,8 @@ namespace FrbaCommerce
             //Application.Run(new View.ABM_Empresa.AdminEmpresa());
             //Application.Run(new View.ABM_Cliente.AdminCliente());
             
-            Application.Run(new Principal());
-            //Application.Run(new View.Comprar_Ofertar.AdminCompraOferta());
+            //Application.Run(new Principal());
+            Application.Run(new View.Facturar_Publicaciones.FacturarPublicaciones());
 
             //View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
             //vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));

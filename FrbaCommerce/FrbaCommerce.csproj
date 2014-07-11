@@ -168,11 +168,11 @@
     <Compile Include="View\Error\ErrorForm.Designer.cs">
       <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Facturar Publicaciones\Form1.cs">
+    <Compile Include="View\Facturar Publicaciones\FacturarPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Facturar Publicaciones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Facturar Publicaciones\FacturarPublicaciones.Designer.cs">
+      <DependentUpon>FacturarPublicaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Generar Publicacion\AdminPublicaciones.cs">
       <SubType>Form</SubType>
@@ -255,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Error\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Facturar Publicaciones\FacturarPublicaciones.resx">
+      <DependentUpon>FacturarPublicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Generar Publicacion\AdminPublicaciones.resx">
       <DependentUpon>AdminPublicaciones.cs</DependentUpon>

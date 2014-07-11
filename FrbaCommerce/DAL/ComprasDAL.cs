@@ -39,6 +39,27 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
+        }        
+
+        public void ListarCompraHasta(int vendedor)
+        {
+            try
+            {
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@" ", conexion);
+
+                //comando.Parameters.AddWithValue("@IdComprador", comprador);
+                //comando.Parameters.AddWithValue("@IdPublicacion", publicacion);
+                //comando.Parameters.AddWithValue("@Fecha", fecha);
+                //comando.Parameters.AddWithValue("@Cantidad", cantidad);
+
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
+
     }
 }
