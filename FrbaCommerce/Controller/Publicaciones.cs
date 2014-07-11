@@ -111,5 +111,81 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
+
+        public static int CantidadDePublicaciones()
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                return pubDAL.obtenerCantidadPublicaciones();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static DataTable CargarParaCompra(int desde, int rubro,String descripcion)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                return pubDAL.ListarParaCompraOferta(desde*10,rubro,descripcion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public static int CantidadPublicacionesParaComprarOFertar(int rubro,String descripcion)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                return pubDAL.CantidadPublicacionesParaCompraOferta(rubro,descripcion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public static Model.Publicaciones LoadById(int idPublicacion)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                DataTable dt = pubDAL.LoadById(idPublicacion);
+
+                Model.Publicaciones p = new FrbaCommerce.Model.Publicaciones();
+                p.IdPublicacion = Convert.ToInt32(dt.Rows[0]["IdPublicacion"]);
+                p.CodPublicacion = Convert.ToInt32(dt.Rows[0]["CodPublicacion"]);
+                p.Descripcion = dt.Rows[0]["Descripcion"].ToString();
+                p.IdTipoPublicacion = Convert.ToInt32(dt.Rows[0]["IdTipoPublicacion"]);
+                p.IdVisibilidad = Convert.ToInt32(dt.Rows[0]["IdVisibilidad"]);
+                p.IdEstado = Convert.ToInt32(dt.Rows[0]["IdEstado"]);
+                p.FechaInicio = Convert.ToDateTime(dt.Rows[0]["FechaInicio"]);
+                p.FechaFin = Convert.ToDateTime(dt.Rows[0]["FechaFin"]);
+                p.Stock = Convert.ToInt32(dt.Rows[0]["Stock"]);
+                p.Precio = Convert.ToDouble(dt.Rows[0]["Precio"]);
+                p.IdRubro = Convert.ToInt32(dt.Rows[0]["IdRubro"]);
+                p.IdUsuario = Convert.ToInt32(dt.Rows[0]["IdUsuario"]);
+                p.PermiteRealizarPreguntas = Convert.ToBoolean(dt.Rows[0]["PermiteRealizarPreguntas"]);
+
+                return p;           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

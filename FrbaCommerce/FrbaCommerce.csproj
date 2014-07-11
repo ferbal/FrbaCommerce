@@ -49,9 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Compras.cs" />
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
     <Compile Include="Controller\Funcionalidades.cs" />
+    <Compile Include="Controller\Ofertas.cs" />
     <Compile Include="Controller\Publicaciones.cs" />
     <Compile Include="Controller\Roles.cs" />
     <Compile Include="Controller\RolesFuncionalidades.cs" />
@@ -61,8 +63,11 @@
     <Compile Include="Controller\UsuariosRoles.cs" />
     <Compile Include="DAL\AniosDAL.cs" />
     <Compile Include="DAL\ListadoEstadisticoDAL.cs" />
+    <Compile Include="DAL\CompraOfertaDAL.cs" />
+    <Compile Include="DAL\ComprasDAL.cs" />
     <Compile Include="DAL\EmpresasDAL.cs" />
     <Compile Include="DAL\FuncionalidadesDAL.cs" />
+    <Compile Include="DAL\OfertasDAL.cs" />
     <Compile Include="DAL\PublicacionesDAL.cs" />
     <Compile Include="DAL\RolesFuncionalidadesDAL.cs" />
     <Compile Include="DAL\RubrosDAL.cs" />
@@ -73,8 +78,10 @@
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
+    <Compile Include="Model\Compras.cs" />
     <Compile Include="Model\Estados.cs" />
     <Compile Include="Model\Funcionalidades.cs" />
+    <Compile Include="Model\Ofertas.cs" />
     <Compile Include="Model\Publicaciones.cs" />
     <Compile Include="Model\Roles.cs" />
     <Compile Include="Model\Rubros.cs" />
@@ -139,11 +146,17 @@
     <Compile Include="View\Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Comprar-Ofertar\Form1.cs">
+    <Compile Include="View\Comprar-Ofertar\AdminCompraOferta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Comprar-Ofertar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Comprar-Ofertar\AdminCompraOferta.Designer.cs">
+      <DependentUpon>AdminCompraOferta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Comprar-Ofertar\CompraOferta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Comprar-Ofertar\CompraOferta.Designer.cs">
+      <DependentUpon>CompraOferta.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Editar Publicacion\Form1.cs">
       <SubType>Form</SubType>
@@ -235,6 +248,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ABM Rol\RolAM.resx">
       <DependentUpon>RolAM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Comprar-Ofertar\AdminCompraOferta.resx">
+      <DependentUpon>AdminCompraOferta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Comprar-Ofertar\CompraOferta.resx">
+      <DependentUpon>CompraOferta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Error\ErrorForm.resx">
       <DependentUpon>ErrorForm.cs</DependentUpon>
