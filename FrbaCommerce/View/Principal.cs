@@ -14,6 +14,7 @@ namespace FrbaCommerce
         private int idUsuario = -1;
         private int rol = -1;
         private Form vtnAnterior = null;
+        private DateTime FechaSistema;
 
         public Principal()
         {
@@ -34,7 +35,7 @@ namespace FrbaCommerce
         {
             this.idUsuario = usr;
             this.rol = rol;
-            this.vtnAnterior = anterior;
+            this.vtnAnterior = anterior;            
         }
 
         private void habilitarBotones(Dictionary<String,bool> dic)
@@ -105,6 +106,14 @@ namespace FrbaCommerce
             vtnAdminCO.CargarDatos(this,this.idUsuario);
             this.Visible = false;
             vtnAdminCO.Visible = true;
+        }
+
+        private void btnFacturarPubli_Click(object sender, EventArgs e)
+        {
+            View.Facturar_Publicaciones.FacturarPublicaciones vtnFactPubli = new FrbaCommerce.View.Facturar_Publicaciones.FacturarPublicaciones();
+            vtnFactPubli.CargarDatos(this,this.idUsuario);
+            vtnFactPubli.Visible = true;
+            this.Visible = false;
         }
     }
 }

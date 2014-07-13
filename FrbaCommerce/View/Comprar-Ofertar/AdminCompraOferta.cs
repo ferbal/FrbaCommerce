@@ -15,6 +15,7 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         private int ultimaPagina = -1;
         private int idUsuario = -1;
         private Form vtnAnterior = null;
+        private DateTime fechaSistema;
 
         public AdminCompraOferta()
         {
@@ -126,6 +127,11 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         {
             this.vtnAnterior = vtn;
             this.idUsuario = idUsr;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

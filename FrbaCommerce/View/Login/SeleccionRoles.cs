@@ -14,6 +14,7 @@ namespace FrbaCommerce.View.Login
         private DataTable tablaRoles = null;
         private int idUsuario = -1;
         private Form vtnAnterior = null;
+        private DateTime fechaSistema;
 
         public SeleccionRoles()
         {
@@ -30,11 +31,12 @@ namespace FrbaCommerce.View.Login
             cmbRoles.ValueMember = "IdRol";
         }
 
-        public void cargarInfoUsuario(DataTable tabla,int idUsuario,Form anterior)
+        public void cargarInfoUsuario(DataTable tabla,int idUsuario,Form anterior,DateTime fecha)
         {
             this.tablaRoles = tabla;
             this.idUsuario = idUsuario;
             this.vtnAnterior = anterior;
+            this.fechaSistema = fecha;
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)

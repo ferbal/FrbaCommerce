@@ -26,6 +26,15 @@ DROP TABLE BAZINGUEANDO_EN_SLQ.TiposPersonas
 DROP TABLE BAZINGUEANDO_EN_SLQ.TiposDocumentos
 DROP TABLE BAZINGUEANDO_EN_SLQ.Estados
 DROP TABLE BAZINGUEANDO_EN_SLQ.EstadosPublicacion
+DROP TABLE BAZINGUEANDO_EN_SLQ.EstadosCompras
+
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_ListarComprasAFacturar
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_ObtenerCompraDesde
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_ObtenerComprasHasta
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_GENERAR_FACTURA
+
+DROP TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
+
 DROP SCHEMA BAZINGUEANDO_EN_SLQ
 */
 
@@ -35,7 +44,7 @@ DROP SCHEMA BAZINGUEANDO_EN_SLQ
 CREATE SCHEMA BAZINGUEANDO_EN_SLQ AUTHORIZATION gd
 Go
 ---------Dar permisos de creacion de tabla al usuario---------------------
-/*
+
 --GRANT CREATE TABLE ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
 GRANT INSERT ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
 GRANT SELECT ON SCHEMA :: BAZINGUEANDO_EN_SLQ TO gd
@@ -46,7 +55,7 @@ GO
 
 --DENY CREATE TABLE TO gd
 GO
-*/
+
 
 begin transaction
 
@@ -62,6 +71,13 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.EstadosPublicacion
 	idEstadoPublicacion INT IDENTITY(1,1) NOT NULL,
 	Descripcion NVARCHAR(255) NOT NULL,
 	CONSTRAINT PK_EstadosPublicacion PRIMARY KEY (idEstadoPublicacion ASC)
+)
+
+CREATE TABLE BAZINGUEANDO_EN_SLQ.EstadosCompras
+(
+	IdEstadoCompra INT IDENTITY(1,1) NOT NULL,
+	Descripcion NVARCHAR(255) NOT NULL,
+	CONSTRAINT PK_EstadosCompra PRIMARY KEY (IdEstadoCompra ASC)
 )
 
 CREATE TABLE BAZINGUEANDO_EN_SLQ.Funcionalidades
@@ -222,7 +238,7 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.Publicaciones
 	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
 	CONSTRAINT FK_Publicaciones_TipoPublicaciones FOREIGN KEY (IdTipoPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.TiposPublicaciones(IdTipoPublicacion),
 	CONSTRAINT FK_Publicaciones_Visibilidad FOREIGN KEY (IdVisibilidad) REFERENCES BAZINGUEANDO_EN_SLQ.Visibilidades(IdVisibilidad),
-	CONSTRAINT FK_Publicaciones_Estados FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.Estados(IdEstado),
+	CONSTRAINT FK_Publicaciones_EstadosPublicacion FOREIGN KEY (IdEstado) REFERENCES BAZINGUEANDO_EN_SLQ.EstadosPublicacion(IdEstadoPublicacion),
 	CONSTRAINT FK_Publicaciones_Rubros FOREIGN KEY (IdRubro) REFERENCES BAZINGUEANDO_EN_SLQ.Rubros(IdRubro)
 )
 
@@ -269,10 +285,11 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.Compras
 	Fecha DATETIME,
 	Cantidad NUMERIC (18),
 	--Precio NUMERIC(10,2) NOT NULL,
-	--IdEstado INT NOT NULL,
+	IdEstadoCompra INT NOT NULL,
 	CONSTRAINT PK_Compras PRIMARY KEY (IdCompra),
 	CONSTRAINT FK_Compras_Usuarios FOREIGN KEY (IdUsrComprador) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
 	CONSTRAINT FK_Compras_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion),
+	CONSTRAINT FK_Compras_EstadosCompras FOREIGN KEY (IdEstadoCompra) REFERENCES BAZINGUEANDO_EN_SLQ.EstadosCompras(IdEstadoCompra)
 )
 
 CREATE TABLE BAZINGUEANDO_EN_SLQ.Ofertas
@@ -485,6 +502,10 @@ INSERT BAZINGUEANDO_EN_SLQ.TiposDocumentos
 INSERT BAZINGUEANDO_EN_SLQ.Estados
 (Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial')
 
+INSERT BAZINGUEANDO_EN_SLQ.EstadosCompras
+(Descripcion) VALUES ('Facturada'),('No Facturada')
+
+
 INSERT BAZINGUEANDO_EN_SLQ.EstadosPublicacion
 		(Descripcion)
 	VALUES
@@ -693,14 +714,16 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Compras
 		IdUsrComprador,
 		IdPublicacion,
 		Fecha,
-		Cantidad
+		Cantidad,
+		IdEstadoCompra
 	)
 	select
 		(select Usuarios.idUsuario from BAZINGUEANDO_EN_SLQ.Usuarios where Cli_Mail like Usuarios.login),
 		(select Publicaciones.IdPublicacion from BAZINGUEANDO_EN_SLQ.Publicaciones where g.Publicacion_Cod = Publicaciones.CodPublicacion),
 		--g.Publicacion_Stock,
 		g.Compra_Fecha,
-		g.Compra_Cantidad
+		g.Compra_Cantidad,
+		2 IdEstadoCompra--NO FACTUDADA
 		--select Publicacion_Cod,Publicacion_Stock,Cli_Dni,Oferta_Fecha ,Compra_Fecha,Compra_Cantidad,g.Calificacion_Codigo
 	from gd_esquema.Maestra g
 	where	g.Compra_Fecha is not NULL 
@@ -860,6 +883,7 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
 ------------------------------------------------------------
 --CREACION DE TRIGGER PARA ACTUALIZAR STOCK DE PUBLICACION--
 ------------------------------------------------------------
+GO
 CREATE TRIGGER TGR_COMPRAS
   ON BAZINGUEANDO_EN_SLQ.COMPRAS
   AFTER INSERT
@@ -870,4 +894,216 @@ CREATE TRIGGER TGR_COMPRAS
 		WHERE IdPublicacion = (SELECT IdPublicacion FROM inserted)
 	end
 ;
+GO
+---------------------------------
+--CREACION DE STORED PROCEDURES--
+---------------------------------
+
+--LISTAR COMPRAS A FACTURAR
+CREATE PROCEDURE [BAZINGUEANDO_EN_SLQ].[SP_ListarComprasAFacturar]
+	@VENDEDOR INT,
+	@COMPRA_HASTA INT
+AS	
+	SELECT	C.IdCompra [CODIGO COMPRA],
+			P.CodPublicacion [CODIGO PUBLICACION],
+			P.Descripcion DESCRIPCION,
+			P.Precio [PRECIO PUBLICACIO],
+			P.Precio*V.PorcentajeVenta COMISION
+			--V.PrecioPorPublicar [PRECIO POR PUBLICAR]
+	FROM BAZINGUEANDO_EN_SLQ.Compras C
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	ORDER BY C.IdCompra
+GO
+--OBTENER COMPRA DESDE
+
+CREATE PROCEDURE [BAZINGUEANDO_EN_SLQ].[SP_ObtenerCompraDesde]
+	@Vendedor INT
+AS     
+    SELECT TOP 1 IdCompra
+    FROM BAZINGUEANDO_EN_SLQ.Compras C
+    INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+    WHERE P.IdUsuario = @Vendedor
+			AND C.IdEstadoCompra = 2
+	ORDER BY C.IdCompra
+GO
+
+--OBTENER COMPRAS HASTA
+CREATE PROCEDURE [BAZINGUEANDO_EN_SLQ].[SP_ObtenerComprasHasta]
+	@Vendedor INT
+AS     
+    SELECT IdCompra
+    FROM BAZINGUEANDO_EN_SLQ.Compras C
+    INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+    WHERE P.IdUsuario = @Vendedor
+			AND C.IdEstadoCompra = 2
+	ORDER BY C.IdCompra
+
+GO
+--GENERAR FACTURA
+CREATE PROCEDURE [BAZINGUEANDO_EN_SLQ].[SP_GENERAR_FACTURA]
+	@VENDEDOR INT,
+	@COMPRA_HASTA INT,
+	@FECHA DATETIME,
+	@FORMA_PAGO INT,
+	@NRO_TARJ VARCHAR(20),
+	@FECHA_VENC SMALLDATETIME,
+	@COD_SEG INT,
+	@TITULAR VARCHAR(20)
+AS
+--------------------------------
+--DECLARO VARIABLES TEMPORALES--
+--------------------------------	
+BEGIN
+	DECLARE @SUBTOTAL_VI NUMERIC(15,2),@ID_FACT NUMERIC(18,0)
+
+	------------------------
+	--COMIENZO TRANSACCION--
+	------------------------
+	BEGIN TRANSACTION
+
+	SET @SUBTOTAL_VI = ( SELECT	SUM(V.PrecioPorPublicar) [PRECIO POR PUBLICAR]
+						FROM BAZINGUEANDO_EN_SLQ.Compras C
+						INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+							ON P.IdPublicacion = C.IdPublicacion
+						INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+							ON V.IdVisibilidad = P.IdVisibilidad
+						WHERE	P.IdUsuario = @VENDEDOR
+								AND C.IdCompra <= @COMPRA_HASTA
+								AND C.IdEstadoCompra = 2)
+
+	---------------------------------
+	--GENERAR ENCABEZADO DE FACTURA--
+	---------------------------------
+	INSERT INTO BAZINGUEANDO_EN_SLQ.Facturas
+	(
+		NroSucursal,
+		NroFactura,
+		Fecha,
+		IdUsuario,
+		IdFormaPago,
+		IdEstado,
+		Total
+	)
+	SELECT	1 NroSucursal,
+			--1 FacturaTipo,
+			(SELECT MAX(NroFactura) + 1
+			FROM BAZINGUEANDO_EN_SLQ.Facturas) NRO_FACTURA,
+			@FECHA FECHA,
+			@VENDEDOR USUARIO,
+			@FORMA_PAGO FORMA_PAGO,
+			3 ESTADO,						
+			SUM(P.Precio*V.PorcentajeVenta)+@SUBTOTAL_VI TOTAL
+			--V.PrecioPorPublicar [PRECIO POR PUBLICAR]
+	FROM BAZINGUEANDO_EN_SLQ.Compras C
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	GROUP BY P.IdUsuario
+
+	SET @ID_FACT = SCOPE_IDENTITY()
+
+	-----------------------------
+	--GENERAR ITEMS DE FACTURAS--
+	-----------------------------
+	--INSERTA ITEMS CORRESPONIENTES A LA COMPRA
+	INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
+	(
+		IdFactura,
+		IdPublicacion,
+		Precio,
+		Comision,
+		CantVendida
+	)
+	SELECT	@ID_FACT,
+			P.IdPublicacion [ID PUBLICACION],			
+			(P.Precio*V.PorcentajeVenta*C.Cantidad) PRECIO,
+			P.Precio*V.PorcentajeVenta COMISION,
+			C.Cantidad		
+	FROM BAZINGUEANDO_EN_SLQ.Compras C
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	ORDER BY C.IdCompra
+
+	--INSERTA ITEMS CORRESPONDIENTES A LA VISIBILIDAD	
+	INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
+	(
+		IdFactura,
+		IdPublicacion,
+		Precio,
+		Comision,
+		CantVendida
+	)
+	SELECT	@ID_FACT,
+			P.IdPublicacion [ID PUBLICACION],			
+			V.PrecioPorPublicar,--(V.PrecioPorPublicar*DATEDIFF(WEEK,P.FechaInicio,GETDATE())) PRECIO,
+			0 COMISION,
+			1--DATEDIFF(WEEK,P.FechaInicio,GETDATE()) CANTIDAD
+	FROM BAZINGUEANDO_EN_SLQ.Compras C
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	ORDER BY C.IdCompra
+
+	--------------------------------
+	--ACTUALIZAR ESTADO DE COMPRAS--
+	--------------------------------
+	UPDATE BAZINGUEANDO_EN_SLQ.Compras
+	SET IdEstadoCompra = 1
+	FROM BAZINGUEANDO_EN_SLQ.Compras C
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	---------------------------------------------------------------
+	--INSERTO DATOS DE TARJETA SI LA FORMA DE PAGO NO ES EFECTIVO--
+	---------------------------------------------------------------
+	IF @FORMA_PAGO <> 1
+		BEGIN
+			INSERT INTO BAZINGUEANDO_EN_SLQ.DatosTarjetas
+			(
+				IdFactura,
+				NroTarjeta,
+				FechaVencTarjeta,
+				CodigoSeguridad,
+				TitularTarjeta
+			)
+			VALUES
+			(
+				@ID_FACT,
+				CONVERT(NUMERIC(15,0),@NRO_TARJ),
+				@FECHA_VENC,
+				@COD_SEG,
+				@TITULAR
+			)
+		END
+
+	-----------------------------------
+	--FINALIZO TRANSACCION - COMMITEO--
+	-----------------------------------
+	COMMIT TRANSACTION
+END
 GO

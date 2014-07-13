@@ -182,13 +182,13 @@ namespace FrbaCommerce.DAL
             try
             {
                 SqlCommand comando = new SqlCommand(@"(
-	                                                        SELECT	U.idUsuario,
+	                                                        SELECT	U.idUsuario IdUsuario,
 			                                                        C.Apellido + ', '+ C.Nombre Descripcion
 	                                                        FROM BAZINGUEANDO_EN_SLQ.Usuarios U
 	                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Clientes C
 		                                                        ON U.idUsuario = C.idUsuario
 	                                                        UNION ALL
-	                                                        SELECT	U.idUsuario,
+	                                                        SELECT	U.idUsuario IdUsuario,
 			                                                        E.RazonSocial Descripcion
 	                                                        FROM BAZINGUEANDO_EN_SLQ.Usuarios U
 	                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Empresas E

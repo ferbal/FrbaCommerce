@@ -52,6 +52,8 @@
     <Compile Include="Controller\Compras.cs" />
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
+    <Compile Include="Controller\FacturarPublicaciones.cs" />
+    <Compile Include="Controller\FormaPago.cs" />
     <Compile Include="Controller\Funcionalidades.cs" />
     <Compile Include="Controller\Ofertas.cs" />
     <Compile Include="Controller\Publicaciones.cs" />
@@ -61,7 +63,10 @@
     <Compile Include="Controller\TiposPublicaciones.cs" />
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
+    <Compile Include="Controller\Validaciones.cs" />
     <Compile Include="DAL\AniosDAL.cs" />
+    <Compile Include="DAL\FacturarPublicaciones.cs" />
+    <Compile Include="DAL\FormaPagoDAL.cs" />
     <Compile Include="DAL\ListadoEstadisticoDAL.cs" />
     <Compile Include="DAL\CompraOfertaDAL.cs" />
     <Compile Include="DAL\ComprasDAL.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
+    <Compile Include="Model\FormasDePago.cs" />
     <Compile Include="Model\Compras.cs" />
     <Compile Include="Model\Estados.cs" />
     <Compile Include="Model\Funcionalidades.cs" />

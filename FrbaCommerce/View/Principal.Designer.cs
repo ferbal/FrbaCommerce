@@ -111,6 +111,7 @@ namespace FrbaCommerce
             this.btnFacturarPubli.TabIndex = 9;
             this.btnFacturarPubli.Text = "Facturar Publicacion";
             this.btnFacturarPubli.UseVisualStyleBackColor = true;
+            this.btnFacturarPubli.Click += new System.EventHandler(this.btnFacturarPubli_Click);
             // 
             // btnCalificarVend
             // 

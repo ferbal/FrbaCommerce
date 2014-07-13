@@ -65,7 +65,7 @@ namespace FrbaCommerce.View.Login
                     if (dt.Rows.Count > 1)
                     {
                         View.Login.SeleccionRoles vtnSeleccionRoles = new SeleccionRoles();
-                        vtnSeleccionRoles.cargarInfoUsuario(dt, idUsuario, this);
+                        vtnSeleccionRoles.cargarInfoUsuario(dt, idUsuario, this,this.fechaSistema);
                         vtnSeleccionRoles.Visible = true;
                         this.Visible = false;
                     }

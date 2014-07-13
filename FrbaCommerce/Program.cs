@@ -12,17 +12,16 @@ namespace FrbaCommerce
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        ///         
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);                       
             
-            //Application.Run(new View.ABM_Empresa.AdminEmpresa());
-            //Application.Run(new View.ABM_Cliente.AdminCliente());
-            
-            //Application.Run(new Principal());
-            Application.Run(new View.Facturar_Publicaciones.FacturarPublicaciones());
+            Application.Run(new Principal());
+            //Application.Run(new View.Facturar_Publicaciones.FacturarPublicaciones());
 
             //View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
             //vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));

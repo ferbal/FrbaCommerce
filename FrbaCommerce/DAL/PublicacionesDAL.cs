@@ -383,7 +383,7 @@ namespace FrbaCommerce.DAL
                                                                     PUB.CodPublicacion ASC
                                                         ", conexion);
 
-                comando.Parameters.AddWithValue("@FechaActual","2014-01-01");
+                comando.Parameters.AddWithValue("@FechaActual",Controller.Validaciones.ObtenerFechaSistema());
 
                 dt.Load(comando.ExecuteReader());
 
@@ -421,7 +421,7 @@ namespace FrbaCommerce.DAL
 		                                                        AND (PUB.IdTipoPublicacion = 1 AND PUB.Stock>0)                  
                                                         " + where, conexion);
 
-                comando.Parameters.AddWithValue("@FechaActual", "2014-01-01");
+                comando.Parameters.AddWithValue("@FechaActual", Controller.Validaciones.ObtenerFechaSistema());
 
                 dt.Load(comando.ExecuteReader());
 
