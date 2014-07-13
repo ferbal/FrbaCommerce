@@ -80,5 +80,11 @@ namespace FrbaCommerce.View.Calificar_Vendedor
             btnCalificar.Enabled = estado;
             txtDetalle.Enabled = estado;
         }
+
+        public void CargarDatos(Form vtn,int usr)
+        {
+            this.vtnAnterior = vtn;
+            this.idUsuario = usr;
+        }
     }
 }

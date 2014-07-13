@@ -121,6 +121,7 @@ namespace FrbaCommerce
             this.btnCalificarVend.TabIndex = 10;
             this.btnCalificarVend.Text = "Calificar Vendedor";
             this.btnCalificarVend.UseVisualStyleBackColor = true;
+            this.btnCalificarVend.Click += new System.EventHandler(this.btnCalificarVend_Click);
             // 
             // btnABMVisibilidad
             // 

@@ -115,5 +115,13 @@ namespace FrbaCommerce
             vtnFactPubli.Visible = true;
             this.Visible = false;
         }
+
+        private void btnCalificarVend_Click(object sender, EventArgs e)
+        {
+            View.Calificar_Vendedor.CalificarVendedor vtnCalif = new FrbaCommerce.View.Calificar_Vendedor.CalificarVendedor();
+            vtnCalif.CargarDatos(this,this.idUsuario);
+            vtnCalif.Visible = true;
+            this.Visible = false;
+        }
     }
 }
