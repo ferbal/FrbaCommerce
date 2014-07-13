@@ -92,6 +92,19 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        public static DataTable ObtenerComprasNoCalificadas(String login)
+        {
+            try
+            {
+                DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
+
+                return cmpDAL.ObtenerComprasNoCalificadas(login);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
     }
 }

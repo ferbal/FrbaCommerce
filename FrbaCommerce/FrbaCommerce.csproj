@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\Calificaciones.cs" />
     <Compile Include="Controller\Compras.cs" />
     <Compile Include="Controller\Empresas.cs" />
     <Compile Include="Controller\Clientes.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Controller\UsuariosRoles.cs" />
     <Compile Include="Controller\Validaciones.cs" />
     <Compile Include="DAL\AniosDAL.cs" />
+    <Compile Include="DAL\CalificacionesDAL.cs" />
     <Compile Include="DAL\FacturarPublicaciones.cs" />
     <Compile Include="DAL\FormaPagoDAL.cs" />
     <Compile Include="DAL\ListadoEstadisticoDAL.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
+    <Compile Include="Model\Calificaciones.cs" />
     <Compile Include="Model\FormasDePago.cs" />
     <Compile Include="Model\Compras.cs" />
     <Compile Include="Model\Estados.cs" />
@@ -146,11 +149,11 @@
     <Compile Include="View\Abm Visibilidad\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Calificar Vendedor\Form1.cs">
+    <Compile Include="View\Calificar Vendedor\CalificarVendedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Calificar Vendedor\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Calificar Vendedor\CalificarVendedor.Designer.cs">
+      <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Comprar-Ofertar\AdminCompraOferta.cs">
       <SubType>Form</SubType>
@@ -254,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ABM Rol\RolAM.resx">
       <DependentUpon>RolAM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Calificar Vendedor\CalificarVendedor.resx">
+      <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Comprar-Ofertar\AdminCompraOferta.resx">
       <DependentUpon>AdminCompraOferta.cs</DependentUpon>
