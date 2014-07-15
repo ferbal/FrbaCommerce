@@ -1159,3 +1159,116 @@ AS
 				AND P.IdUsuario = @USR
 	END
 GO
+
+
+-- SP COMPRAS DE UN USUARIO --
+------------------------------
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_COMPRAS_USUARIO
+@Usr int 
+
+AS
+ 
+BEGIN
+
+select Comp.Fecha Fecha,
+Pub.CodPublicacion CodigoPublicacion,
+Pub.Descripcion Descripcion,
+Pub.Precio Precio,
+Comp.Cantidad Cantidad,
+Pub.Precio * Comp.Cantidad Total
+from BAZINGUEANDO_EN_SLQ.Compras Comp
+inner join BAZINGUEANDO_EN_SLQ.Usuarios Usrs on Usrs.idUsuario = Comp.IdUsrComprador
+inner join BAZINGUEANDO_EN_SLQ.Publicaciones Pub on Pub.IdPublicacion = Comp.IdPublicacion   
+where IdUsrComprador = @Usr
+order by Comp.Fecha 
+
+END
+
+go
+
+
+-- SP OFERTAS DE UN USUARIO --
+------------------------------
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_OFERTAS_USUARIO
+@Usr int 
+
+AS 
+
+BEGIN
+
+select Ofer.Oferta_Fecha,
+Pub.CodPublicacion CodigoPublicacion,
+Pub.Descripcion Descripcion,
+Ofer.Oferta_Monto MontoOfertado,
+CASE
+WHEN Ofer.Oferta_Monto=(select TOP 1 Ofer2.Oferta_Monto  from BAZINGUEANDO_EN_SLQ.Ofertas Ofer2 
+
+where Ofer.IdPublicacion=Ofer2.IdPublicacion
+
+order by Oferta_Monto DESC)
+THEN 'SI'
+ELSE 'NO'
+END Gano_Oferta 
+
+from BAZINGUEANDO_EN_SLQ.Ofertas Ofer
+inner join BAZINGUEANDO_EN_SLQ.Usuarios Usrs on Usrs.idUsuario = Ofer.IdUsrOfertante
+inner join BAZINGUEANDO_EN_SLQ.Publicaciones Pub on Pub.IdPublicacion = Ofer.IdPublicacion   
+where IdUsrOfertante = @Usr
+order by Pub.CodPublicacion --.Oferta_Fecha
+
+END
+
+go
+
+
+-- SP CALIFICACIONES REALIZADAS DE UN USUARIO --
+------------------------------------------------
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_CALIFICACIONES_REALIZADAS
+@Usr int 
+
+AS
+
+BEGIN
+select 
+Usuarios.login Vendedor,
+Calificacion,
+Detalle,
+CodPublicacion,
+Descripcion
+
+
+
+from BAZINGUEANDO_EN_SLQ.Calificaciones Calif
+INNER JOIN BAZINGUEANDO_EN_SLQ.Compras on Calif.IdCompra=Compras.IdCompra
+INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones on Compras.IdPublicacion=Publicaciones.IdPublicacion
+INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios on Publicaciones.IdUsuario =Usuarios.idUsuario 
+where Compras.IdUsrComprador=@Usr
+END
+
+go
+
+
+-- SP CALIFICACIONES RECIBIDAS DE UN USUARIO --
+------------------------------------------------
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_CALIFICACIONES_RECIBIDAS
+@Usr int 
+
+AS 
+
+BEGIN
+select 
+IdUsrComprador Comprador,
+Calificacion,
+Detalle,
+CodPublicacion,
+Descripcion
+
+
+
+from BAZINGUEANDO_EN_SLQ.Calificaciones Calif
+INNER JOIN BAZINGUEANDO_EN_SLQ.Compras on Calif.IdCompra=Compras.IdCompra
+INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones on Compras.IdPublicacion=Publicaciones.IdPublicacion
+INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios on Publicaciones.IdUsuario =Usuarios.idUsuario 
+where Publicaciones.IdUsuario=@Usr
+
+END
