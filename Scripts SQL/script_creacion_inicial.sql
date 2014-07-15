@@ -501,7 +501,7 @@ INSERT BAZINGUEANDO_EN_SLQ.TiposDocumentos
 (Descripcion) VALUES ('DNI'),('LE'),('LC')
 
 INSERT BAZINGUEANDO_EN_SLQ.Estados
-(Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial')
+(Descripcion) VALUES ('Habilitado'),('Deshabilitado'),('Inicial'),('Bloqueado Compras/Ofertas')
 
 INSERT BAZINGUEANDO_EN_SLQ.EstadosCompras
 (Descripcion) VALUES ('Facturada'),('No Facturada')
@@ -896,6 +896,89 @@ CREATE TRIGGER TGR_COMPRAS
 	end
 ;
 GO
+
+------------------------------------------------------------
+--CREACION DE TRIGGER PARA CONTROLAR COMPRAS SIN CALIFICAR--
+-- ---------------Y SIN FACTURAR----------------------------
+------------------------------------------------------------
+
+CREATE TRIGGER TGR_COMPRAS_SIN_CALIFICAR_FACTURAR
+  ON BAZINGUEANDO_EN_SLQ.COMPRAS
+  AFTER INSERT
+  AS
+BEGIN  
+ DECLARE @USR_COMPRADOR int
+ DECLARE @USR_VENDEDOR int 
+ DECLARE @COMPRAS_SIN_FACTURAR int
+ DECLARE @COMPRAS_SIN_CALIFICAR int
+ 
+ 
+DECLARE CURSOR_USR_VENDEDORES CURSOR FOR
+ select Publicaciones.IdUsuario from inserted INNER JOIN Publicaciones
+								on inserted.IdPublicacion=Publicaciones.IdPublicacion
+
+DECLARE CURSOR_USR_COMPRADORES CURSOR FOR
+ select inserted.IdUsrComprador from inserted
+
+
+
+OPEN CURSOR_USR_VENDEDORES
+
+
+FETCH NEXT CURSOR_USR_VENDEDORES
+INTO @USR_VENDEDOR
+WHILE @@FETCH_STATUS=0								
+BEGIN
+	SET @COMPRAS_SIN_FACTURAR= (select COUNT(*) from BAZINGUEANDO_EN_SLQ.Compras INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones
+													on Compras.IdPublicacion=Publicaciones.IdPublicacion
+													where Publicaciones.IdUsuario=@USR_VENDEDOR and Compras.IdEstadoCompra='2')
+	IF @COMPRAS_SIN_FACTURAR >10 
+		BEGIN
+		UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+		set IdEstado=3 where IdUsuario=@USR_VENDEDOR
+	
+		UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
+		set idEstado='2' where idUsuario=@USR_VENDEDOR
+		END
+	
+	FETCH NEXT CURSOR_USR_VENDEDORES
+	INTO @USR_VENDEDOR
+END
+
+
+OPEN CURSOR_USR_COMPRADORES
+
+FETCH NEXT CURSOR_USR_COMPRADORES
+INTO @USR_COMPRADORES
+WHILE @@FETCH_STATUS=0								
+BEGIN
+	SET @COMPRAS_SIN_CALIFICAR=(select COUNT(*) from BAZINGUEANDO_EN_SLQ.Compras Comp 
+								LEFT JOIN BAZINGUEANDO_EN_SLQ.Calificaciones Calif
+								on Comp.IdCompra=Calif.IdCompra
+								where Calif.IdCalificacion IS NULL
+								and Comp.IdUsrComprador=@USR_COMPRADOR)
+	
+	IF @COMPRAS_SIN_CALIFICAR >5
+		BEGIN
+		UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
+		SET idEstado='4' where idUsuario=@USR_COMPRADOR
+		END
+	FETCH NEXT CURSOR_USR_COMPRADORES
+	INTO @USR_COMPRADORES
+END
+
+CLOSE CURSOR_USR_COMPRADORES
+
+CLOSE CURSOR_USR_VENDEDORES
+
+DEALLOCATE CURSOR_USR_COMPRADORES
+
+DEALLOCATE CURSOR_USR_VENDEDORES
+
+END
+
+go
+
 ---------------------------------
 --CREACION DE STORED PROCEDURES--
 ---------------------------------
@@ -1272,3 +1355,47 @@ INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios on Publicaciones.IdUsuario =Usuarios.idU
 where Publicaciones.IdUsuario=@Usr
 
 END
+
+go
+
+--SP PREGUNTAS A RESPONDER DEL USUARIO--
+----------------------------------------
+
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_RESPONDER_PREGUNTAS_USUARIO
+@Usr int 
+AS
+BEGIN
+select 
+Pub.Descripcion,
+P.Fecha,
+P.Descripcion,
+U.login
+from BAZINGUEANDO_EN_SLQ.Preguntas P LEFT JOIN BAZINGUEANDO_EN_SLQ.Respuestas R
+			on P.IdPregunta=R.IdPregunta INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U 
+			on P.IdUsuario=U.idUsuario INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones Pub
+			on P.IdPublicacion= Pub.IdPublicacion
+			where Pub.IdUsuario=@Usr and  R.IdRespuesta IS NULL  
+END
+
+go
+
+
+--SP RESPUESTAS DEL USUARIO--
+-----------------------------
+CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_RESPUESTAS_USUARIO
+@Usr int 
+AS
+BEGIN
+
+select
+Pub.Descripcion,
+R.Fecha,
+R.Descripcion
+
+from BAZINGUEANDO_EN_SLQ.Preguntas P INNER JOIN BAZINGUEANDO_EN_SLQ.Respuestas R
+	on P.IdPregunta=R.IdPregunta INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones Pub
+	on P.IdPublicacion= Pub.IdPublicacion
+where Pub.IdUsuario=@Usr
+
+END
+
