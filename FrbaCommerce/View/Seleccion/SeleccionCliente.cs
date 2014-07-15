@@ -80,5 +80,15 @@ namespace FrbaCommerce.View.Seleccion
             if (id == 1)
                 this.vtn1 = (View.Historial_Cliente.HistorialCliente) vtn;
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

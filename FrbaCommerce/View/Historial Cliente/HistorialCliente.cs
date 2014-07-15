@@ -19,7 +19,8 @@ namespace FrbaCommerce.View.Historial_Cliente
         {
             Compras = 1,
             Ofertas = 2,
-            Calificaciones = 3
+            CalificacionesRealizadas = 3,
+            CalificacionesRecibidas = 4
         }
         
         public HistorialCliente()
@@ -28,11 +29,12 @@ namespace FrbaCommerce.View.Historial_Cliente
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
-        {
+        {            
             View.Seleccion.SeleccionCliente vtnSeleccion = new FrbaCommerce.View.Seleccion.SeleccionCliente();
             vtnSeleccion.CargarDatosVentana(this,1);
             vtnSeleccion.Visible = true;
             this.Visible = false;
+            epCliente.Clear();
         }
 
         
@@ -62,27 +64,28 @@ namespace FrbaCommerce.View.Historial_Cliente
 
             DataRow dr = dt.NewRow();
             dr["IdCol"] = -1;
-            dr["Descripcion"] = "Seleccionar";
-            
+            dr["Descripcion"] = "Seleccionar";            
             dt.Rows.InsertAt(dr, 0);
 
             dr = dt.NewRow();
             dr["IdCol"] = 1;
             dr["Descripcion"] = "Compras";
-
             dt.Rows.InsertAt(dr, 1);
 
             dr = dt.NewRow();
             dr["IdCol"] = 2;
             dr["Descripcion"] = "Ofertas";
-
             dt.Rows.InsertAt(dr, 2);
             
             dr = dt.NewRow();
             dr["IdCol"] = 3;
-            dr["Descripcion"] = "Calificaciones";
-
+            dr["Descripcion"] = "Calificaciones Realizadas";
             dt.Rows.InsertAt(dr, 3);
+            
+            dr = dt.NewRow();
+            dr["IdCol"] = 4;
+            dr["Descripcion"] = "Calificaciones Recibidas";
+            dt.Rows.InsertAt(dr, 4);
 
             
             cmbTipoHistorial.DataSource = dt;
@@ -92,25 +95,52 @@ namespace FrbaCommerce.View.Historial_Cliente
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if ((int)cmbTipoHistorial.SelectedValue != -1)
+            
+            if (ValidarDatos())
             {
-                DataTable dt;
-                switch((int)cmbTipoHistorial.SelectedValue)
+
+                switch (Convert.ToInt32(cmbTipoHistorial.SelectedValue))
                 {
                     case (int)Historial_Cliente.HistorialCliente.Tipos.Compras:
-                        dt = Controller.Compras.HistorialComprasPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Compras.HistorialComprasPorUsuario(this.clienteSeleccionado);
                         break;
                     case (int)Historial_Cliente.HistorialCliente.Tipos.Ofertas:
-                        //dt = Controller.Ofertas.HistorialOfertasPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Ofertas.HistorialOfertasPorUsuario(this.clienteSeleccionado);
                         break;
-                    case (int)Historial_Cliente.HistorialCliente.Tipos.Calificaciones:
-                        //dt = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.clienteSeleccionado);
+                    case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRealizadas:
+                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.clienteSeleccionado);
                         break;
-                    default
+                    case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRecibidas:
+                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesRecibidasPorUsuario(this.clienteSeleccionado);
                         break;
-                }                
+                    default:
+                        break;
+                }
             }
         }
 
+        private void cmbTipoHistorial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            epTipoHistorial.Clear();
+        }
+
+        private Boolean ValidarDatos()
+        {
+            Boolean result = true;
+
+            if (Convert.ToInt32(cmbTipoHistorial.SelectedValue) == -1)
+            {
+                epTipoHistorial.SetError(cmbTipoHistorial, "Debe Seleccionar un tipo de Historial.");
+                result = false;
+            }
+
+            if (this.clienteSeleccionado == -1)
+            {
+                epCliente.SetError(txtCliente,"Debe Seleccionar un Cliente");
+                result = false;
+            }
+
+            return result;
+        }
     }
 }

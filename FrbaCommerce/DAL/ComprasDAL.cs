@@ -190,5 +190,25 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public DataTable HistorialComprasPorUsuario(int usuario)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"EXEC BAZINGUEANDO_EN_SLQ.SP_COMPRAS_USUARIO
+                                                        @IdUsuario", conexion);
+
+                comando.Parameters.AddWithValue("@IdUsuario", usuario);
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

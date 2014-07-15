@@ -34,6 +34,9 @@ DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_ObtenerComprasHasta
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_GENERAR_FACTURA
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_INGRESAR_CALIFICACIONES
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_COMPRAS_A_CALIFICAR
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_CALIFICACIONES_REALIZADAS
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_OFERTAS_USUARIO
+DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_COMPRAS_USUARIO
 --DROP TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
 
 DROP SCHEMA BAZINGUEANDO_EN_SLQ
@@ -1170,17 +1173,19 @@ AS
  
 BEGIN
 
-select Comp.Fecha Fecha,
-Pub.CodPublicacion CodigoPublicacion,
-Pub.Descripcion Descripcion,
-Pub.Precio Precio,
-Comp.Cantidad Cantidad,
-Pub.Precio * Comp.Cantidad Total
-from BAZINGUEANDO_EN_SLQ.Compras Comp
-inner join BAZINGUEANDO_EN_SLQ.Usuarios Usrs on Usrs.idUsuario = Comp.IdUsrComprador
-inner join BAZINGUEANDO_EN_SLQ.Publicaciones Pub on Pub.IdPublicacion = Comp.IdPublicacion   
-where IdUsrComprador = @Usr
-order by Comp.Fecha 
+	select	Comp.Fecha Fecha,
+			Pub.CodPublicacion CodigoPublicacion,
+			Pub.Descripcion Descripcion,
+			Pub.Precio Precio,
+			Comp.Cantidad Cantidad,
+			Pub.Precio * Comp.Cantidad Total
+	from BAZINGUEANDO_EN_SLQ.Compras Comp
+	inner join BAZINGUEANDO_EN_SLQ.Usuarios Usrs 
+		on Usrs.idUsuario = Comp.IdUsrComprador
+	inner join BAZINGUEANDO_EN_SLQ.Publicaciones Pub 
+		on Pub.IdPublicacion = Comp.IdPublicacion   
+	where IdUsrComprador = @Usr
+	order by Comp.Fecha 
 
 END
 
@@ -1257,18 +1262,15 @@ AS
 
 BEGIN
 select 
-IdUsrComprador Comprador,
+U.login Comprador,
 Calificacion,
 Detalle,
 CodPublicacion,
 Descripcion
-
-
-
 from BAZINGUEANDO_EN_SLQ.Calificaciones Calif
-INNER JOIN BAZINGUEANDO_EN_SLQ.Compras on Calif.IdCompra=Compras.IdCompra
-INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones on Compras.IdPublicacion=Publicaciones.IdPublicacion
-INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios on Publicaciones.IdUsuario =Usuarios.idUsuario 
-where Publicaciones.IdUsuario=@Usr
+INNER JOIN BAZINGUEANDO_EN_SLQ.Compras C on Calif.IdCompra=C.IdCompra
+INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P on C.IdPublicacion=P.IdPublicacion
+INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U on P.IdUsuario = U.idUsuario 
+where P.IdUsuario=@Usr
 
 END

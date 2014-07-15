@@ -112,7 +112,7 @@ namespace FrbaCommerce.Controller
             {
                 DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
 
-                //return cmpDAL.ObtenerComprasNoCalificadas(login);
+                return cmpDAL.HistorialComprasPorUsuario(usuario);
             }
             catch (Exception ex)
             {

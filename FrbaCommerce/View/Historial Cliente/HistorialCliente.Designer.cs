@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.txtCliente = new System.Windows.Forms.TextBox();
@@ -37,7 +38,11 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.dgvHistorial = new System.Windows.Forms.DataGridView();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.epTipoHistorial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epCliente = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoHistorial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCliente)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -83,6 +88,7 @@
             this.cmbTipoHistorial.Name = "cmbTipoHistorial";
             this.cmbTipoHistorial.Size = new System.Drawing.Size(121, 21);
             this.cmbTipoHistorial.TabIndex = 4;
+            this.cmbTipoHistorial.SelectedIndexChanged += new System.EventHandler(this.cmbTipoHistorial_SelectedIndexChanged);
             // 
             // lblTipoHistorial
             // 
@@ -105,9 +111,16 @@
             // 
             // dgvHistorial
             // 
+            this.dgvHistorial.AllowUserToAddRows = false;
+            this.dgvHistorial.AllowUserToDeleteRows = false;
+            this.dgvHistorial.AllowUserToResizeColumns = false;
+            this.dgvHistorial.AllowUserToResizeRows = false;
+            this.dgvHistorial.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistorial.Location = new System.Drawing.Point(16, 71);
             this.dgvHistorial.Name = "dgvHistorial";
+            this.dgvHistorial.RowHeadersVisible = false;
+            this.dgvHistorial.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHistorial.Size = new System.Drawing.Size(599, 234);
             this.dgvHistorial.TabIndex = 7;
             // 
@@ -119,6 +132,14 @@
             this.btnVolver.TabIndex = 8;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            // 
+            // epTipoHistorial
+            // 
+            this.epTipoHistorial.ContainerControl = this;
+            // 
+            // epCliente
+            // 
+            this.epCliente.ContainerControl = this;
             // 
             // HistorialCliente
             // 
@@ -138,6 +159,8 @@
             this.Text = "HistorialCliente";
             this.Load += new System.EventHandler(this.HistorialCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoHistorial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epCliente)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +177,7 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.DataGridView dgvHistorial;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.ErrorProvider epTipoHistorial;
+        private System.Windows.Forms.ErrorProvider epCliente;
     }
 }

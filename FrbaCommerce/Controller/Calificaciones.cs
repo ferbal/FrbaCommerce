@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace FrbaCommerce.Controller
 {
@@ -21,13 +22,27 @@ namespace FrbaCommerce.Controller
             }
         }
 
-        public static void HistorialCalificacionesPorUsuario(int usuario)
+        public static DataTable HistorialCalificacionesPorUsuario(int usuario)
         {
             try
             {
                 DAL.CalificacionesDAL califDAL = new FrbaCommerce.DAL.CalificacionesDAL();
 
-                //califDAL.IngresarCalificacion(idCompra, calif, detalle);
+                return califDAL.HistorialCalificacionesPorUsuario(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static DataTable HistorialCalificacionesRecibidasPorUsuario(int usuario)
+        {
+            try
+            {
+                DAL.CalificacionesDAL califDAL = new FrbaCommerce.DAL.CalificacionesDAL();
+
+                return califDAL.HistorialCalificacionesRecibidasPorUsuario(usuario);
             }
             catch (Exception ex)
             {

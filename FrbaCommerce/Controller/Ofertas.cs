@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace FrbaCommerce.Controller
 {
@@ -21,13 +22,13 @@ namespace FrbaCommerce.Controller
             }
         }
 
-        public static void HistorialOfertasPorUsuario(int usuario)
+        public static DataTable HistorialOfertasPorUsuario(int usuario)
         {
             try
             {
                 DAL.OfertasDAL ofDAL = new FrbaCommerce.DAL.OfertasDAL();
 
-                //ofDAL.InsertarOferta(ofertante, publicacion, fecha, monto);
+                return ofDAL.HistorialOfertasPorUsuario(usuario);
             }
             catch (Exception ex)
             {
