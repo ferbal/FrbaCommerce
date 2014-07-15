@@ -20,5 +20,19 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
+
+        public static void HistorialOfertasPorUsuario(int usuario)
+        {
+            try
+            {
+                DAL.OfertasDAL ofDAL = new FrbaCommerce.DAL.OfertasDAL();
+
+                //ofDAL.InsertarOferta(ofertante, publicacion, fecha, monto);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

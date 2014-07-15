@@ -106,5 +106,19 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        public static DataTable HistorialComprasPorUsuario(int usuario)
+        {
+            try
+            {
+                DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
+
+                //return cmpDAL.ObtenerComprasNoCalificadas(login);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

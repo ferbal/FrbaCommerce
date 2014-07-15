@@ -7,13 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaCommerce.Historial_Cliente
+namespace FrbaCommerce.View
 {
-    public partial class Form1 : Form
+    public partial class Aviso : Form
     {
-        public Form1()
+        public Aviso(String msg)
         {
             InitializeComponent();
+            lblMensaje.Text = msg;
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

@@ -20,5 +20,19 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
+
+        public static void HistorialCalificacionesPorUsuario(int usuario)
+        {
+            try
+            {
+                DAL.CalificacionesDAL califDAL = new FrbaCommerce.DAL.CalificacionesDAL();
+
+                //califDAL.IngresarCalificacion(idCompra, calif, detalle);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

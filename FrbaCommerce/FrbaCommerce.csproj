@@ -65,6 +65,7 @@
     <Compile Include="Controller\Usuarios.cs" />
     <Compile Include="Controller\UsuariosRoles.cs" />
     <Compile Include="Controller\Validaciones.cs" />
+    <Compile Include="Controller\Visibilidades.cs" />
     <Compile Include="DAL\AniosDAL.cs" />
     <Compile Include="DAL\CalificacionesDAL.cs" />
     <Compile Include="DAL\FacturarPublicaciones.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="DAL\ClientesDAL.cs" />
     <Compile Include="DAL\TiposPersonasDAL.cs" />
     <Compile Include="DAL\UsuariosDAL.cs" />
+    <Compile Include="DAL\VisibilidadesDAL.cs" />
     <Compile Include="Model\Calificaciones.cs" />
     <Compile Include="Model\FormasDePago.cs" />
     <Compile Include="Model\Compras.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Model\TiposPublicaciones.cs" />
     <Compile Include="Model\Usuarios.cs" />
     <Compile Include="DAL\Conexion.cs" />
+    <Compile Include="Model\Visibilidad.cs" />
     <Compile Include="View\Abm Cliente\AdminCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,11 +146,23 @@
     <Compile Include="View\Abm Rubro\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Abm Visibilidad\Form1.cs">
+    <Compile Include="View\Abm Visibilidad\AdminVisibilidad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Abm Visibilidad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="View\Abm Visibilidad\AdminVisibilidad.Designer.cs">
+      <DependentUpon>AdminVisibilidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Abm Visibilidad\VisibilidadAM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Abm Visibilidad\VisibilidadAM.Designer.cs">
+      <DependentUpon>VisibilidadAM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Aviso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Aviso.Designer.cs">
+      <DependentUpon>Aviso.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Calificar Vendedor\CalificarVendedor.cs">
       <SubType>Form</SubType>
@@ -191,6 +206,12 @@
     <Compile Include="View\Generar Publicacion\AdminPublicaciones.Designer.cs">
       <DependentUpon>AdminPublicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Historial Cliente\HistorialCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Historial Cliente\HistorialCliente.Designer.cs">
+      <DependentUpon>HistorialCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Listado Estadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,12 +240,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\Gestion de Preguntas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\Historial Cliente\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Historial Cliente\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Login\Login.cs">
@@ -258,6 +273,15 @@
     <EmbeddedResource Include="View\ABM Rol\RolAM.resx">
       <DependentUpon>RolAM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Visibilidad\AdminVisibilidad.resx">
+      <DependentUpon>AdminVisibilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Abm Visibilidad\VisibilidadAM.resx">
+      <DependentUpon>VisibilidadAM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Aviso.resx">
+      <DependentUpon>Aviso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Calificar Vendedor\CalificarVendedor.resx">
       <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,6 +303,9 @@
     <EmbeddedResource Include="View\Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Historial Cliente\HistorialCliente.resx">
+      <DependentUpon>HistorialCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Listado Estadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Registro de Usuario\RegistroUsuario.resx">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Seleccion\SeleccionCliente.resx">
+      <DependentUpon>SeleccionCliente.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -312,6 +342,12 @@
     </Compile>
     <Compile Include="View\Registro de Usuario\RegistroUsuario.Designer.cs">
       <DependentUpon>RegistroUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Seleccion\SeleccionCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Seleccion\SeleccionCliente.Designer.cs">
+      <DependentUpon>SeleccionCliente.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -166,5 +166,19 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        public static DataTable ObtenerListaSeleccionClientes(String nombre,String apellido,String razonSocial)
+        {
+            try
+            {
+                DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+
+                return usrDAL.ListarClientes(nombre,apellido,razonSocial);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

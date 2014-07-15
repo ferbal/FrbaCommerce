@@ -205,6 +205,51 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
+        }
+
+        public DataTable ListarClientes(String nombre, String apellido, String razonSocial)
+        {
+            String where = String.Empty;
+
+            if (!String.IsNullOrEmpty(nombre))
+                where = where + " AND C.Nombre LIKE '%" + nombre + "%'";
+
+            if (!String.IsNullOrEmpty(apellido))
+                where = where + " AND C.Apellido LIKE '%" + apellido + "%'";
+
+            if (!String.IsNullOrEmpty(razonSocial))
+                where = where + " AND E.RazonSocial LIKE '%" + razonSocial + "%'";
+
+            if (!String.IsNullOrEmpty(where))
+                where = "WHERE " + where.Substring(4);
+
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"  SELECT	U.idUsuario IdUsuario,
+                                                                CASE 
+                                                                    WHEN C.Apellido IS NOT NULL THEN C.Apellido + ', '+ C.Nombre
+                                                                    ELSE E.RazonSocial
+                                                                END Descripcion,
+                                                                ISNULL(CONVERT(VARCHAR(10),C.NroDocumento),E.Cuit) [Nro Documento]
+                                                        FROM BAZINGUEANDO_EN_SLQ.Usuarios U
+                                                        LEFT JOIN BAZINGUEANDO_EN_SLQ.Clientes C
+                                                            ON U.idUsuario = C.idUsuario	                                                            
+                                                        LEFT JOIN BAZINGUEANDO_EN_SLQ.Empresas E
+                                                            ON U.idUsuario = E.idUsuario
+                                                        " + where + @" 
+                                                        ORDER BY 1,2", conexion);
+
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }   
 
         public Model.Usuarios llenarUsuario(DataRow dr)
