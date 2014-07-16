@@ -10,7 +10,7 @@ namespace FrbaCommerce.DAL
     class ListadoEstadisticoDAL
     {
 
-        public DataTable GenerarListado(String anio, int trimestre, String listado)
+        public DataTable GenerarListado(String anio, int trimestre, String listado, String visibilidad)
         {
 
             SqlConnection conexion = DAL.Conexion.getConexion();
@@ -19,6 +19,8 @@ namespace FrbaCommerce.DAL
             {
                 String fecha1 = String.Empty;
                 String fecha2 = String.Empty;
+                int visibilidadN = 0;
+
                 if (trimestre == 1)
                 {
                     fecha1 = "01-01-" + anio;
@@ -43,21 +45,40 @@ namespace FrbaCommerce.DAL
                     fecha2 = "31-12-" + anio;
                 }
 
+                if (visibilidad == "Platino" )
+                    visibilidadN = 1;
+
+                if (visibilidad == "Oro")
+                    visibilidadN = 2;
+
+                if (visibilidad == "Plata")
+                    visibilidadN = 3;
+
+                if (visibilidad == "Bronce")
+                    visibilidadN = 4;
+
+                if (visibilidad == "Gratis")
+                    visibilidadN = 5;
+
+                
                 SqlCommand comando;
 
                 //por default
                 //if (listado == "VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS")
                 //{
-                    comando = new SqlCommand(@" select TOP 5 U.login USUARIO, P.Stock STOCK, 
-                                                            P.IdVisibilidad VISIBILIDAD
-                                                            from BAZINGUEANDO_EN_SLQ.Publicaciones P 
-                                                            join BAZINGUEANDO_EN_SLQ.Usuarios U
-                                                            on U.idUsuario = P.IdUsuario
-                                                            join BAZINGUEANDO_EN_SLQ.Visibilidades V
-                                                            on  V.IdVisibilidad = P.IdVisibilidad
-                                                            where P.FechaFin between CONVERT(DATETIME,'" + fecha1 +
-                                                            "') AND CONVERT(DATETIME,'" + fecha2 + 
-                                                            "') group by U.login,P.Stock, P.IdVisibilidad,P.FechaFin order by P.FechaFin, P.IdVisibilidad" 
+                comando = new SqlCommand(@" select TOP 5 
+                                            U.login USUARIO,
+                                            sum(P.Stock) PRODUCTOS_SIN_VENDER,
+                                            P.IdVisibilidad VISIBILIDAD
+                                            from BAZINGUEANDO_EN_SLQ.Publicaciones P 
+                                            join BAZINGUEANDO_EN_SLQ.Usuarios U
+                                            on U.idUsuario = P.IdUsuario
+                                            join BAZINGUEANDO_EN_SLQ.Visibilidades V
+                                            on  V.IdVisibilidad = P.IdVisibilidad
+                                            where P.FechaInicio between CONVERT(DATETIME,'" + fecha1 +
+                                            "') AND CONVERT(DATETIME,'" + fecha2 +
+                                            "') AND V.IdVisibilidad = " + visibilidadN +
+                                            " group by U.login, p.Stock, P.IdVisibilidad order by P.IdVisibilidad, SUM(P.Stock) DESC" 
                                    
                                                         , conexion);
                 //}
@@ -97,19 +118,19 @@ namespace FrbaCommerce.DAL
                 if (listado == "CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR")
                 {
 
-                    comando = new SqlCommand(@"select TOP 5 p.idusuario,
-                                                            (select login 
-                                                            from BAZINGUEANDO_EN_SLQ.Usuarios 
-                                                            where idUsuario = P.IdUsuario) USUARIO,
-                                                            COUNT(DISTINCT P.IdPublicacion) PUBLICACIONES_SIN_CALIFICAR
-                                                            from BAZINGUEANDO_EN_SLQ.Calificaciones Ca
-                                                            join BAZINGUEANDO_EN_SLQ.Compras C
-                                                            on ca.IdCompra = c.IdCompra
-                                                            join BAZINGUEANDO_EN_SLQ.Publicaciones p
-                                                            on p.IdPublicacion = c.IdPublicacion
-                                                            where c.Fecha between CONVERT(DATETIME,'" + fecha1 + 
-                                                            "') AND CONVERT(DATETIME,'" + fecha2 + 
-                                                            "') and ca.Calificacion = 0 group by P.idUsuario order by COUNT(P.IdPublicacion) DESC"
+                    comando = new SqlCommand(@"SELECT TOP 5
+                                               (select login
+                                               from BAZINGUEANDO_EN_SLQ.Usuarios U
+                                                where idUsuario = COMP.IdUsrComprador 
+                                                and idTipoPersona = 1) USUARIO,
+                                                COMP.IdUsrComprador, COUNT(*) PUBLICACIONES_SIN_CALIFICAR
+                                                FROM BAZINGUEANDO_EN_SLQ.Compras COMP
+                                                LEFT JOIN BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
+                                                ON COMP.IDCOMPRA = CALIF.IDCOMPRA
+                                                WHERE CALIF.IDCALIFICACION IS NULL
+                                                AND COMP.Fecha between CONVERT(DATETIME,'" + fecha1 +
+                                                "') AND CONVERT(DATETIME,'" + fecha2 + 
+                                                "') GROUP BY COMP.IdUsrComprador ORDER BY COUNT(*) DESC"
 
                     , conexion);
                 }
@@ -153,5 +174,33 @@ namespace FrbaCommerce.DAL
                 throw ex;
             }
         }
+
+        public DataTable obtenerVisibilidades()
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            try
+            {
+
+                DataTable dt = new DataTable();
+
+                SqlCommand comando = new SqlCommand(@"SELECT Descripcion
+                                                      from BAZINGUEANDO_EN_SLQ.Visibilidades", conexion);
+
+                dt.TableName = "Visibilidades";
+
+                dt.Load(comando.ExecuteReader());
+
+                DataRow row = dt.NewRow();
+                row["Descripcion"] = ""; //insert a blank row
+                dt.Rows.InsertAt(row, 0); //insert new to to index 0 (on top)
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

@@ -40,6 +40,8 @@
             this.cmbTrimestre = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbListado = new System.Windows.Forms.ComboBox();
+            this.lblVisilidad = new System.Windows.Forms.Label();
+            this.cmbVisibilidad = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +70,7 @@
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnVolver
             // 
@@ -149,12 +152,37 @@
             this.cmbListado.Name = "cmbListado";
             this.cmbListado.Size = new System.Drawing.Size(422, 21);
             this.cmbListado.TabIndex = 20;
+            this.cmbListado.SelectedIndexChanged += new System.EventHandler(this.cmbListado_SelectedIndexChanged);
+            // 
+            // lblVisilidad
+            // 
+            this.lblVisilidad.AutoSize = true;
+            this.lblVisilidad.Location = new System.Drawing.Point(149, 48);
+            this.lblVisilidad.Name = "lblVisilidad";
+            this.lblVisilidad.Size = new System.Drawing.Size(56, 13);
+            this.lblVisilidad.TabIndex = 23;
+            this.lblVisilidad.Text = "Visibilidad:";
+            // 
+            // cmbVisibilidad
+            // 
+            this.cmbVisibilidad.FormattingEnabled = true;
+            this.cmbVisibilidad.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.cmbVisibilidad.Location = new System.Drawing.Point(205, 45);
+            this.cmbVisibilidad.Name = "cmbVisibilidad";
+            this.cmbVisibilidad.Size = new System.Drawing.Size(76, 21);
+            this.cmbVisibilidad.TabIndex = 22;
             // 
             // ListadoEstadistico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(627, 292);
+            this.Controls.Add(this.lblVisilidad);
+            this.Controls.Add(this.cmbVisibilidad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbListado);
             this.Controls.Add(this.label1);
@@ -186,6 +214,8 @@
         private System.Windows.Forms.ComboBox cmbTrimestre;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbListado;
+        private System.Windows.Forms.Label lblVisilidad;
+        private System.Windows.Forms.ComboBox cmbVisibilidad;
 
     }
 }
