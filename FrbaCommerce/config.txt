@@ -1,2 +1,2 @@
-Conexion=Data Source=localhost\SQLSERVER2008;Initial Catalog=GD1C2014;Integrated Security=True
+Conexion=Data Source=localhost\SQLSERVER2008;Initial Catalog=GD1C2014;User Id =gd;Password =gd2014;Integrated Security=False
 Fecha=2014/01/01

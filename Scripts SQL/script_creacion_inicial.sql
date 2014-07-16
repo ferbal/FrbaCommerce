@@ -366,7 +366,8 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.FacturasItems
 	Comision NUMERIC(18,2) NOT NULL,
 	CantVendida NUMERIC(18) NOT NULL,
 	CONSTRAINT PK_FacturasItems PRIMARY KEY (IdFacturaItem),
-	CONSTRAINT FK_FacturasItems_Facturas FOREIGN KEY (IdFactura) REFERENCES BAZINGUEANDO_EN_SLQ.Facturas(IdFactura)
+	CONSTRAINT FK_FacturasItems_Facturas FOREIGN KEY (IdFactura) REFERENCES BAZINGUEANDO_EN_SLQ.Facturas(IdFactura),
+	CONSTRAINT FK_FacturasItems_Publicaciones FOREIGN KEY (IdPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.Publicaciones(IdPublicacion)
 )
 CREATE TABLE BAZINGUEANDO_EN_SLQ.DatosTarjetas
 (
