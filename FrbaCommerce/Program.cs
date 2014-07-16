@@ -20,8 +20,8 @@ namespace FrbaCommerce
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);                       
             
-            //Application.Run(new Principal());
-            Application.Run(new View.Gestion_de_Preguntas.GestionPreguntas());
+            Application.Run(new Principal());
+            //Application.Run(new View.Gestion_de_Preguntas.GestionPreguntas());
 
             //View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
             //vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));

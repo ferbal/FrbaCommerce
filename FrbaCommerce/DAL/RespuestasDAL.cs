@@ -22,9 +22,9 @@ namespace FrbaCommerce.DAL
                                                             Descripcion,
                                                             Fecha
                                                         )
-                                                        VALUE
+                                                        VALUES
                                                         (
-                                                            @IdPersona,
+                                                            @IdPregunta,
                                                             @Descripcion,
                                                             @Fecha
                                                         )", conexion);

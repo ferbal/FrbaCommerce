@@ -57,7 +57,9 @@
     <Compile Include="Controller\FormaPago.cs" />
     <Compile Include="Controller\Funcionalidades.cs" />
     <Compile Include="Controller\Ofertas.cs" />
+    <Compile Include="Controller\Preguntas.cs" />
     <Compile Include="Controller\Publicaciones.cs" />
+    <Compile Include="Controller\Respuestas.cs" />
     <Compile Include="Controller\Roles.cs" />
     <Compile Include="Controller\RolesFuncionalidades.cs" />
     <Compile Include="Controller\Rubros.cs" />
@@ -76,7 +78,9 @@
     <Compile Include="DAL\EmpresasDAL.cs" />
     <Compile Include="DAL\FuncionalidadesDAL.cs" />
     <Compile Include="DAL\OfertasDAL.cs" />
+    <Compile Include="DAL\PreguntasDAL.cs" />
     <Compile Include="DAL\PublicacionesDAL.cs" />
+    <Compile Include="DAL\RespuestasDAL.cs" />
     <Compile Include="DAL\RolesFuncionalidadesDAL.cs" />
     <Compile Include="DAL\RubrosDAL.cs" />
     <Compile Include="DAL\TiposPublicacionesDAL.cs" />
@@ -212,6 +216,12 @@
     <Compile Include="View\Gestion de Preguntas\GestionPreguntas.Designer.cs">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Gestion de Preguntas\ResponerPreguntas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Gestion de Preguntas\ResponerPreguntas.Designer.cs">
+      <DependentUpon>ResponerPreguntas.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Historial Cliente\HistorialCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Gestion de Preguntas\GestionPreguntas.resx">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Gestion de Preguntas\ResponerPreguntas.resx">
+      <DependentUpon>ResponerPreguntas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Historial Cliente\HistorialCliente.resx">
       <DependentUpon>HistorialCliente.cs</DependentUpon>

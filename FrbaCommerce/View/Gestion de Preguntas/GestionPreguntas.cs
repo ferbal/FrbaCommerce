@@ -14,7 +14,7 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
         private Form vtnAnterior;
         private int idUsuario = -1;
 
-        public enum Op
+        public enum TipoOp
         {
             ResponderPreguntas = 1,
             VerRespuestas = 2
@@ -43,22 +43,24 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
 
             dr = dt.NewRow();
             dr["IdCol"] = 1;
-            dr["Descripcion"] = "Responder Preguntas";
+            dr["Descripcion"] = "Preguntas A Responder";
             dt.Rows.InsertAt(dr, 1);
 
             dr = dt.NewRow();
             dr["IdCol"] = 2;
-            dr["Descripcion"] = "Ofertas";
+            dr["Descripcion"] = "Preguntas Con Respuesta";
             dt.Rows.InsertAt(dr, 2);
 
-            cmbTipoOperacion.DataSource = dt;
             cmbTipoOperacion.ValueMember = "IdCol";
             cmbTipoOperacion.DisplayMember = "Descripcion";
+            cmbTipoOperacion.DataSource = dt;
+            
         }
 
         private void cmbTipoOperacion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(cmbTipoOperacion.SelectedValue) == (int)Gestion_de_Preguntas.GestionPreguntas.Op.ResponderPreguntas)
+            epTipoOperacion.Clear();
+            if (Convert.ToInt32(cmbTipoOperacion.SelectedValue) == (int)Gestion_de_Preguntas.GestionPreguntas.TipoOp.ResponderPreguntas)
             {
                 btnResponder.Enabled = true;
             }
@@ -77,6 +79,52 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(cmbTipoOperacion.SelectedValue) != -1)
+            {
+                CargarDGV();
+            }
+            else
+            {
+                epTipoOperacion.SetError(cmbTipoOperacion,"Debe Seleccionar un tipo de Operacion.");
+            }
+        }
+
+        private void btnResponder_Click(object sender, EventArgs e)
+        {
+            DataGridViewRowCollection rows = dgvGestionPreguntas.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+
+            View.Gestion_de_Preguntas.ResponerPreguntas vtnRespuesta = new ResponerPreguntas();
+            vtnRespuesta.CargarDatos(this,this.idUsuario,Convert.ToInt32(cells["IdPregunta"].Value),cells["Pregunta"].Value.ToString());
+            vtnRespuesta.Visible = true;
+            this.Visible = false;
+        }
+
+        private void CargarDGV()
+        {
+            switch (Convert.ToInt32(cmbTipoOperacion.SelectedValue))
+            {
+                case (int)Gestion_de_Preguntas.GestionPreguntas.TipoOp.ResponderPreguntas:
+                    dgvGestionPreguntas.DataSource = Controller.Preguntas.ObtenerPregSinRespuesta(this.idUsuario);
+                    dgvGestionPreguntas.Columns["IdPregunta"].Visible = false;
+                    break;
+
+                case (int)Gestion_de_Preguntas.GestionPreguntas.TipoOp.VerRespuestas:
+                    dgvGestionPreguntas.DataSource = Controller.Preguntas.ObtenerPregConRespuesta(this.idUsuario);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void GestionPreguntas_VisibleChanged(object sender, EventArgs e)
+        {
+            CargarDGV();
         }
     }
 }

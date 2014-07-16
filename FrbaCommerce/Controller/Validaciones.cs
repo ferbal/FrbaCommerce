@@ -8,11 +8,11 @@ namespace FrbaCommerce.Controller
 {
     class Validaciones
     {
-        private static DateTime fechaSistema;
+        private static DateTime fechaSistema = DateTime.MinValue;
 
         public static DateTime ObtenerFechaSistema()
         {
-            if (fechaSistema == null)
+            if (fechaSistema == DateTime.MinValue)
             {
                 String str = String.Empty;
 

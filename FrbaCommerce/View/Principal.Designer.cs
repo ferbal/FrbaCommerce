@@ -63,6 +63,7 @@ namespace FrbaCommerce
             this.btnHistorialCli.TabIndex = 3;
             this.btnHistorialCli.Text = "Historial Cliente";
             this.btnHistorialCli.UseVisualStyleBackColor = true;
+            this.btnHistorialCli.Click += new System.EventHandler(this.btnHistorialCli_Click);
             // 
             // btnComprarOfertar
             // 
@@ -82,6 +83,7 @@ namespace FrbaCommerce
             this.btnGestionarPreg.TabIndex = 5;
             this.btnGestionarPreg.Text = "Gestionar Preguntas";
             this.btnGestionarPreg.UseVisualStyleBackColor = true;
+            this.btnGestionarPreg.Click += new System.EventHandler(this.btnGestionarPreg_Click);
             // 
             // btnGenerarPubli
             // 

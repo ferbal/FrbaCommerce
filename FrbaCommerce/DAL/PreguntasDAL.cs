@@ -17,8 +17,11 @@ namespace FrbaCommerce.DAL
                 
                 SqlConnection conexion = DAL.Conexion.getConexion();
 
-                SqlCommand comando = new SqlCommand(@"",conexion);
-
+                SqlCommand comando = new SqlCommand(@"EXEC BAZINGUEANDO_EN_SLQ.SP_RESPONDER_PREGUNTAS_USUARIO
+                                                        @USUARIO", conexion);
+                
+                comando.Parameters.AddWithValue("@USUARIO",usuario);
+                
                 dt.Load(comando.ExecuteReader());
 
                 return dt;
@@ -38,7 +41,10 @@ namespace FrbaCommerce.DAL
 
                 SqlConnection conexion = DAL.Conexion.getConexion();
 
-                SqlCommand comando = new SqlCommand(@"", conexion);
+                SqlCommand comando = new SqlCommand(@"EXEC BAZINGUEANDO_EN_SLQ.SP_RESPUESTAS_USUARIO 
+                                                        @USUARIO", conexion);
+
+                comando.Parameters.AddWithValue("@USUARIO",usuario);
 
                 dt.Load(comando.ExecuteReader());
 

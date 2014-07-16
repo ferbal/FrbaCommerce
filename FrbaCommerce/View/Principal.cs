@@ -123,5 +123,21 @@ namespace FrbaCommerce
             vtnCalif.Visible = true;
             this.Visible = false;
         }
+
+        private void btnGestionarPreg_Click(object sender, EventArgs e)
+        {
+            View.Gestion_de_Preguntas.GestionPreguntas vtnGestPreg = new FrbaCommerce.View.Gestion_de_Preguntas.GestionPreguntas();
+            vtnGestPreg.CargarDatos(this,this.idUsuario);
+            vtnGestPreg.Visible = true;
+            this.Visible = false;
+        }
+
+        private void btnHistorialCli_Click(object sender, EventArgs e)
+        {
+            View.Historial_Cliente.HistorialCliente vtnHistCli = new FrbaCommerce.View.Historial_Cliente.HistorialCliente();
+            vtnHistCli.CargarDatos(this,this.idUsuario);
+            vtnHistCli.Visible = true;
+            this.Visible = false;
+        }
     }
 }

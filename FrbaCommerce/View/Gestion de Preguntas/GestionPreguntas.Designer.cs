@@ -31,6 +31,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgvGestionPreguntas = new System.Windows.Forms.DataGridView();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -38,7 +39,9 @@
             this.cmbTipoOperacion = new System.Windows.Forms.ComboBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnResponder = new System.Windows.Forms.Button();
+            this.epTipoOperacion = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGestionPreguntas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoOperacion)).BeginInit();
             this.SuspendLayout();
             // 
             // btnVolver
@@ -74,15 +77,16 @@
             this.btnBuscar.TabIndex = 14;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // lblTipoOperacion
             // 
             this.lblTipoOperacion.AutoSize = true;
-            this.lblTipoOperacion.Location = new System.Drawing.Point(332, 47);
+            this.lblTipoOperacion.Location = new System.Drawing.Point(320, 47);
             this.lblTipoOperacion.Name = "lblTipoOperacion";
-            this.lblTipoOperacion.Size = new System.Drawing.Size(71, 13);
+            this.lblTipoOperacion.Size = new System.Drawing.Size(83, 13);
             this.lblTipoOperacion.TabIndex = 13;
-            this.lblTipoOperacion.Text = "Tipo Historial:";
+            this.lblTipoOperacion.Text = "Tipo Operacion:";
             // 
             // cmbTipoOperacion
             // 
@@ -111,6 +115,11 @@
             this.btnResponder.TabIndex = 18;
             this.btnResponder.Text = "Responder";
             this.btnResponder.UseVisualStyleBackColor = true;
+            this.btnResponder.Click += new System.EventHandler(this.btnResponder_Click);
+            // 
+            // epTipoOperacion
+            // 
+            this.epTipoOperacion.ContainerControl = this;
             // 
             // GestionPreguntas
             // 
@@ -127,7 +136,9 @@
             this.Name = "GestionPreguntas";
             this.Text = "GestionPreguntas";
             this.Load += new System.EventHandler(this.GestionPreguntas_Load);
+            this.VisibleChanged += new System.EventHandler(this.GestionPreguntas_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGestionPreguntas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoOperacion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,5 +153,6 @@
         private System.Windows.Forms.ComboBox cmbTipoOperacion;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Button btnResponder;
+        private System.Windows.Forms.ErrorProvider epTipoOperacion;
     }
 }
