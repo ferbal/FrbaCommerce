@@ -16,7 +16,7 @@ namespace FrbaCommerce
         [STAThread]
         static void Main()
         {
-            
+            //String password = Controller.Usuarios.encriptarPassword("12345678");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);                       
             

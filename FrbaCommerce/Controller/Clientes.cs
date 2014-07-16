@@ -11,7 +11,7 @@ namespace FrbaCommerce.Controller
         {
             try
             {                
-                Model.Clientes cli = new FrbaCommerce.Model.Clientes(nombre, apellido, tipoDoc, nroDoc, nroCuil, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad,estado);
+                Model.Clientes cli = new FrbaCommerce.Model.Clientes(usr,nombre, apellido, tipoDoc, nroDoc, nroCuil, mail, fecha, telefono, calle, pisoNro, depto, codPost, localidad,estado);
                 DAL.ClientesDAL cliDAL = new FrbaCommerce.DAL.ClientesDAL();
 
                 if (cliDAL.existeClientePorNroDoc(nroDoc, tipoDoc))
