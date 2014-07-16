@@ -40,7 +40,7 @@ DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_OFERTAS_USUARIO
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_COMPRAS_USUARIO
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_RESPONDER_PREGUNTAS_USUARIO
 DROP PROCEDURE BAZINGUEANDO_EN_SLQ.SP_RESPUESTAS_USUARIO
---DROP TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
+DROP TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
 
 DROP SCHEMA BAZINGUEANDO_EN_SLQ
 */
@@ -594,10 +594,11 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Visibilidades
 
 
 --Reputacion Clientes (divide por Operaciones realizadas? aunque no esten calificadas? )
-/*select AVG(Calificacion_Cant_Estrellas)Reputacion
+/*select *--Publ_Cli_Dni,Calificacion_Cant_Estrellas--AVG(Calificacion_Cant_Estrellas)Reputacion
 from gd_esquema.Maestra 
 where Compra_Fecha is not NULL and Calificacion_Cant_Estrellas is not NULL and Publ_Cli_Dni is not NULL
-group by Publ_Cli_Dni
+--group by Publ_Cli_Dni
+order by Publ_Cli_Dni
 */
 --INSERT RUBROS
 INSERT INTO BAZINGUEANDO_EN_SLQ.Rubros
@@ -622,17 +623,20 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
 		idEstado
 	)
 	select	'1' idTipoPersona,
-			Cli_Mail,
-			'12345678'password,
+			g.Cli_Mail,
+			'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'password,
 			'0'fallos,
-			'0' reputacion,
+			 (select AVG(g2.Calificacion_Cant_Estrellas)Reputacion
+			  from gd_esquema.Maestra g2 
+			  where g2.Compra_Fecha is not NULL and g2.Calificacion_Cant_Estrellas is not NULL 
+			  and g2.Publ_Cli_Dni = g.Cli_Dni)reputacion,
 			'3'idEstado
-	from gd_esquema.Maestra
-	where Cli_Dni is not null
-	group by	Cli_Dni,
-				Cli_Mail,
-				Cli_Apeliido
-	order by Cli_Apeliido
+	from gd_esquema.Maestra g
+	where g.Cli_Dni is not null
+	group by	g.Cli_Dni,
+				g.Cli_Mail,
+				g.Cli_Apeliido
+	order by g.Cli_Apeliido
 		
 --INSERT USUARIOS EMPRESA
 INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
@@ -645,15 +649,18 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
 		idEstado
 	)
 	select	'2' idTipoPersona,
-			Publ_Empresa_Mail,
-			'12345678'password,
+			g.Publ_Empresa_Mail,
+			'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'password,
 			'0'fallos,
-			'0' reputacion,
+			(select AVG(g2.Calificacion_Cant_Estrellas)Reputacion
+			  from gd_esquema.Maestra g2 
+			  where g2.Compra_Fecha is not NULL and g2.Calificacion_Cant_Estrellas is not NULL 
+			  and g2.Publ_Empresa_Cuit = g.Publ_Empresa_Cuit)reputacion,
 			'3'idEstado
-	from gd_esquema.Maestra
-	where Publ_Empresa_Cuit is not null
-	group by Publ_Empresa_Cuit,Publ_Empresa_Mail,Publ_Empresa_Razon_Social
-	order by Publ_Empresa_Razon_Social
+	from gd_esquema.Maestra g
+	where g.Publ_Empresa_Cuit is not null
+	group by g.Publ_Empresa_Cuit,g.Publ_Empresa_Mail,g.Publ_Empresa_Razon_Social
+	order by g.Publ_Empresa_Razon_Social
 			
 --------------------------------
 --INSERT PUBLICACIONES
