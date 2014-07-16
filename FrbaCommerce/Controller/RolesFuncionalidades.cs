@@ -41,5 +41,20 @@ namespace FrbaCommerce.Controller
             return dic;
         }
 
+        public static DataTable ObtenerFuncionalidadesDeRol(int rol)
+        {
+            try
+            {
+                DAL.RolesFuncionalidadesDAL rfDAL = new FrbaCommerce.DAL.RolesFuncionalidadesDAL();
+
+                return rfDAL.ObtenerFuncionalidadesDeRol(rol);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

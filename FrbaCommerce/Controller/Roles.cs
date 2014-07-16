@@ -43,16 +43,35 @@ namespace FrbaCommerce.Controller
             }
         }
 
-        public static void ActualizarRol(int id, String nombre)
+        public static void ActualizarRol(int id, String nombre, List<int> listaFunc)
         {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            //SqlTransaction ts = conexion.BeginTransaction();
+            CommittableTransaction ts = new CommittableTransaction();
+            conexion.EnlistTransaction(ts);
+
             try
-            {
+            {               
                 DAL.RolesDAL rolDAL = new FrbaCommerce.DAL.RolesDAL();
+                DAL.RolesFuncionalidadesDAL rfDAL = new FrbaCommerce.DAL.RolesFuncionalidadesDAL();
+
+                rfDAL.EliminarFuncionalidadDeRol(id);
 
                 rolDAL.ActualizarRol(id,nombre);
+
+                foreach (int i in listaFunc)
+                {
+                    rfDAL.InsertarFuncionalidadRol(id, i);
+                }
+
+                ts.Commit();
+
+                ts.Dispose();
             }
             catch (Exception ex)
             {
+                ts.Rollback();
+                ts.Dispose();
                 throw ex;
             }
         }

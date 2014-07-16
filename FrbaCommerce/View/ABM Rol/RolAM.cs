@@ -14,7 +14,7 @@ namespace FrbaCommerce.View.ABM_Rol
     {
 
         private Form vtnAnterior;
-        private int idRol = -1;
+        private int idRol = -1;        
 
         public RolAM(Form ant)
         {
@@ -27,7 +27,25 @@ namespace FrbaCommerce.View.ABM_Rol
         public void asignarRolAModificar(int id,String nombre)
         {
             idRol = id;
-            txtNombre.Text = nombre;                       
+            txtNombre.Text = nombre;
+            
+        }
+
+        private void SeleccionarClbFuncionalidades(DataTable tabla)
+        {
+
+            for (int item = 0; item < tabla.Rows.Count; item++)
+            {
+                foreach (DataRowView view in clbFuncionalidades.Items)
+                {                
+                    if(view[clbFuncionalidades.DisplayMember].ToString()==tabla.Rows[item]["Descripcion"].ToString())
+                    {
+  
+                        clbFuncionalidades.SetItemChecked(clbFuncionalidades.Items.IndexOf(view), true);
+                        break;
+                    }
+                }
+            } 
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -35,6 +53,10 @@ namespace FrbaCommerce.View.ABM_Rol
             clbFuncionalidades.DataSource = Controller.Funcionalidades.CargarListadoFuncionalidades();
             clbFuncionalidades.DisplayMember = "Descripcion";
             clbFuncionalidades.ValueMember = "IdFuncionalidad";
+            if (this.idRol != -1)
+            {
+                SeleccionarClbFuncionalidades(Controller.RolesFuncionalidades.ObtenerFuncionalidadesDeRol(this.idRol));
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -54,7 +76,7 @@ namespace FrbaCommerce.View.ABM_Rol
                     }
                     else
                     {
-                        Controller.Roles.ActualizarRol(this.idRol,txtNombre.Text);
+                        Controller.Roles.ActualizarRol(this.idRol, txtNombre.Text, ListarFuncionalidadesSeleccionadas());
                     }
                     this.Dispose();
                 }                
