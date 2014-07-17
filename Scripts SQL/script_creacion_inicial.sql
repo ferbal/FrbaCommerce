@@ -562,7 +562,7 @@ INSERT BAZINGUEANDO_EN_SLQ.Usuarios
 		reputacion,
 		idEstado)
 	VALUES
-		('1','admin','12345678','0','0','3')  
+		('1','admin','EF797C8118F02DFB64967DD5D3F8C762348C9C63D532CC95C5ED7A898A64F','0','0','3')  
 
 INSERT BAZINGUEANDO_EN_SLQ.UsuariosRoles
 		(IdRol,IdUsuario) 
@@ -626,7 +626,7 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
 	)
 	select	'1' idTipoPersona,
 			g.Cli_Mail,
-			'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'password,
+			'EF797C8118F02DFB64967DD5D3F8C762348C9C63D532CC95C5ED7A898A64F'password,
 			'0'fallos,
 			 (select AVG(g2.Calificacion_Cant_Estrellas)Reputacion
 			  from gd_esquema.Maestra g2 
@@ -652,7 +652,7 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
 	)
 	select	'2' idTipoPersona,
 			g.Publ_Empresa_Mail,
-			'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'password,
+			'EF797C8118F02DFB64967DD5D3F8C762348C9C63D532CC95C5ED7A898A64F'password,
 			'0'fallos,
 			(select AVG(g2.Calificacion_Cant_Estrellas)Reputacion
 			  from gd_esquema.Maestra g2 
@@ -663,6 +663,19 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Usuarios
 	where g.Publ_Empresa_Cuit is not null
 	group by g.Publ_Empresa_Cuit,g.Publ_Empresa_Mail,g.Publ_Empresa_Razon_Social
 	order by g.Publ_Empresa_Razon_Social
+	
+	
+--INSERT USUARIOS ROLES---
+--------------------------
+INSERT INTO BAZINGUEANDO_EN_SLQ.UsuariosRoles
+(IdUsuario,
+IdRol)
+select U.idUsuario,
+CASE WHEN U.idTipoPersona='1' and U.login='admin' THEN '3'
+ELSE CASE WHEN U.idTipoPersona='2' THEN '2'
+ELSE  '1'END
+END  
+from BAZINGUEANDO_EN_SLQ.Usuarios U
 			
 --------------------------------
 --INSERT PUBLICACIONES
