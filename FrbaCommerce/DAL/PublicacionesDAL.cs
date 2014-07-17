@@ -113,9 +113,9 @@ namespace FrbaCommerce.DAL
             {
                 DataTable dt = new DataTable();
                 SqlConnection conexion = DAL.Conexion.getConexion();
-                SqlCommand comando = new SqlCommand(@"   SELECT MAX(CodPublicacion)
-                                                            FROM BAZINGUEANDO_EN_SLQ.Publicaciones
-                                                            GROUP BY CodPublicacion", conexion);
+                SqlCommand comando = new SqlCommand(@"  SELECT MAX(CodPublicacion)
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones
+                                                    ", conexion);
                 dt.Load(comando.ExecuteReader());
 
                 return dt;
@@ -456,5 +456,23 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public void ConvertirOfertasEnCompras(int publicacion, DateTime fecha)
+        {
+            try
+            {
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"  EXEC BAZINGUEANDO_EN_SLQ.SP_CONVERTIR_OFERTA_EN_COMPRA
+                                                        @PUBLICACION,@FECHA", conexion);
+
+                comando.Parameters.AddWithValue("@FECHA", fecha);
+                comando.Parameters.AddWithValue("@PUBLICACION", publicacion);
+
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

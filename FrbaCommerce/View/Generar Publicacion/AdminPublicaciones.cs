@@ -201,6 +201,10 @@ namespace FrbaCommerce.View.Generar_Publicacion
             if (dgvRows.Count == 1)
             {
                 int idPublicacion = Convert.ToInt32(dgvRows[0].Cells["IdPublicacion"].Value);
+
+                if (Convert.ToInt32(dgvRows[0].Cells["IdTipoPublicacion"].Value) == (int)Model.TiposPublicaciones.Tipos.Subasta)
+                    Controller.Publicaciones.ConvertirOfertasEnCompras(idPublicacion);
+                
                 Controller.Publicaciones.ActualizarEstado((int)Model.Publicaciones.Estados.Finalizada, idPublicacion);
             }
 

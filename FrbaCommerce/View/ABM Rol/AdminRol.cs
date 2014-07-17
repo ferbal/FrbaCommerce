@@ -25,7 +25,15 @@ namespace FrbaCommerce.View.ABM_Rol
         }
         private void AdminRol_Load(object sender, EventArgs e)
         {
-            llenarDataGrid();
+            try
+            {
+                llenarDataGrid();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void llenarDataGrid()
@@ -33,7 +41,7 @@ namespace FrbaCommerce.View.ABM_Rol
             DAL.RolesDAL rol = new FrbaCommerce.DAL.RolesDAL();
 
             DataTable dt = rol.listarRoles(txtNombre.Text);
-
+            
             dgvRoles.DataSource = dt;
             dgvRoles.Columns["IdRol"].Visible = false;
 
@@ -128,6 +136,17 @@ namespace FrbaCommerce.View.ABM_Rol
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void btnBuscar_VisibleChanged(object sender, EventArgs e)
+        {
+            if (dgvRoles.Rows.Count > 0)
+                llenarDataGrid();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Text = String.Empty;                           
         }
     }
 }

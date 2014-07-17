@@ -32,6 +32,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.mcFecha = new System.Windows.Forms.MonthCalendar();
+            this.btnSeleccionar = new System.Windows.Forms.Button();
             this.chkhabilitado = new System.Windows.Forms.CheckBox();
             this.txtError = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -79,6 +81,8 @@
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.mcFecha);
+            this.pnlCliente.Controls.Add(this.btnSeleccionar);
             this.pnlCliente.Controls.Add(this.chkhabilitado);
             this.pnlCliente.Controls.Add(this.txtError);
             this.pnlCliente.Controls.Add(this.btnAceptar);
@@ -108,6 +112,23 @@
             this.pnlCliente.Name = "pnlCliente";
             this.pnlCliente.Size = new System.Drawing.Size(606, 292);
             this.pnlCliente.TabIndex = 2;
+            // 
+            // mcFecha
+            // 
+            this.mcFecha.Location = new System.Drawing.Point(363, 12);
+            this.mcFecha.Name = "mcFecha";
+            this.mcFecha.TabIndex = 33;
+            this.mcFecha.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFecha_DateSelected);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(568, 178);
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.Size = new System.Drawing.Size(22, 23);
+            this.btnSeleccionar.TabIndex = 32;
+            this.btnSeleccionar.Text = "<";
+            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // chkhabilitado
             // 
@@ -355,6 +376,7 @@
             this.Controls.Add(this.pnlCliente);
             this.Name = "AM_de_Empresa";
             this.Text = "Alta, Baja y Modificacion de Empresa";
+            this.Load += new System.EventHandler(this.AM_de_Empresa_Load);
             this.pnlCliente.ResumeLayout(false);
             this.pnlCliente.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).EndInit();
@@ -403,5 +425,7 @@
         private System.Windows.Forms.Label txtError;
         private System.Windows.Forms.CheckBox chkhabilitado;
         private System.Windows.Forms.ErrorProvider epCuit;
+        private System.Windows.Forms.MonthCalendar mcFecha;
+        private System.Windows.Forms.Button btnSeleccionar;
     }
 }

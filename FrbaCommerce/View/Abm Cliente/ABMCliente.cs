@@ -300,8 +300,29 @@ namespace FrbaCommerce.View.ABM_Cliente
                 cmbTipoDocumento.DisplayMember = "Descripcion";
                 cmbTipoDocumento.ValueMember = "IdTipoDocumento";
                 cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
+
+                mcFecha.Visible = false;
+                mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+
+                txtFechaNac.Enabled = false;
             }
         }
+
+        private void btnSeleccionarFecha_Click(object sender, EventArgs e)
+        {
+            mcFecha.Visible = true;
+        }
+
+        private void mcFecha_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            txtFechaNac.Text = mcFecha.SelectionEnd.ToShortDateString();
+            mcFecha.Visible = false;
+        }
+
+
 
 
     }

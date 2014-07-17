@@ -21,23 +21,40 @@ namespace FrbaCommerce.View.Registro_de_Usuario
 
         private void RegistroUsuario_Load(object sender, EventArgs e)
         {
-            DAL.TiposPersonasDAL tpDAL = new FrbaCommerce.DAL.TiposPersonasDAL();
-            DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
-            
-            cmbTiposPersona.DisplayMember = "Descripcion";
-            cmbTiposPersona.ValueMember = "IdTipoPersona";
-            cmbTiposPersona.DataSource = tpDAL.obtenerTiposPersonas();
+            try
+            {
+                DAL.TiposPersonasDAL tpDAL = new FrbaCommerce.DAL.TiposPersonasDAL();
+                DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
 
-            cmbTipoDocumento.DisplayMember = "Descripcion";
-            cmbTipoDocumento.ValueMember = "IdTipoDocumento";
-            cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
+                cmbTiposPersona.DisplayMember = "Descripcion";
+                cmbTiposPersona.ValueMember = "IdTipoPersona";
+                cmbTiposPersona.DataSource = tpDAL.obtenerTiposPersonas();
 
-            this.cargarListaRoles();
-        }
+                DataTable dt = tdDAL.obtenerTiposDocumentos();
+                DataRow dr = dt.NewRow();
+                dr["IdTipoDocumento"] = -1;
+                dr["Descripcion"] = "Elegir";
+                dt.Rows.InsertAt(dr,0);
 
-        private void label1_Click(object sender, EventArgs e)
-        {
+                cmbTipoDocumento.DisplayMember = "Descripcion";
+                cmbTipoDocumento.ValueMember = "IdTipoDocumento";
+                cmbTipoDocumento.DataSource = dt;
 
+                this.cargarListaRoles();
+
+                txtFechaNac.Enabled = false;
+
+                mcFecha.Visible = false;
+                mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void cmbTiposPersona_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,8 +149,10 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                     result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,listaRoles);
 
                 if (result)
-                {                    
-                    this.Dispose();
+                {
+                    View.Aviso vtnAviso = new Aviso(this, "El Usuario se a generado correctamente.");
+                    vtnAviso.Visible = true;
+                    this.Enabled = false;
                 }
     
             }
@@ -168,13 +187,13 @@ namespace FrbaCommerce.View.Registro_de_Usuario
             Boolean estado = true;
             if (String.IsNullOrEmpty(txtFechaNac.Text))
             {
-                epFecha.SetError(lblFechaNac, "La FECHA es un campo requerido.");
+                epFecha.SetError(txtFechaNac, "La FECHA es un campo requerido.");
                 estado = false;
             }
 
             if (String.IsNullOrEmpty(txtTelefono.Text))
             {
-                epTelefono.SetError(lblTelefono, "El TELEFONO es un campo requerido.");
+                epTelefono.SetError(txtTelefono, "El TELEFONO es un campo requerido.");
                 estado = false;
             }
 
@@ -196,19 +215,12 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                 estado = false;
             }
 
-            /* CAMPOS ELIMINADOS
-            if (String.IsNullOrEmpty(txtNombreUsuario.Text))
+            if (Convert.ToInt32(cmbTipoDocumento.SelectedValue) == -1)
             {
-                epLogin.SetError(txtNombreUsuario, "El NOMBRE DE USUARIO es un campo requerido.");
+                epTipoDocumento.SetError(cmbTipoDocumento,"Debe seleccionar un Tipo de Documento");
                 estado = false;
             }
-
-            if (String.IsNullOrEmpty(txtPassword.Text))
-            {
-                epPass.SetError(txtPassword, "El PASSWORD es un campo requerido.");
-                estado = false;
-            }
-             * */
+            
             return estado;
         }
 
@@ -257,6 +269,28 @@ namespace FrbaCommerce.View.Registro_de_Usuario
         private void pnlCliente_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnSeleccionarFecha_Click(object sender, EventArgs e)
+        {
+            mcFecha.Visible = true;
+
+        }
+
+        private void mcFecha_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            txtFechaNac.Text = mcFecha.SelectionEnd.ToShortDateString();
+            mcFecha.Visible = false;
+        }
+
+        private void txtMail_TextChanged(object sender, EventArgs e)
+        {
+            epLogin.Clear();
+        }
+
+        private void cmbTipoDocumento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            epTipoDocumento.Clear();
         }
         
     }

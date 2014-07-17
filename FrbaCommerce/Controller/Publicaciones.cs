@@ -41,10 +41,18 @@ namespace FrbaCommerce.Controller
         public static DateTime calcularFechaFin(int visibilidad,String fechaInicio)
         {
             DateTime fechaFin;
+            try
+            {
+                DAL.VisibilidadesDAL vDAL = new FrbaCommerce.DAL.VisibilidadesDAL();
 
-            fechaFin = Convert.ToDateTime(fechaInicio).AddDays(30);// Agregar la cantidad de dias en la VISIBILIDAD!!!
+                fechaFin = Convert.ToDateTime(fechaInicio).AddDays(vDAL.CalcularVigenciaPublicacion(visibilidad));
 
-            return fechaFin;
+                return fechaFin;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public static int UltimoCodigo()
@@ -91,6 +99,20 @@ namespace FrbaCommerce.Controller
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
 
                 pubDAL.ActualizarEstado(estado,publicacion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static void ConvertirOfertasEnCompras(int publicacion)
+        {
+            try
+            {
+                DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
+
+                pubDAL.ConvertirOfertasEnCompras(publicacion,Controller.Validaciones.ObtenerFechaSistema());
             }
             catch (Exception ex)
             {

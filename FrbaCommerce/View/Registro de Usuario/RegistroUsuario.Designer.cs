@@ -35,6 +35,8 @@
             this.cmbTiposPersona = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.mcFecha = new System.Windows.Forms.MonthCalendar();
+            this.btnSeleccionarFecha = new System.Windows.Forms.Button();
             this.clbRoles = new System.Windows.Forms.CheckedListBox();
             this.txtError = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -53,14 +55,10 @@
             this.txtCodigoPostal = new System.Windows.Forms.TextBox();
             this.txtLocalidad = new System.Windows.Forms.TextBox();
             this.txtDepto = new System.Windows.Forms.TextBox();
-            this.txtPisoNro = new System.Windows.Forms.TextBox();
             this.txtCalle = new System.Windows.Forms.TextBox();
             this.cmbTipoDocumento = new System.Windows.Forms.ComboBox();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
             this.lblTelefono = new System.Windows.Forms.Label();
             this.txtMail = new System.Windows.Forms.TextBox();
-            this.txtCuit = new System.Windows.Forms.TextBox();
-            this.txtDNI = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblMail = new System.Windows.Forms.Label();
@@ -74,6 +72,11 @@
             this.epPass = new System.Windows.Forms.ErrorProvider(this.components);
             this.epApellido = new System.Windows.Forms.ErrorProvider(this.components);
             this.epRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epTipoDocumento = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.txtDNI = new System.Windows.Forms.MaskedTextBox();
+            this.txtCuit = new System.Windows.Forms.MaskedTextBox();
+            this.txtPisoNro = new System.Windows.Forms.MaskedTextBox();
             this.pnlCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epFecha)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTelefono)).BeginInit();
@@ -81,6 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoDocumento)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbTiposPersona
@@ -100,13 +104,18 @@
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Tipo de Persona:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // pnlCliente
             // 
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.txtPisoNro);
+            this.pnlCliente.Controls.Add(this.txtCuit);
+            this.pnlCliente.Controls.Add(this.txtDNI);
+            this.pnlCliente.Controls.Add(this.txtTelefono);
+            this.pnlCliente.Controls.Add(this.mcFecha);
+            this.pnlCliente.Controls.Add(this.btnSeleccionarFecha);
             this.pnlCliente.Controls.Add(this.clbRoles);
             this.pnlCliente.Controls.Add(this.txtError);
             this.pnlCliente.Controls.Add(this.btnAceptar);
@@ -125,14 +134,10 @@
             this.pnlCliente.Controls.Add(this.txtCodigoPostal);
             this.pnlCliente.Controls.Add(this.txtLocalidad);
             this.pnlCliente.Controls.Add(this.txtDepto);
-            this.pnlCliente.Controls.Add(this.txtPisoNro);
             this.pnlCliente.Controls.Add(this.txtCalle);
             this.pnlCliente.Controls.Add(this.cmbTipoDocumento);
-            this.pnlCliente.Controls.Add(this.txtTelefono);
             this.pnlCliente.Controls.Add(this.lblTelefono);
             this.pnlCliente.Controls.Add(this.txtMail);
-            this.pnlCliente.Controls.Add(this.txtCuit);
-            this.pnlCliente.Controls.Add(this.txtDNI);
             this.pnlCliente.Controls.Add(this.txtApellido);
             this.pnlCliente.Controls.Add(this.txtNombre);
             this.pnlCliente.Controls.Add(this.lblMail);
@@ -142,16 +147,34 @@
             this.pnlCliente.Controls.Add(this.lblNombre);
             this.pnlCliente.Location = new System.Drawing.Point(12, 33);
             this.pnlCliente.Name = "pnlCliente";
-            this.pnlCliente.Size = new System.Drawing.Size(578, 325);
+            this.pnlCliente.Size = new System.Drawing.Size(577, 325);
             this.pnlCliente.TabIndex = 2;
             this.pnlCliente.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCliente_Paint);
+            // 
+            // mcFecha
+            // 
+            this.mcFecha.Location = new System.Drawing.Point(329, 105);
+            this.mcFecha.MaxSelectionCount = 1;
+            this.mcFecha.Name = "mcFecha";
+            this.mcFecha.TabIndex = 33;
+            this.mcFecha.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFecha_DateSelected);
+            // 
+            // btnSeleccionarFecha
+            // 
+            this.btnSeleccionarFecha.Location = new System.Drawing.Point(302, 245);
+            this.btnSeleccionarFecha.Name = "btnSeleccionarFecha";
+            this.btnSeleccionarFecha.Size = new System.Drawing.Size(20, 23);
+            this.btnSeleccionarFecha.TabIndex = 32;
+            this.btnSeleccionarFecha.Text = "<";
+            this.btnSeleccionarFecha.UseVisualStyleBackColor = true;
+            this.btnSeleccionarFecha.Click += new System.EventHandler(this.btnSeleccionarFecha_Click);
             // 
             // clbRoles
             // 
             this.clbRoles.FormattingEnabled = true;
-            this.clbRoles.Location = new System.Drawing.Point(324, 175);
+            this.clbRoles.Location = new System.Drawing.Point(320, 139);
             this.clbRoles.Name = "clbRoles";
-            this.clbRoles.Size = new System.Drawing.Size(238, 109);
+            this.clbRoles.Size = new System.Drawing.Size(242, 79);
             this.clbRoles.TabIndex = 31;
             // 
             // txtError
@@ -191,7 +214,7 @@
             // lblFechaNac
             // 
             this.lblFechaNac.AutoSize = true;
-            this.lblFechaNac.Location = new System.Drawing.Point(319, 146);
+            this.lblFechaNac.Location = new System.Drawing.Point(6, 250);
             this.lblFechaNac.Name = "lblFechaNac";
             this.lblFechaNac.Size = new System.Drawing.Size(134, 13);
             this.lblFechaNac.TabIndex = 25;
@@ -244,11 +267,11 @@
             // lblPisoNro
             // 
             this.lblPisoNro.AutoSize = true;
-            this.lblPisoNro.Location = new System.Drawing.Point(319, 39);
+            this.lblPisoNro.Location = new System.Drawing.Point(319, 35);
             this.lblPisoNro.Name = "lblPisoNro";
-            this.lblPisoNro.Size = new System.Drawing.Size(50, 13);
+            this.lblPisoNro.Size = new System.Drawing.Size(112, 13);
             this.lblPisoNro.TabIndex = 21;
-            this.lblPisoNro.Text = "Piso Nro:";
+            this.lblPisoNro.Text = "Piso Nro (En Numero):";
             // 
             // lblCalle
             // 
@@ -270,9 +293,9 @@
             // 
             // txtFechaNac
             // 
-            this.txtFechaNac.Location = new System.Drawing.Point(462, 139);
+            this.txtFechaNac.Location = new System.Drawing.Point(175, 247);
             this.txtFechaNac.Name = "txtFechaNac";
-            this.txtFechaNac.Size = new System.Drawing.Size(100, 20);
+            this.txtFechaNac.Size = new System.Drawing.Size(121, 20);
             this.txtFechaNac.TabIndex = 18;
             this.txtFechaNac.TextChanged += new System.EventHandler(this.txtFechaNac_TextChanged);
             // 
@@ -299,13 +322,6 @@
             this.txtDepto.TabIndex = 15;
             this.txtDepto.TextChanged += new System.EventHandler(this.txtDepto_TextChanged);
             // 
-            // txtPisoNro
-            // 
-            this.txtPisoNro.Location = new System.Drawing.Point(462, 32);
-            this.txtPisoNro.Name = "txtPisoNro";
-            this.txtPisoNro.Size = new System.Drawing.Size(100, 20);
-            this.txtPisoNro.TabIndex = 14;
-            // 
             // txtCalle
             // 
             this.txtCalle.Location = new System.Drawing.Point(462, 6);
@@ -320,14 +336,7 @@
             this.cmbTipoDocumento.Name = "cmbTipoDocumento";
             this.cmbTipoDocumento.Size = new System.Drawing.Size(121, 21);
             this.cmbTipoDocumento.TabIndex = 12;
-            // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Location = new System.Drawing.Point(175, 221);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(121, 20);
-            this.txtTelefono.TabIndex = 11;
-            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
+            this.cmbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.cmbTipoDocumento_SelectedIndexChanged);
             // 
             // lblTelefono
             // 
@@ -344,20 +353,7 @@
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(121, 20);
             this.txtMail.TabIndex = 9;
-            // 
-            // txtCuit
-            // 
-            this.txtCuit.Location = new System.Drawing.Point(175, 168);
-            this.txtCuit.Name = "txtCuit";
-            this.txtCuit.Size = new System.Drawing.Size(121, 20);
-            this.txtCuit.TabIndex = 8;
-            // 
-            // txtDNI
-            // 
-            this.txtDNI.Location = new System.Drawing.Point(175, 142);
-            this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(121, 20);
-            this.txtDNI.TabIndex = 7;
+            this.txtMail.TextChanged += new System.EventHandler(this.txtMail_TextChanged);
             // 
             // txtApellido
             // 
@@ -444,11 +440,47 @@
             // 
             this.epRazonSocial.ContainerControl = this;
             // 
+            // epTipoDocumento
+            // 
+            this.epTipoDocumento.ContainerControl = this;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.Location = new System.Drawing.Point(175, 220);
+            this.txtTelefono.Mask = "0000-0000";
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(121, 20);
+            this.txtTelefono.TabIndex = 34;
+            // 
+            // txtDNI
+            // 
+            this.txtDNI.Location = new System.Drawing.Point(175, 142);
+            this.txtDNI.Mask = "00000000";
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(121, 20);
+            this.txtDNI.TabIndex = 35;
+            // 
+            // txtCuit
+            // 
+            this.txtCuit.Location = new System.Drawing.Point(175, 167);
+            this.txtCuit.Mask = "00000000000";
+            this.txtCuit.Name = "txtCuit";
+            this.txtCuit.Size = new System.Drawing.Size(121, 20);
+            this.txtCuit.TabIndex = 36;
+            // 
+            // txtPisoNro
+            // 
+            this.txtPisoNro.Location = new System.Drawing.Point(462, 32);
+            this.txtPisoNro.Mask = "0";
+            this.txtPisoNro.Name = "txtPisoNro";
+            this.txtPisoNro.Size = new System.Drawing.Size(100, 20);
+            this.txtPisoNro.TabIndex = 37;
+            // 
             // RegistroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 370);
+            this.ClientSize = new System.Drawing.Size(602, 370);
             this.Controls.Add(this.pnlCliente);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbTiposPersona);
@@ -463,6 +495,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.epPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epApellido)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epRazonSocial)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTipoDocumento)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,8 +512,6 @@
         private System.Windows.Forms.Label lblApellido;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.TextBox txtMail;
-        private System.Windows.Forms.TextBox txtCuit;
-        private System.Windows.Forms.TextBox txtDNI;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Button btnAceptar;
@@ -495,10 +526,8 @@
         private System.Windows.Forms.TextBox txtCodigoPostal;
         private System.Windows.Forms.TextBox txtLocalidad;
         private System.Windows.Forms.TextBox txtDepto;
-        private System.Windows.Forms.TextBox txtPisoNro;
         private System.Windows.Forms.TextBox txtCalle;
         private System.Windows.Forms.ComboBox cmbTipoDocumento;
-        private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label lblTelefono;
         private System.Windows.Forms.Label lblRazonSocial;
         private System.Windows.Forms.TextBox txtRazonSocial;
@@ -512,5 +541,12 @@
         private System.Windows.Forms.ErrorProvider epRazonSocial;
         private System.Windows.Forms.Label txtError;
         private System.Windows.Forms.CheckedListBox clbRoles;
+        private System.Windows.Forms.MonthCalendar mcFecha;
+        private System.Windows.Forms.Button btnSeleccionarFecha;
+        private System.Windows.Forms.ErrorProvider epTipoDocumento;
+        private System.Windows.Forms.MaskedTextBox txtCuit;
+        private System.Windows.Forms.MaskedTextBox txtDNI;
+        private System.Windows.Forms.MaskedTextBox txtTelefono;
+        private System.Windows.Forms.MaskedTextBox txtPisoNro;
     }
 }

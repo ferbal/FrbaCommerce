@@ -165,5 +165,30 @@ namespace FrbaCommerce.DAL
                 throw ex;
             }
         }
+
+        public int CalcularVigenciaPublicacion(int visibilidad)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"  SELECT Duracion
+                                                        FROM BAZINGUEANDO_EN_SLQ.Visibilidades
+                                                        WHERE IdVisibilidad = @ID", conexion);
+                
+                comando.Parameters.AddWithValue("@ID", visibilidad);
+
+                dt.Load(comando.ExecuteReader());
+
+                if (dt.Rows.Count != 1)
+                    return 0;
+
+                return Convert.ToInt32(dt.Rows[0]["Duracion"]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

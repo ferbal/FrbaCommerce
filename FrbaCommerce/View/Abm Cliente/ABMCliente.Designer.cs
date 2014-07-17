@@ -32,6 +32,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pnlCliente = new System.Windows.Forms.Panel();
+            this.mcFecha = new System.Windows.Forms.MonthCalendar();
+            this.btnSeleccionarFecha = new System.Windows.Forms.Button();
             this.txtcuil = new System.Windows.Forms.TextBox();
             this.lblcuil = new System.Windows.Forms.Label();
             this.lblTipoDocumento = new System.Windows.Forms.Label();
@@ -83,6 +85,8 @@
             this.pnlCliente.AccessibleDescription = "";
             this.pnlCliente.AccessibleName = "";
             this.pnlCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCliente.Controls.Add(this.mcFecha);
+            this.pnlCliente.Controls.Add(this.btnSeleccionarFecha);
             this.pnlCliente.Controls.Add(this.txtcuil);
             this.pnlCliente.Controls.Add(this.lblcuil);
             this.pnlCliente.Controls.Add(this.lblTipoDocumento);
@@ -116,6 +120,23 @@
             this.pnlCliente.Name = "pnlCliente";
             this.pnlCliente.Size = new System.Drawing.Size(884, 292);
             this.pnlCliente.TabIndex = 2;
+            // 
+            // mcFecha
+            // 
+            this.mcFecha.Location = new System.Drawing.Point(378, 15);
+            this.mcFecha.Name = "mcFecha";
+            this.mcFecha.TabIndex = 37;
+            this.mcFecha.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFecha_DateSelected);
+            // 
+            // btnSeleccionarFecha
+            // 
+            this.btnSeleccionarFecha.Location = new System.Drawing.Point(583, 178);
+            this.btnSeleccionarFecha.Name = "btnSeleccionarFecha";
+            this.btnSeleccionarFecha.Size = new System.Drawing.Size(22, 23);
+            this.btnSeleccionarFecha.TabIndex = 36;
+            this.btnSeleccionarFecha.Text = "<";
+            this.btnSeleccionarFecha.UseVisualStyleBackColor = true;
+            this.btnSeleccionarFecha.Click += new System.EventHandler(this.btnSeleccionarFecha_Click);
             // 
             // txtcuil
             // 
@@ -449,5 +470,7 @@
         private System.Windows.Forms.TextBox txtcuil;
         private System.Windows.Forms.Label lblcuil;
         private System.Windows.Forms.ErrorProvider epCuil;
+        private System.Windows.Forms.MonthCalendar mcFecha;
+        private System.Windows.Forms.Button btnSeleccionarFecha;
     }
 }

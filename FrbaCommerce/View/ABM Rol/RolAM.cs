@@ -50,12 +50,20 @@ namespace FrbaCommerce.View.ABM_Rol
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            clbFuncionalidades.DataSource = Controller.Funcionalidades.CargarListadoFuncionalidades();
-            clbFuncionalidades.DisplayMember = "Descripcion";
-            clbFuncionalidades.ValueMember = "IdFuncionalidad";
-            if (this.idRol != -1)
+            try
             {
-                SeleccionarClbFuncionalidades(Controller.RolesFuncionalidades.ObtenerFuncionalidadesDeRol(this.idRol));
+                clbFuncionalidades.DataSource = Controller.Funcionalidades.CargarListadoFuncionalidades();
+                clbFuncionalidades.DisplayMember = "Descripcion";
+                clbFuncionalidades.ValueMember = "IdFuncionalidad";
+                if (this.idRol != -1)
+                {
+                    SeleccionarClbFuncionalidades(Controller.RolesFuncionalidades.ObtenerFuncionalidadesDeRol(this.idRol));
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
@@ -70,26 +78,33 @@ namespace FrbaCommerce.View.ABM_Rol
             {
                 if (validarDatos())
                 {
+                    String msg;
                     if (this.idRol == -1)
                     {
-                        Controller.Roles.IngresarNuevoRol(txtNombre.Text,ListarFuncionalidadesSeleccionadas());                        
+                        Controller.Roles.IngresarNuevoRol(txtNombre.Text,ListarFuncionalidadesSeleccionadas());
+                        msg = "El Rol se ha generado correctamente.";
                     }
                     else
                     {
                         Controller.Roles.ActualizarRol(this.idRol, txtNombre.Text, ListarFuncionalidadesSeleccionadas());
+                        msg = "El Rol se ha actualizado correctamente.";
                     }
-                    this.Dispose();
+                    View.Aviso vtnAviso = new Aviso(this,msg);
+                    vtnAviso.Visible = true;
+                    this.Enabled = false;                    
                 }                
             }
             catch (Exception ex)
             {
                 View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
         private Boolean validarDatos()
         {
             Boolean estado = true;
+
             if (String.IsNullOrEmpty(txtNombre.Text))
             {
                 epNombre.SetError(txtNombre, "El Nombre es un campo requerido.");

@@ -69,13 +69,17 @@ namespace FrbaCommerce.View.Login
                         vtnSeleccionRoles.Visible = true;
                         this.Visible = false;
                     }
-                    else
+                    else if (dt.Rows.Count == 1)
                     {
                         Principal vtnPrincipal = new Principal();
                         DataRow dr = dt.Rows[0];
                         vtnPrincipal.cargarInfoUsuario(idUsuario, (int)dr.ItemArray[0], this);
                         vtnPrincipal.Visible = true;
                         this.Visible = false;
+                    }
+                    else
+                    {
+                        throw new Exception("El usuario no tiene Roles Asignados.");
                     }
                 }
                 else

@@ -74,7 +74,7 @@
             this.mtxtFechaInicio.Name = "mtxtFechaInicio";
             this.mtxtFechaInicio.Size = new System.Drawing.Size(68, 20);
             this.mtxtFechaInicio.TabIndex = 0;
-            this.mtxtFechaInicio.ValidatingType = typeof(System.DateTime);
+            this.mtxtFechaInicio.ValidatingType = typeof(System.DateTime);            
             this.mtxtFechaInicio.TextChanged += new System.EventHandler(this.mtxtFechaInicio_TextChanged);
             // 
             // mtxtFechaFin

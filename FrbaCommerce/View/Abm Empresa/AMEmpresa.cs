@@ -288,5 +288,28 @@ namespace FrbaCommerce.View.ABM_Empresa
             epCuit.Clear();
         }
 
+        private void AM_de_Empresa_Load(object sender, EventArgs e)
+        {
+            mcFecha.Visible = false;
+            mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+
+            txtFechaNac.Enabled = false;
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            mcFecha.Visible = true;
+        }
+
+        private void mcFecha_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            txtFechaNac.Text = mcFecha.SelectionEnd.ToShortDateString();
+            mcFecha.Visible = false;
+        }
+
+
     }
 }

@@ -161,7 +161,13 @@ namespace FrbaCommerce.View.Generar_Publicacion
             CargarCmbTipoPublicacion();
             CargarClbRubros();
             CargarCmbVisibilidad();
-            mcFecha.Visible = false;
+            //Seteo los datos del Calendario con la fecha del sistema
+            mcFecha.Visible = false;            
+            mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+
             mtxtFechaInicio.Enabled = false;
             mtxtFechaFin.Enabled = false;
             mtxtCodPubli.Enabled = false;
@@ -204,8 +210,12 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void mtxtFechaInicio_TextChanged(object sender, EventArgs e)
         {
             mtxtFechaFin.Text = "";
-            if(mtxtFechaInicio.Text.Length==10)
-                mtxtFechaFin.Text = Controller.Publicaciones.calcularFechaFin(1, mtxtFechaInicio.Text).ToString();
+            int idVisibilidad = (int)cmbTipoVisibilidad.SelectedValue;
+            if (idVisibilidad != -1)
+            {
+                if (mtxtFechaInicio.Text.Length == 10)
+                    mtxtFechaFin.Text = Controller.Publicaciones.calcularFechaFin(idVisibilidad, mtxtFechaInicio.Text).ToString();
+            }
         }
 
         private void btnSeleccionarFecha_Click(object sender, EventArgs e)
