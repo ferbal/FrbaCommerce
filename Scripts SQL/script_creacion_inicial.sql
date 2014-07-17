@@ -551,7 +551,7 @@ INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
 		(IdRol,IdFuncionalidad)
 Select '1',F.IdFuncionalidad
 from BAZINGUEANDO_EN_SLQ.Funcionalidades F
-where F.idFuncionalidad in (1,8,9,10,11,12,13,14,15)
+where F.idFuncionalidad in (1,8,9,10,11,12,13,14)
 
 
 INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
@@ -559,7 +559,7 @@ INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
 
 Select '2',F.IdFuncionalidad
 from BAZINGUEANDO_EN_SLQ.Funcionalidades F
-where F.idFuncionalidad in (1,8,9,10,12,14,15)
+where F.idFuncionalidad in (1,8,9,10,12,14)
 
 
 INSERT BAZINGUEANDO_EN_SLQ.RolesFuncionalidades
