@@ -980,7 +980,7 @@ BEGIN
 		IF @COMPRAS_SIN_FACTURAR >10 
 			BEGIN
 			UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
-			set IdEstado=3 where IdUsuario=@USR_VENDEDOR
+			set IdEstado='3' where IdUsuario=@USR_VENDEDOR and IdEstado='2' 
 		
 			UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
 			set idEstado='2' where idUsuario=@USR_VENDEDOR
