@@ -979,13 +979,16 @@ BEGIN
 														where Publicaciones.IdUsuario=@USR_VENDEDOR and Compras.IdEstadoCompra='2')
 		IF @COMPRAS_SIN_FACTURAR >10 
 			BEGIN
+			BEGIN TRANSACTION
 			UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
 			set IdEstado='3' where IdUsuario=@USR_VENDEDOR and IdEstado='2' 
 		
 			UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
 			set idEstado='2' where idUsuario=@USR_VENDEDOR
+			
+			COMMIT 
 			END
-		
+			
 		FETCH NEXT FROM CURSOR_USR_VENDEDORES
 		INTO @USR_VENDEDOR
 	END
