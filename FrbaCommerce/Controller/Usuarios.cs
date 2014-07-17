@@ -60,8 +60,8 @@ namespace FrbaCommerce.Controller
             try
             {
                 int idNumero = 0;
-
-                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, "123456", mail, listaRoles);
+                String password = Controller.Usuarios.encriptarPassword("12345678");
+                int idUsr = Controller.Usuarios.ingresarNuevoUsuario(idNumero, idTipoPersona, password, mail, listaRoles);
 
                 if (idTipoPersona == (int)Model.TiposPersonas.TiposPersonasEnum.Cliente)
                 {                   
@@ -101,7 +101,7 @@ namespace FrbaCommerce.Controller
                 if (usuario.idEstado == (int)Model.Usuarios.Estados.Inhabilitado)
                     throw new Exception("El usuario se encuentra inhabilitado.");
 
-                if (usuario.password.Equals("12345678"))
+                if (usuario.password.Equals(Controller.Usuarios.encriptarPassword("12345678")))
                     return -1;
 
                 String hashPass = Controller.Usuarios.encriptarPassword(pass);

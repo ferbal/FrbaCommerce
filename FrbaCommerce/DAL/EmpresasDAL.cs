@@ -118,7 +118,8 @@ namespace FrbaCommerce.DAL
                                                             Localidad,
                                                             CodigoPostal,
                                                             FechaCreacion,
-                                                            idEstado
+                                                            idEstado,
+                                                            IdUsuario
                                                         )
                                                     VALUES
                                                         (
@@ -133,7 +134,8 @@ namespace FrbaCommerce.DAL
                                                             @Localidad,
                                                             @CodigoPostal,
                                                             @FechaCreacion,
-                                                            @estado
+                                                            @estado,
+                                                            @IdUsuario
                                                         )"
                                                             , conexion);
 
@@ -149,6 +151,7 @@ namespace FrbaCommerce.DAL
                 comando.Parameters.AddWithValue("@CodigoPostal", empresa.CodigoPostal);
                 comando.Parameters.AddWithValue("@FechaCreacion", empresa.FechaCreacion);
                 comando.Parameters.AddWithValue("@estado", empresa.IdEstado);
+                comando.Parameters.AddWithValue("@IdUsuario", empresa.IdUsuario);
 
                 return (int)comando.ExecuteNonQuery();
             }
