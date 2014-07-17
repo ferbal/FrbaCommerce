@@ -1433,15 +1433,16 @@ AS
 
 BEGIN
 select 
-U.login Comprador,
+U2.login Comprador,
 Calificacion,
 Detalle,
 CodPublicacion,
 Descripcion
 from BAZINGUEANDO_EN_SLQ.Calificaciones Calif
 INNER JOIN BAZINGUEANDO_EN_SLQ.Compras C on Calif.IdCompra=C.IdCompra
+INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U2 on C.IdUsrComprador=U2.idUsuario
 INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P on C.IdPublicacion=P.IdPublicacion
-INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U on P.IdUsuario = U.idUsuario 
+
 where P.IdUsuario=@Usr
 
 END
