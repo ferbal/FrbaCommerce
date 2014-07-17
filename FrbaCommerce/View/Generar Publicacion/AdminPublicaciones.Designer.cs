@@ -55,6 +55,7 @@
             this.btnAnterior = new System.Windows.Forms.Button();
             this.btnPrimera = new System.Windows.Forms.Button();
             this.btnPreguntar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -288,11 +289,22 @@
             this.btnPreguntar.UseVisualStyleBackColor = true;
             this.btnPreguntar.Click += new System.EventHandler(this.btnPreguntar_Click);
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(526, 99);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 24;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // AdminPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 497);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnPreguntar);
             this.Controls.Add(this.btnPrimera);
             this.Controls.Add(this.btnAnterior);
@@ -353,5 +365,6 @@
         private System.Windows.Forms.Button btnPrimera;
         private System.Windows.Forms.DataGridView dgvPublicaciones;
         private System.Windows.Forms.Button btnPreguntar;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }

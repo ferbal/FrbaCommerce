@@ -32,8 +32,11 @@ namespace FrbaCommerce.View.ABM_Cliente
             cmbTipoDocumento.DisplayMember = "Descripcion";
             cmbTipoDocumento.ValueMember = "IdTipoDocumento";
             cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
-
+           
             llenarDataGrid();
+
+            btnEliminar.Enabled = false;
+            btnModificar.Enabled = false;
 
         }
 
@@ -60,48 +63,51 @@ namespace FrbaCommerce.View.ABM_Cliente
         {
             try
             {
-                DataGridViewRow dr = dgvRoles.CurrentRow;
+                if (dgvRoles.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow dr = dgvRoles.CurrentRow;
 
-                DataGridViewCell cellNombre = dr.Cells["Nombre"];
-                DataGridViewCell cellIdCliente = dr.Cells["IdCliente"];
-                DataGridViewCell celltipoNro = dr.Cells["TipoDoc"];
-                DataGridViewCell cellNroDocumento = dr.Cells["NroDocumento"];
-                DataGridViewCell cellcuil = dr.Cells["CUIL"];
-                DataGridViewCell cellMail = dr.Cells["Mail"];
-                DataGridViewCell cellApellido = dr.Cells["Apellido"];
-                DataGridViewCell cellTelefono = dr.Cells["Telefono"];
-                DataGridViewCell cellCalle = dr.Cells["Calle"];
-                DataGridViewCell cellPisoNro = dr.Cells["PisoNro"];
-                DataGridViewCell cellDepto = dr.Cells["Depto"];
-                DataGridViewCell cellLocalidad = dr.Cells["Localidad"];
-                DataGridViewCell cellCodigoPostal = dr.Cells["CodigoPostal"];
-                DataGridViewCell cellFechaNacimiento = dr.Cells["FechaNacimiento"];
-                DataGridViewCell cellIdEstado = dr.Cells["IdEstado"];
-             
-                int id = Convert.ToInt32(cellIdCliente.Value);
-                String nombre = Convert.ToString(cellNombre.Value);
-                String tipodoc = Convert.ToString(celltipoNro.Value);
-                String DNI = Convert.ToString(cellNroDocumento.Value);
-                String CUIL = Convert.ToString(cellcuil.Value);
-                String MAIL = Convert.ToString(cellMail.Value);
-                String apellido = Convert.ToString(cellApellido.Value);
-                String Telefono = Convert.ToString(cellTelefono.Value);
-                String Calle = Convert.ToString(cellCalle.Value);
-                String PisoNro = Convert.ToString(cellPisoNro.Value);
-                String Depto = Convert.ToString(cellDepto.Value);
-                String Localidad = Convert.ToString(cellLocalidad.Value);
-                int CodigoPostal = Convert.ToInt32(cellCodigoPostal.Value);
-                DateTime FechaNacimiento = Convert.ToDateTime(cellFechaNacimiento.Value);
-                int IdEstado = Convert.ToInt32(cellIdEstado.Value);
+                    DataGridViewCell cellNombre = dr.Cells["Nombre"];
+                    DataGridViewCell cellIdCliente = dr.Cells["IdCliente"];
+                    DataGridViewCell celltipoNro = dr.Cells["TipoDoc"];
+                    DataGridViewCell cellNroDocumento = dr.Cells["NroDocumento"];
+                    DataGridViewCell cellcuil = dr.Cells["CUIL"];
+                    DataGridViewCell cellMail = dr.Cells["Mail"];
+                    DataGridViewCell cellApellido = dr.Cells["Apellido"];
+                    DataGridViewCell cellTelefono = dr.Cells["Telefono"];
+                    DataGridViewCell cellCalle = dr.Cells["Calle"];
+                    DataGridViewCell cellPisoNro = dr.Cells["PisoNro"];
+                    DataGridViewCell cellDepto = dr.Cells["Depto"];
+                    DataGridViewCell cellLocalidad = dr.Cells["Localidad"];
+                    DataGridViewCell cellCodigoPostal = dr.Cells["CodigoPostal"];
+                    DataGridViewCell cellFechaNacimiento = dr.Cells["FechaNacimiento"];
+                    DataGridViewCell cellIdEstado = dr.Cells["IdEstado"];
 
-                View.ABM_Cliente.ABM_de_Cliente ClienteMod = new ABM_de_Cliente();
-                ClienteMod.ventana_anterior(this);
-                ClienteMod.Text = "Modificacion de Cliente";
+                    int id = Convert.ToInt32(cellIdCliente.Value);
+                    String nombre = Convert.ToString(cellNombre.Value);
+                    String tipodoc = Convert.ToString(celltipoNro.Value);
+                    String DNI = Convert.ToString(cellNroDocumento.Value);
+                    String CUIL = Convert.ToString(cellcuil.Value);
+                    String MAIL = Convert.ToString(cellMail.Value);
+                    String apellido = Convert.ToString(cellApellido.Value);
+                    String Telefono = Convert.ToString(cellTelefono.Value);
+                    String Calle = Convert.ToString(cellCalle.Value);
+                    String PisoNro = Convert.ToString(cellPisoNro.Value);
+                    String Depto = Convert.ToString(cellDepto.Value);
+                    String Localidad = Convert.ToString(cellLocalidad.Value);
+                    int CodigoPostal = Convert.ToInt32(cellCodigoPostal.Value);
+                    DateTime FechaNacimiento = Convert.ToDateTime(cellFechaNacimiento.Value);
+                    int IdEstado = Convert.ToInt32(cellIdEstado.Value);
 
-                ClienteMod.asignarClienteAModificar(id, nombre, apellido, tipodoc, DNI,CUIL, MAIL, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaNacimiento, IdEstado);
+                    View.ABM_Cliente.ABM_de_Cliente ClienteMod = new ABM_de_Cliente();
+                    ClienteMod.ventana_anterior(this);
+                    ClienteMod.Text = "Modificacion de Cliente";
 
-                ClienteMod.Visible = true;
-                this.Visible = false;
+                    ClienteMod.asignarClienteAModificar(id, nombre, apellido, tipodoc, DNI, CUIL, MAIL, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaNacimiento, IdEstado);
+
+                    ClienteMod.Visible = true;
+                    this.Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -114,50 +120,54 @@ namespace FrbaCommerce.View.ABM_Cliente
         {
             try
             {
-                DataGridViewRow dr = dgvRoles.CurrentRow;
+                if (dgvRoles.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow dr = dgvRoles.CurrentRow;
 
-                DataGridViewCell cellNombre = dr.Cells["Nombre"];
-                DataGridViewCell cellIdCliente = dr.Cells["IdCliente"];
-                DataGridViewCell celltipoNro = dr.Cells["Descripcion"];
-                DataGridViewCell cellNroDocumento = dr.Cells["NroDocumento"];
-                DataGridViewCell cellcuil = dr.Cells["CUIL"];
-                DataGridViewCell cellMail = dr.Cells["Mail"];
-                DataGridViewCell cellApellido = dr.Cells["Apellido"];
-                DataGridViewCell cellTelefono = dr.Cells["Telefono"];
-                DataGridViewCell cellCalle = dr.Cells["Calle"];
-                DataGridViewCell cellPisoNro = dr.Cells["PisoNro"];
-                DataGridViewCell cellDepto = dr.Cells["Depto"];
-                DataGridViewCell cellLocalidad = dr.Cells["Localidad"];
-                DataGridViewCell cellCodigoPostal = dr.Cells["CodigoPostal"];
-                DataGridViewCell cellFechaNacimiento = dr.Cells["FechaNacimiento"];
-                DataGridViewCell cellIdEstado = dr.Cells["IdEstado"];
+                    DataGridViewCell cellNombre = dr.Cells["Nombre"];
+                    DataGridViewCell cellIdCliente = dr.Cells["IdCliente"];
+                    DataGridViewCell celltipoNro = dr.Cells["TipoDoc"];
+                    DataGridViewCell cellNroDocumento = dr.Cells["NroDocumento"];
+                    DataGridViewCell cellcuil = dr.Cells["CUIL"];
+                    DataGridViewCell cellMail = dr.Cells["Mail"];
+                    DataGridViewCell cellApellido = dr.Cells["Apellido"];
+                    DataGridViewCell cellTelefono = dr.Cells["Telefono"];
+                    DataGridViewCell cellCalle = dr.Cells["Calle"];
+                    DataGridViewCell cellPisoNro = dr.Cells["PisoNro"];
+                    DataGridViewCell cellDepto = dr.Cells["Depto"];
+                    DataGridViewCell cellLocalidad = dr.Cells["Localidad"];
+                    DataGridViewCell cellCodigoPostal = dr.Cells["CodigoPostal"];
+                    DataGridViewCell cellFechaNacimiento = dr.Cells["FechaNacimiento"];
+                    DataGridViewCell cellIdEstado = dr.Cells["IdEstado"];
 
-                int id = Convert.ToInt32(cellIdCliente.Value);
-                String nombre = Convert.ToString(cellNombre.Value);
-                String tipodoc = Convert.ToString(celltipoNro.Value);
-                String DNI = Convert.ToString(cellNroDocumento.Value);
-                String CUIL = Convert.ToString(cellcuil.Value);
-                String MAIL = Convert.ToString(cellMail.Value);
-                String apellido = Convert.ToString(cellApellido.Value);
-                String Telefono = Convert.ToString(cellTelefono.Value);
-                String Calle = Convert.ToString(cellCalle.Value);
-                String PisoNro = Convert.ToString(cellPisoNro.Value);
-                String Depto = Convert.ToString(cellDepto.Value);
-                String Localidad = Convert.ToString(cellLocalidad.Value);
-                int CodigoPostal = Convert.ToInt32(cellCodigoPostal.Value);
-                DateTime FechaNacimiento = Convert.ToDateTime(cellFechaNacimiento.Value);
-                int IdEstado = Convert.ToInt32(cellIdEstado.Value);
+                    int id = Convert.ToInt32(cellIdCliente.Value);
+                    String nombre = Convert.ToString(cellNombre.Value);
+                    String tipodoc = Convert.ToString(celltipoNro.Value);
+                    String DNI = Convert.ToString(cellNroDocumento.Value);
+                    String CUIL = Convert.ToString(cellcuil.Value);
+                    String MAIL = Convert.ToString(cellMail.Value);
+                    String apellido = Convert.ToString(cellApellido.Value);
+                    String Telefono = Convert.ToString(cellTelefono.Value);
+                    String Calle = Convert.ToString(cellCalle.Value);
+                    String PisoNro = Convert.ToString(cellPisoNro.Value);
+                    String Depto = Convert.ToString(cellDepto.Value);
+                    String Localidad = Convert.ToString(cellLocalidad.Value);
+                    int CodigoPostal = Convert.ToInt32(cellCodigoPostal.Value);
+                    DateTime FechaNacimiento = Convert.ToDateTime(cellFechaNacimiento.Value);
+                    int IdEstado = Convert.ToInt32(cellIdEstado.Value);
 
-                if(IdEstado == 1){
+                    if (IdEstado == 1)
+                    {
 
-                    View.ABM_Cliente.ABM_de_Cliente ClienteMod = new ABM_de_Cliente();
-                    ClienteMod.ventana_anterior(this);
-                    ClienteMod.Text = "Baja de Cliente";
+                        View.ABM_Cliente.ABM_de_Cliente ClienteMod = new ABM_de_Cliente();
+                        ClienteMod.ventana_anterior(this);
+                        ClienteMod.Text = "Baja de Cliente";
 
-                    ClienteMod.asignarClienteAModificar(id, nombre, apellido, tipodoc, DNI, CUIL, MAIL, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaNacimiento, IdEstado);
+                        ClienteMod.asignarClienteAModificar(id, nombre, apellido, tipodoc, DNI, CUIL, MAIL, Telefono, Calle, PisoNro, Depto, Localidad, CodigoPostal, FechaNacimiento, IdEstado);
 
-                    ClienteMod.Visible = true;
-                    this.Visible = false;
+                        ClienteMod.Visible = true;
+                        this.Visible = false;
+                    }
                 }
             }
             catch (Exception ex)

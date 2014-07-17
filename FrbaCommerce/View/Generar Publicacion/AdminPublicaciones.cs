@@ -79,6 +79,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             if (rows.Count == 1)
             {                
                 HabilitarAcciones(Convert.ToInt32(rows[0].Cells["IdEstado"].Value));
+
+                btnPreguntar.Enabled = Convert.ToBoolean(rows[0].Cells["PermiteRealizarPreguntas"].Value);               
             }
             else
             {
@@ -151,22 +153,22 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 publicacion.IdRubro = Convert.ToInt32(cells["IdRubro"].Value);
                 publicacion.PermiteRealizarPreguntas = Convert.ToBoolean(cells["PermiteRealizarPreguntas"].Value);
                 
-                //if (this.idUsuario == publicacion.IdUsuario)
-                //{
+                if (this.idUsuario == publicacion.IdUsuario)
+                {
                     View.Generar_Publicacion.GenerarPublicacion vtnModif = new GenerarPublicacion();
                     vtnModif.Text = "Modificar Publicacion";
                     vtnModif.cargarPublicacionModificar(publicacion);
                     vtnModif.cargarDatos(this, publicacion.IdUsuario);
                     vtnModif.Visible = true;
                     this.Visible = false;
-                /*
+                
                 }
                 else
                 {
-                    View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm("El Usuario no tiene permiso para modificar la publicacion.");
+                    View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm("El Usuario no tiene permiso para modificar la publicacion. \n\rEl usuario que genero la publicacion es el unico\n\rhabilitado para realizar modificaciones.");
                     vtnError.Visible = true; 
                 }
-                 */
+                
             }
             
         }
@@ -288,8 +290,9 @@ namespace FrbaCommerce.View.Generar_Publicacion
         {
             
             DataGridViewSelectedRowCollection dgvRows = dgvPublicaciones.SelectedRows;
+            
             if (dgvRows.Count == 1)
-            {
+            {                
                 int idPublicacion = Convert.ToInt32(dgvRows[0].Cells["IdPublicacion"].Value);
                 String codPubli = Convert.ToString(dgvRows[0].Cells["Codigo"].Value);
                 String descripcion = Convert.ToString(dgvRows[0].Cells["Descripcion"].Value);
@@ -300,6 +303,15 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 this.Visible = false;
             }
             
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtCodigo.Text = String.Empty;
+            txtDescripcion.Text = String.Empty;
+            txtVendedor.Text = String.Empty;
+            cargarCmbEstados();
+            cargarCmbTipoPublicacion();
         }
 
     }

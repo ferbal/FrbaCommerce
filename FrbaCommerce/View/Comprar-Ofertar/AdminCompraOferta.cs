@@ -133,5 +133,21 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         {
             this.Dispose();
         }
+
+        private void btnPreguntar_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
+            if (rows.Count == 1)
+            {                                
+                int idPublicacion = Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value);
+                String descripcion = Convert.ToString(rows[0].Cells["Publicacion"].Value);
+                String codigo = Convert.ToString(rows[0].Cells["Codigo Publicacion"].Value);
+                
+                View.Gestion_de_Preguntas.GenerarPreguntas vtnPregunta = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();
+                vtnPregunta.CargarDatos(this, this.idUsuario, idPublicacion, codigo, descripcion); //this, this.idUsuario, Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value));
+                vtnPregunta.Visible = true;
+                this.Visible = false;
+            }            
+        }
     }
 }

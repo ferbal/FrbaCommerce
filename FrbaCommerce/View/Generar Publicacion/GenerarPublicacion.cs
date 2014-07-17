@@ -22,10 +22,14 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void CargarClbRubros()
         {
-            DataTable dt = Controller.Rubros.obtenerRubros();                                    
-            clbRubros.DataSource = dt;
-            clbRubros.DisplayMember = "Descripcion";
-            clbRubros.ValueMember = "IdRubro";
+            DataTable dt = Controller.Rubros.obtenerRubros();
+            DataRow dr = dt.NewRow();
+            dr["IdRubro"] = -1;
+            dr["Descripcion"] = "Seleccionar";
+            dt.Rows.InsertAt(dr, 0);
+            cmbRubros.DataSource = dt;
+            cmbRubros.DisplayMember = "Descripcion";
+            cmbRubros.ValueMember = "IdRubro";            
         }
         private void CargarCmbTipoPublicacion()
         {
@@ -81,15 +85,16 @@ namespace FrbaCommerce.View.Generar_Publicacion
                     int stock = Convert.ToInt32(mtxtStock.Text);
                     Double precio = Convert.ToDouble(mtxtPrecio.Text);
                     int cod = Convert.ToInt32(mtxtCodPubli.Text);
-                    int idRubro = (int)clbRubros.SelectedValue;
+                    int idRubro = (int)cmbRubros.SelectedValue;//clbRubros.SelectedValue;
+                    
 
                     if (publicacion == null)
                     {
-                        Controller.Publicaciones.IngresarPublicacionNueva((int)cmbTiposPublicaciones.SelectedValue, cod, (int)clbRubros.SelectedValue, 1, Convert.ToDateTime(mtxtFechaInicio.Text), Convert.ToDateTime(mtxtFechaFin.Text), rtxtDescripcion.Text, stock, precio, idUsuario, chbPreguntas.Checked);
+                        Controller.Publicaciones.IngresarPublicacionNueva((int)cmbTiposPublicaciones.SelectedValue, cod, (int)cmbRubros.SelectedValue, 1, Convert.ToDateTime(mtxtFechaInicio.Text), Convert.ToDateTime(mtxtFechaFin.Text), rtxtDescripcion.Text, stock, precio, idUsuario, chbPreguntas.Checked);
                     }
                     else
                     {
-                        Controller.Publicaciones.ActualizarPublicacion(publicacion.IdPublicacion, (int)cmbTiposPublicaciones.SelectedValue, cod, (int)clbRubros.SelectedValue, 1, Convert.ToDateTime(mtxtFechaInicio.Text), Convert.ToDateTime(mtxtFechaFin.Text), rtxtDescripcion.Text, stock, precio, idUsuario, chbPreguntas.Checked);
+                        Controller.Publicaciones.ActualizarPublicacion(publicacion.IdPublicacion, (int)cmbTiposPublicaciones.SelectedValue, cod, (int)cmbRubros.SelectedValue, 1, Convert.ToDateTime(mtxtFechaInicio.Text), Convert.ToDateTime(mtxtFechaFin.Text), rtxtDescripcion.Text, stock, precio, idUsuario, chbPreguntas.Checked);
                     }
                     
                     this.Dispose();
@@ -106,6 +111,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private Boolean validarDatos()
         {
             Boolean result = true;
+            Double precio;
+
             if (String.IsNullOrEmpty(rtxtDescripcion.Text))
             {
                 epDescripcion.SetError(rtxtDescripcion, "La DESCRIPCION es un campo requerido.");
@@ -117,23 +124,23 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 epFechaInicio.SetError(mtxtFechaInicio, "La FECHA DE INICIO es un campo requerido.");
                 result = false;
             }
-
+            
             if (String.IsNullOrEmpty(mtxtPrecio.Text))
             {
                 epPrecio.SetError(mtxtPrecio, "El PRECIO es un campo requerido.");
                 result = false;
             }
-
-            if (clbRubros.SelectedItems.Count < 0)
+            else if (!Double.TryParse(mtxtPrecio.Text, out precio))
             {
-                epRubros.SetError(clbRubros, "El RUBRO es un campo requerido.");
+                epPrecio.SetError(mtxtPrecio,"El PRECIO debe tener el formato 000,00");
                 result = false;
             }
-            else if (clbRubros.SelectedItems.Count > 1)
+
+            if (Convert.ToInt32(cmbRubros.SelectedValue) == -1)
             {
-                epRubros.SetError(clbRubros, "Solo se debe seleccionar 1 rubro.");
-                return false;
-            }
+                epRubros.SetError(cmbRubros, "El RUBRO es un campo requerido.");
+                result = false;
+            }            
             
             if (String.IsNullOrEmpty(mtxtStock.Text))
             {
@@ -185,19 +192,18 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 mtxtStock.Text = this.publicacion.Stock.ToString();
                 rtxtDescripcion.Text = this.publicacion.Descripcion.ToString();
                 chbPreguntas.Checked = Convert.ToBoolean(this.publicacion.PermiteRealizarPreguntas);
-                cmbTiposPublicaciones.SelectedValue = this.publicacion.IdTipoPublicacion;
-                
-                //Falta seleccionar el rubro de la publicacion.
-                clbRubros.SelectedValue = this.publicacion.IdRubro;
-                //clbRubros.SetItemCheckState(2,);
+                cmbTiposPublicaciones.SelectedValue = this.publicacion.IdTipoPublicacion;                
+                cmbRubros.SelectedValue = this.publicacion.IdRubro;
+                cmbTipoVisibilidad.SelectedValue = this.publicacion.IdVisibilidad;
 
                 if (publicacion.IdTipoPublicacion == (int)Model.TiposPublicaciones.Tipos.Compra_Inmediata 
                     && publicacion.IdEstado == (int) Model.Publicaciones.Estados.Activa)
                 {
                     mtxtFechaInicio.Enabled = false;
+                    btnSeleccionarFecha.Enabled = false;                
                     mtxtPrecio.Enabled = false;                    
                     chbPreguntas.Enabled = false;
-                    clbRubros.Enabled = false;
+                    cmbRubros.Enabled = false;
                     cmbTiposPublicaciones.Enabled = false;
                     cmbTipoVisibilidad.Enabled = false;
                 }
@@ -208,14 +214,17 @@ namespace FrbaCommerce.View.Generar_Publicacion
         }
 
         private void mtxtFechaInicio_TextChanged(object sender, EventArgs e)
-        {
-            mtxtFechaFin.Text = "";
-            int idVisibilidad = (int)cmbTipoVisibilidad.SelectedValue;
-            if (idVisibilidad != -1)
+        {                       
+            if ((int)cmbTipoVisibilidad.SelectedValue != -1)
             {
-                if (mtxtFechaInicio.Text.Length == 10)
-                    mtxtFechaFin.Text = Controller.Publicaciones.calcularFechaFin(idVisibilidad, mtxtFechaInicio.Text).ToString();
+                ActualizarFechaFin();
             }
+        }
+
+        private void ActualizarFechaFin()
+        {
+            if (mtxtFechaInicio.Text.Length == 10)
+                mtxtFechaFin.Text = Controller.Publicaciones.calcularFechaFin((int)cmbTipoVisibilidad.SelectedValue, mtxtFechaInicio.Text).ToString();
         }
 
         private void btnSeleccionarFecha_Click(object sender, EventArgs e)
@@ -228,6 +237,17 @@ namespace FrbaCommerce.View.Generar_Publicacion
             mtxtFechaInicio.Text = mcFecha.SelectionEnd.ToShortDateString();
             mcFecha.Visible = false;
         }
+
+        private void cmbTipoVisibilidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(mtxtFechaInicio.Text))
+                ActualizarFechaFin();
+        }
+
+        private void mtxtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }     
 
     }
 }

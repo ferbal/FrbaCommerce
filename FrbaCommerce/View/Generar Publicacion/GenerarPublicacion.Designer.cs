@@ -44,7 +44,6 @@
             this.lblStock = new System.Windows.Forms.Label();
             this.lblPrecio = new System.Windows.Forms.Label();
             this.mtxtPrecio = new System.Windows.Forms.MaskedTextBox();
-            this.clbRubros = new System.Windows.Forms.CheckedListBox();
             this.lblRubros = new System.Windows.Forms.Label();
             this.cmbTiposPublicaciones = new System.Windows.Forms.ComboBox();
             this.lblTipoPubli = new System.Windows.Forms.Label();
@@ -60,6 +59,7 @@
             this.mtxtStock = new System.Windows.Forms.MaskedTextBox();
             this.mcFecha = new System.Windows.Forms.MonthCalendar();
             this.btnSeleccionarFecha = new System.Windows.Forms.Button();
+            this.cmbRubros = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.epFechaInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epPrecio)).BeginInit();
@@ -74,7 +74,7 @@
             this.mtxtFechaInicio.Name = "mtxtFechaInicio";
             this.mtxtFechaInicio.Size = new System.Drawing.Size(68, 20);
             this.mtxtFechaInicio.TabIndex = 0;
-            this.mtxtFechaInicio.ValidatingType = typeof(System.DateTime);            
+            this.mtxtFechaInicio.ValidatingType = typeof(System.DateTime);
             this.mtxtFechaInicio.TextChanged += new System.EventHandler(this.mtxtFechaInicio_TextChanged);
             // 
             // mtxtFechaFin
@@ -102,6 +102,7 @@
             this.cmbTipoVisibilidad.Name = "cmbTipoVisibilidad";
             this.cmbTipoVisibilidad.Size = new System.Drawing.Size(121, 21);
             this.cmbTipoVisibilidad.TabIndex = 3;
+            this.cmbTipoVisibilidad.SelectedIndexChanged += new System.EventHandler(this.cmbTipoVisibilidad_SelectedIndexChanged);
             // 
             // lblFechaInicio
             // 
@@ -168,18 +169,10 @@
             // mtxtPrecio
             // 
             this.mtxtPrecio.Location = new System.Drawing.Point(329, 86);
-            this.mtxtPrecio.Mask = "999,99";
             this.mtxtPrecio.Name = "mtxtPrecio";
             this.mtxtPrecio.Size = new System.Drawing.Size(46, 20);
             this.mtxtPrecio.TabIndex = 13;
-            // 
-            // clbRubros
-            // 
-            this.clbRubros.FormattingEnabled = true;
-            this.clbRubros.Location = new System.Drawing.Point(286, 135);
-            this.clbRubros.Name = "clbRubros";
-            this.clbRubros.Size = new System.Drawing.Size(216, 124);
-            this.clbRubros.TabIndex = 14;
+            this.mtxtPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mtxtPrecio_KeyPress);
             // 
             // lblRubros
             // 
@@ -277,7 +270,7 @@
             // 
             // mcFecha
             // 
-            this.mcFecha.Location = new System.Drawing.Point(236, 57);
+            this.mcFecha.Location = new System.Drawing.Point(245, 57);
             this.mcFecha.Name = "mcFecha";
             this.mcFecha.TabIndex = 23;
             this.mcFecha.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFecha_DateSelected);
@@ -292,13 +285,22 @@
             this.btnSeleccionarFecha.UseVisualStyleBackColor = true;
             this.btnSeleccionarFecha.Click += new System.EventHandler(this.btnSeleccionarFecha_Click);
             // 
+            // cmbRubros
+            // 
+            this.cmbRubros.FormattingEnabled = true;
+            this.cmbRubros.Location = new System.Drawing.Point(329, 116);
+            this.cmbRubros.Name = "cmbRubros";
+            this.cmbRubros.Size = new System.Drawing.Size(121, 21);
+            this.cmbRubros.TabIndex = 25;
+            // 
             // GenerarPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 301);
-            this.Controls.Add(this.btnSeleccionarFecha);
+            this.ClientSize = new System.Drawing.Size(519, 305);
             this.Controls.Add(this.mcFecha);
+            this.Controls.Add(this.cmbRubros);
+            this.Controls.Add(this.btnSeleccionarFecha);
             this.Controls.Add(this.mtxtStock);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnGuardar);
@@ -307,7 +309,6 @@
             this.Controls.Add(this.lblTipoPubli);
             this.Controls.Add(this.cmbTiposPublicaciones);
             this.Controls.Add(this.lblRubros);
-            this.Controls.Add(this.clbRubros);
             this.Controls.Add(this.mtxtPrecio);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.lblStock);
@@ -347,7 +348,6 @@
         private System.Windows.Forms.Label lblStock;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.MaskedTextBox mtxtPrecio;
-        private System.Windows.Forms.CheckedListBox clbRubros;
         private System.Windows.Forms.Label lblRubros;
         private System.Windows.Forms.ComboBox cmbTiposPublicaciones;
         private System.Windows.Forms.Label lblTipoPubli;
@@ -363,5 +363,6 @@
         private System.Windows.Forms.MaskedTextBox mtxtStock;
         private System.Windows.Forms.MonthCalendar mcFecha;
         private System.Windows.Forms.Button btnSeleccionarFecha;
+        private System.Windows.Forms.ComboBox cmbRubros;
     }
 }

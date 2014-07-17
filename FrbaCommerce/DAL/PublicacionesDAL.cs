@@ -271,11 +271,7 @@ namespace FrbaCommerce.DAL
                                                         INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
                                                             ON USR.IdUsuario = PUB.IdUsuario
                                                         " + where,conexion);
-                /*
-                SqlCommand comando = new SqlCommand(@"  SELECT *
-                                                        FROM BAZINGUEANDO_EN_SLQ.VistaPublicaciones 
-                                                        " + where, conexion);                
-                */
+
                 dt.Load(comando.ExecuteReader());
 
                 return dt;

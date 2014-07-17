@@ -235,8 +235,8 @@ namespace FrbaCommerce.DAL
                                                     WHERE idCliente = @idCliente"
                                                             , conexion);
 
-                comando.Parameters.AddWithValue("@estado", cliente.IdEstado);
-                comando.Parameters.AddWithValue("@idCliente", cliente.IdCliente);
+                comando.Parameters.AddWithValue("@estado", cliente.IdEstado);                
+                comando.Parameters.AddWithValue("@idCliente", idCliente);
 
                 return (int)comando.ExecuteNonQuery();
             }
@@ -259,6 +259,8 @@ namespace FrbaCommerce.DAL
                                                         WHERE NroDocumento = @NroDocumento", conexion);
                 comando.Parameters.AddWithValue("@NroDocumento", nroDoc);
                 dt.Load(comando.ExecuteReader());
+                if (dt.Rows.Count <= 0)
+                    throw new Exception("No Existe el Cliente");
 
                 return (int)dt.Rows[0][0];
             }

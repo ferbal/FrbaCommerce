@@ -293,6 +293,13 @@ namespace FrbaCommerce.View.ABM_Cliente
 
         private void ABM_de_Cliente_Load(object sender, EventArgs e)
         {
+
+            mcFecha.Visible = false;
+            mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+            mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+
             if (String.Equals(this.Text,"Alta de Cliente")) 
             {
                 DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
@@ -300,13 +307,6 @@ namespace FrbaCommerce.View.ABM_Cliente
                 cmbTipoDocumento.DisplayMember = "Descripcion";
                 cmbTipoDocumento.ValueMember = "IdTipoDocumento";
                 cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
-
-                mcFecha.Visible = false;
-                mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
-                mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
-                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
-                mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
-
                 txtFechaNac.Enabled = false;
             }
         }
