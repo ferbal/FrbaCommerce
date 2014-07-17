@@ -563,12 +563,12 @@ INSERT BAZINGUEANDO_EN_SLQ.Usuarios
 		idEstado)
 	VALUES
 		('1','admin','EF797C8118F02DFB64967DD5D3F8C762348C9C63D532CC95C5ED7A898A64F','0','0','3')  
-
+/*
 INSERT BAZINGUEANDO_EN_SLQ.UsuariosRoles
 		(IdRol,IdUsuario) 
 	VALUES 
 		(3,1)
-
+*/
 
 
 --------MIGRACION---------------------------------------------------------------------------------------
