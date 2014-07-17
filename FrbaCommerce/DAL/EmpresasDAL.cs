@@ -60,7 +60,7 @@ namespace FrbaCommerce.DAL
 	                                                    E.Localidad,
 	                                                    E.CodigoPostal,
 	                                                    E.FechaCreacion,
-                                                        est.Descripcion,
+                                                        est.Descripcion Habilitacion,
                                                         E.IdEmpresa,
                                                         E.idEstado
 

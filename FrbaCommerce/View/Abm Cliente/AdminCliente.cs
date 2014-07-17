@@ -64,7 +64,7 @@ namespace FrbaCommerce.View.ABM_Cliente
 
                 DataGridViewCell cellNombre = dr.Cells["Nombre"];
                 DataGridViewCell cellIdCliente = dr.Cells["IdCliente"];
-                DataGridViewCell celltipoNro = dr.Cells["Descripcion"];
+                DataGridViewCell celltipoNro = dr.Cells["TipoDoc"];
                 DataGridViewCell cellNroDocumento = dr.Cells["NroDocumento"];
                 DataGridViewCell cellcuil = dr.Cells["CUIL"];
                 DataGridViewCell cellMail = dr.Cells["Mail"];
@@ -190,6 +190,7 @@ namespace FrbaCommerce.View.ABM_Cliente
         {   
             try
             {
+                dgvRoles.Visible = true;
                 llenarDataGrid();
             }
             catch (Exception ex)
@@ -214,6 +215,16 @@ namespace FrbaCommerce.View.ABM_Cliente
             cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
 
 
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Clear();
+            txtApellido.Clear();
+            txtDNI.Clear();
+            txtMAIL.Clear();
+            cmbTipoDocumento.SelectedIndex = 0;
+            dgvRoles.Visible = false;
         }
 
     

@@ -42,6 +42,7 @@
             this.txtCUIT = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtMAIL = new System.Windows.Forms.TextBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +85,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(455, 237);
+            this.btnVolver.Location = new System.Drawing.Point(865, 237);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 4;
@@ -160,11 +161,22 @@
             this.txtMAIL.Size = new System.Drawing.Size(210, 20);
             this.txtMAIL.TabIndex = 13;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(453, 237);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 14;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // AdminEmpresa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 292);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.txtMAIL);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCUIT);
@@ -199,6 +211,7 @@
         private System.Windows.Forms.TextBox txtCUIT;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtMAIL;
+        private System.Windows.Forms.Button btnLimpiar;
 
     }
 }

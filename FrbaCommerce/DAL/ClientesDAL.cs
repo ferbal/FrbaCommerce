@@ -70,7 +70,7 @@ namespace FrbaCommerce.DAL
 
                 SqlCommand comando = new SqlCommand(@"  SELECT 
                                                             C.Nombre,
-                                                            T.Descripcion,
+                                                            T.Descripcion TipoDoc,
                                                             C.NroDocumento,
                                                             C.Mail,
 	                                                        C.Apellido,
@@ -82,7 +82,7 @@ namespace FrbaCommerce.DAL
 	                                                        C.CodigoPostal,
 	                                                        C.FechaNacimiento,
                                                             C.CUIL,
-                                                            est.Descripcion,
+                                                            est.Descripcion Habilitacion,
                                                             C.IdCliente,
                                                             C.idEstado
                                                         FROM BAZINGUEANDO_EN_SLQ.Clientes C

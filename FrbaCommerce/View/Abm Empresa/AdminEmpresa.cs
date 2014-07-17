@@ -175,6 +175,7 @@ namespace FrbaCommerce.View.ABM_Empresa
         {   
             try
             {
+                dgvRoles.Visible = true;
                 llenarDataGrid();
             }
             catch (Exception ex)
@@ -188,6 +189,14 @@ namespace FrbaCommerce.View.ABM_Empresa
         {
             vtnAnterior.Visible = true;
             this.Dispose();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtCUIT.Clear();
+            txtMAIL.Clear();
+            txtRazonSocial.Clear();
+            dgvRoles.Visible = false;
         }
 
     }

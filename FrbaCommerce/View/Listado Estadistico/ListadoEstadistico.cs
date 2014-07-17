@@ -77,7 +77,10 @@ namespace FrbaCommerce.View.ListadoEstadistico
         {
             try
             {
-                llenarDataGrid();
+                if (validarDatos())
+                {
+                    llenarDataGrid();
+                }
             }
             catch (Exception ex)
             {
@@ -92,6 +95,13 @@ namespace FrbaCommerce.View.ListadoEstadistico
                 {
                     cmbVisibilidad.Visible = true;
                     lblVisilidad.Visible = true;
+
+                    epVisibilidad.Dispose();
+                    if (String.IsNullOrEmpty(cmbVisibilidad.Text))
+                    {
+                        epVisibilidad.SetError(lblVisilidad, "Para este listado debe completarse la Visibilidad.");
+                    }
+
                 }
 
         }
@@ -104,6 +114,35 @@ namespace FrbaCommerce.View.ListadoEstadistico
             cmbVisibilidad.SelectedIndex = 0;
             dgvRoles.Visible = false;
         }
+
+        private Boolean validarDatos()
+        {
+            Boolean estado = true;
+
+            epAño.Dispose();
+            if (String.IsNullOrEmpty(cmbAnio.Text))
+            {
+                epAño.SetError(label4, "Se debe elegir un año.");
+                estado = false;
+            }
+
+            epTrimestre.Dispose();
+            if (String.IsNullOrEmpty(cmbTrimestre.Text))
+            {
+                epTrimestre.SetError(label1, "Se debe elegir un Trimestre.");
+                estado = false;
+            }
+
+            epListado.Dispose();
+            if (String.IsNullOrEmpty(cmbListado.Text))
+            {
+                epListado.SetError(label2, "Se debe elegir un listado.");
+                estado = false;
+            }
+
+            return estado;
+        }
+
 
     }
 }

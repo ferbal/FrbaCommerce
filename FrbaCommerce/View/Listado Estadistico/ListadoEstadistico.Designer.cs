@@ -30,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
@@ -42,7 +43,15 @@
             this.cmbListado = new System.Windows.Forms.ComboBox();
             this.lblVisilidad = new System.Windows.Forms.Label();
             this.cmbVisibilidad = new System.Windows.Forms.ComboBox();
+            this.epAño = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epTrimestre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epListado = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epVisibilidad = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAño)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTrimestre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epListado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epVisibilidad)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvRoles
@@ -176,6 +185,22 @@
             this.cmbVisibilidad.Size = new System.Drawing.Size(76, 21);
             this.cmbVisibilidad.TabIndex = 22;
             // 
+            // epAño
+            // 
+            this.epAño.ContainerControl = this;
+            // 
+            // epTrimestre
+            // 
+            this.epTrimestre.ContainerControl = this;
+            // 
+            // epListado
+            // 
+            this.epListado.ContainerControl = this;
+            // 
+            // epVisibilidad
+            // 
+            this.epVisibilidad.ContainerControl = this;
+            // 
             // ListadoEstadistico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,6 +222,10 @@
             this.Text = "Listado Estadistico";
             this.Load += new System.EventHandler(this.ListadoEstadistico_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAño)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epTrimestre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epListado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epVisibilidad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,6 +245,10 @@
         private System.Windows.Forms.ComboBox cmbListado;
         private System.Windows.Forms.Label lblVisilidad;
         private System.Windows.Forms.ComboBox cmbVisibilidad;
+        private System.Windows.Forms.ErrorProvider epAño;
+        private System.Windows.Forms.ErrorProvider epTrimestre;
+        private System.Windows.Forms.ErrorProvider epListado;
+        private System.Windows.Forms.ErrorProvider epVisibilidad;
 
     }
 }

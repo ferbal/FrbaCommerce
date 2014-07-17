@@ -121,11 +121,17 @@ namespace FrbaCommerce.View.ABM_Empresa
                     estado = (int)FrbaCommerce.Model.Empresas.Estados.Inhabilitado;
                 }
 
+                List<int> listaRoles = new List<int>();
+                listaRoles.Add(Convert.ToInt32(2));
+                
+                Boolean result = false;
+
                 if(validarDatos()){
                     if (String.Equals(this.Text,"Alta de Empresa")) 
-                    //if (this.idEmpresa == -1)
                     {
-                        Controller.Empresas.ingresarNuevaEmpresa(txtRazonSocial.Text, txtCuit.Text, txtNombreContacto.Text, txtMail.Text, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), 0,estado);
+                        //Controller.Empresas.ingresarNuevaEmpresa(txtRazonSocial.Text, txtCuit.Text, txtNombreContacto.Text, txtMail.Text, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), 0,estado);
+
+                        result = Controller.Usuarios.AltaDeUsuario(String.Empty, String.Empty, 0,0, txtMail.Text, txtRazonSocial.Text, txtCuit.Text, txtNombreContacto.Text, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), 2, listaRoles);
 
                     }else{
                         if (String.Equals(this.Text,"Modificacion de Empresa")) {

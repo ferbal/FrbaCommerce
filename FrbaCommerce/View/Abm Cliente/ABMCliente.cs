@@ -129,11 +129,16 @@ namespace FrbaCommerce.View.ABM_Cliente
 
                 int idTipoDoc = DAL.ClientesDAL.obtenerTipoDoc(cmbTipoDocumento.Text);
 
+                List<int> listaRoles = new List<int>();
+                listaRoles.Add(Convert.ToInt32(1));
+
+                Boolean result = false;
+
                 if(validarDatos()){
                     if (String.Equals(this.Text,"Alta de Cliente")) 
-                    //if (this.idEmpresa == -1)
                     {
-                        Controller.Clientes.ingresarClienteNuevo(txtNombre.Text, txtApellido.Text, idTipoDoc, Convert.ToInt32(txtDNI.Text), txtcuil.Text, txtMail.Text, Convert.ToDateTime(txtFechaNac.Text), txtTelefono.Text, txtCalle.Text, piso, depto, codigoPostal, txtLocalidad.Text, 0, estado);
+                        //Controller.Clientes.ingresarClienteNuevo(txtNombre.Text, txtApellido.Text, idTipoDoc, Convert.ToInt32(txtDNI.Text), txtcuil.Text, txtMail.Text, Convert.ToDateTime(txtFechaNac.Text), txtTelefono.Text, txtCalle.Text, piso, depto, codigoPostal, txtLocalidad.Text, 0, estado);
+                        result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text, txtApellido.Text, Convert.ToInt32(cmbTipoDocumento.SelectedValue), Convert.ToInt32(txtDNI.Text), txtMail.Text, String.Empty, txtcuil.Text, String.Empty, txtTelefono.Text, txtCalle.Text, piso, depto, txtLocalidad.Text, codigoPostal, Convert.ToDateTime(txtFechaNac.Text), 1, listaRoles);
 
                     }else{
                         if (String.Equals(this.Text,"Modificacion de Cliente")) {
@@ -145,7 +150,7 @@ namespace FrbaCommerce.View.ABM_Cliente
                             Controller.Clientes.BajaCliente(this.idCliente, txtNombre.Text, txtApellido.Text, idTipoDoc, Convert.ToInt32(txtDNI.Text), txtcuil.Text, txtMail.Text, Convert.ToDateTime(txtFechaNac.Text), txtTelefono.Text, txtCalle.Text, piso, depto, codigoPostal, txtLocalidad.Text, estado);
                         }
                     }
-                    
+
                     vtnAnterior.Visible = true;
                     this.Dispose();
 
@@ -288,11 +293,14 @@ namespace FrbaCommerce.View.ABM_Cliente
 
         private void ABM_de_Cliente_Load(object sender, EventArgs e)
         {
-            DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
+            if (String.Equals(this.Text,"Alta de Cliente")) 
+            {
+                DAL.TiposDocumentosDAL tdDAL = new FrbaCommerce.DAL.TiposDocumentosDAL();
 
-            cmbTipoDocumento.DisplayMember = "Descripcion";
-            cmbTipoDocumento.ValueMember = "IdTipoDocumento";
-            cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
+                cmbTipoDocumento.DisplayMember = "Descripcion";
+                cmbTipoDocumento.ValueMember = "IdTipoDocumento";
+                cmbTipoDocumento.DataSource = tdDAL.obtenerTiposDocumentos();
+            }
         }
 
 
