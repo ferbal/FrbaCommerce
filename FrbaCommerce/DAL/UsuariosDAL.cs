@@ -212,9 +212,12 @@ namespace FrbaCommerce.DAL
             }
         }
 
-        public DataTable ListarClientes(String nombre, String apellido, String razonSocial)
+        public DataTable ListarClientes(String nombre, String apellido, String razonSocial,int idTipoPersona)
         {
             String where = String.Empty;
+
+            if (idTipoPersona!=-1)
+                where = where + " AND U.IdTipoPersona = " + idTipoPersona.ToString();
 
             if (!String.IsNullOrEmpty(nombre))
                 where = where + " AND C.Nombre LIKE '%" + nombre + "%'";
@@ -255,7 +258,60 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
-        }   
+        }
+
+        public Model.Usuarios loadPorId(int idUsuario)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            DataTable dt = new DataTable();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"SELECT 
+                                                            idUsuario,
+                                                            idTipoPersona,
+                                                            login,
+                                                            password,
+                                                            fallos,
+                                                            idEstado
+                                                       FROM BAZINGUEANDO_EN_SLQ.Usuarios
+                                                       WHERE idUsuario = @IdUsuario", conexion);
+
+                comando.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                dt.Load(comando.ExecuteReader());
+
+                if (dt.Rows.Count == 0)
+                {
+                    throw new Exception("El usuario ingresado no existe.");
+                }
+
+                return llenarUsuario(dt.Rows[0]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void CambiarEstado(int idUsuario,int idEstado)
+        {
+            SqlConnection conexion = DAL.Conexion.getConexion();
+            try
+            {
+                SqlCommand comando = new SqlCommand(@"UPDATE BAZINGUEANDO_EN_SLQ.Usuarios
+                                                      SET idEstado = @idEstado
+                                                      WHERE idUsuario = @idUsuario", conexion);
+
+                comando.Parameters.AddWithValue("@idUsuario", idUsuario);
+                comando.Parameters.AddWithValue("@idEstado", idEstado);
+
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public Model.Usuarios llenarUsuario(DataRow dr)
         {

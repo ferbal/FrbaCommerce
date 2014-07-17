@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Funcionalidades
     {
+        //DEVUELVE TODAS LAS FUNCIONALIDADES EXISTENTES
         public static DataTable CargarListadoFuncionalidades()
         {
             try

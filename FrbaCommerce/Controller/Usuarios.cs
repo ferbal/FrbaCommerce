@@ -12,6 +12,7 @@ namespace FrbaCommerce.Controller
 {
     class Usuarios
     {
+        //INGRESA UN NUEVO USUARIO AL SISTEMA
         public static int ingresarNuevoUsuario(int idNumero,int idTipoPersona,String pass, String login,object listaRoles)
         {
             try
@@ -33,7 +34,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-        
+        //ENCRIPTA EL PASSWORD SEGUN EL ALGORITMO SHA256
         public static String encriptarPassword(String pass)
         {
             SHA256 sha = new SHA256Managed();
@@ -51,7 +52,7 @@ namespace FrbaCommerce.Controller
             
             return sb.ToString(0,sb.Length);
         }
-
+        //GENERA LA LOGICA DEL ALTA DE UN USUARIO (GENERANDO LA PERSONA CORRESPONDIENTE)
         public static Boolean AltaDeUsuario(String nombre,String apellido,int tipoDoc, int nroDoc,String mail,String razonSocial, String cuit, String nombreContacto, String telefono, String calle, int pisoNro, Char depto, String localidad, int codPost, DateTime fecha,int idTipoPersona,List<int> listaRoles)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
@@ -90,7 +91,9 @@ namespace FrbaCommerce.Controller
             }
 
         }
-
+        //VERIFICA EL LOGUEO DEL USUARIO VALIDANDO EL PASSWORD.
+        //CONTANDO LOS INTENTOS FALLIDOS SI LLEGA A 3 EN EL 4° INTENTO SE BLOQUEA EL USUARIO,
+        //SI REALIZA UN INGRESO SATISFACTORIO ANTES DEL 4° INTENTO SE RENUEVA EL CONTADOR.
         public static int verficarLogin(String user, String pass)
         {
             try
@@ -131,7 +134,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //ACTUALIZA EL PASSWORD DEL USUARIO
         public static int ActualizarPassword(String usrNombre,String pass)
         {
             try
@@ -151,7 +154,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //GENERA UN LISTADO DE VENDEDORES
         public static DataTable ObtenerListaDeVendedores()
         {
             try
@@ -165,14 +168,45 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
-        public static DataTable ObtenerListaSeleccionClientes(String nombre,String apellido,String razonSocial)
+        //GENERA UN LISTADO DE CLIENTES
+        public static DataTable ObtenerListaSeleccionClientes(String nombre,String apellido,String razonSocial,int idTipoPersona)
         {
             try
             {
                 DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
 
-                return usrDAL.ListarClientes(nombre,apellido,razonSocial);
+                return usrDAL.ListarClientes(nombre,apellido,razonSocial,idTipoPersona);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //VALIDA QUE EL ESTADO DEL USUARIO SEA IGUAL AL PASADO POR PARAMETRO
+        public static Boolean ValidarEstadoDeUsuario(int idUsuario, int idEstado)
+        {
+            try
+            {
+                DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+
+                Model.Usuarios usr = usrDAL.loadPorId(idUsuario);
+
+                return (usr.idEstado == idEstado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //SE CAMBIA EL ESTADO DEL USUARIO
+        public static void CambiarEstado(int idUsuario, int idEstado)
+        {
+            try
+            {
+                DAL.UsuariosDAL usrDAL = new FrbaCommerce.DAL.UsuariosDAL();
+
+                usrDAL.CambiarEstado(idUsuario,idEstado);
+                
             }
             catch (Exception ex)
             {

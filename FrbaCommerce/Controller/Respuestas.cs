@@ -7,6 +7,7 @@ namespace FrbaCommerce.Controller
 {
     class Respuestas
     {
+        //GENERA LA RESPUESTA A UNA PREGUNTA
         public static void ResponderPregunta(int idPregunta,String respuesta)
         {
             try

@@ -16,6 +16,9 @@
             if (this.vtn1 != null)
                 this.vtn1.Visible = true;
 
+            if (this.vtn2 != null)
+                this.vtn2.Visible = true;
+
             if (disposing && (components != null))
             {
                 components.Dispose();

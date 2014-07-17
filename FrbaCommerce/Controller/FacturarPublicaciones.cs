@@ -9,6 +9,7 @@ namespace FrbaCommerce.Controller
 {
     class FacturarPublicaciones
     {
+        //GENERA LA FACTURA, ENCABEZADO, ITEMS Y ACTUALIZA TODOS LOS DATOS NECESARIOS
         public static void GenerarFactura(int vendedor,int compraHasta,int formaPago,String nroTarj,DateTime fechaVenc,int codSeg,String titular)
         {
             try

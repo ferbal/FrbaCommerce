@@ -38,7 +38,6 @@
             this.cmbCompraDesde = new System.Windows.Forms.ComboBox();
             this.cmbCompraHasta = new System.Windows.Forms.ComboBox();
             this.lblVendedor = new System.Windows.Forms.Label();
-            this.cmbVendedor = new System.Windows.Forms.ComboBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.btnCalcular = new System.Windows.Forms.Button();
             this.dgvFacturasItems = new System.Windows.Forms.DataGridView();
@@ -61,6 +60,8 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnPagar = new System.Windows.Forms.Button();
             this.epVendedor = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtVendedor = new System.Windows.Forms.TextBox();
+            this.btnSeleccionar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturasItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epVendedor)).BeginInit();
@@ -120,15 +121,6 @@
             this.lblVendedor.Size = new System.Drawing.Size(59, 13);
             this.lblVendedor.TabIndex = 6;
             this.lblVendedor.Text = "Vendedor: ";
-            // 
-            // cmbVendedor
-            // 
-            this.cmbVendedor.FormattingEnabled = true;
-            this.cmbVendedor.Location = new System.Drawing.Point(99, 42);
-            this.cmbVendedor.Name = "cmbVendedor";
-            this.cmbVendedor.Size = new System.Drawing.Size(121, 21);
-            this.cmbVendedor.TabIndex = 7;
-            this.cmbVendedor.SelectedIndexChanged += new System.EventHandler(this.cmbVendedor_SelectedIndexChanged);
             // 
             // lblTotal
             // 
@@ -335,11 +327,31 @@
             // 
             this.epVendedor.ContainerControl = this;
             // 
+            // txtVendedor
+            // 
+            this.txtVendedor.Location = new System.Drawing.Point(99, 42);
+            this.txtVendedor.Name = "txtVendedor";
+            this.txtVendedor.Size = new System.Drawing.Size(121, 20);
+            this.txtVendedor.TabIndex = 30;
+            this.txtVendedor.TextChanged += new System.EventHandler(this.txtVendedor_TextChanged);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Location = new System.Drawing.Point(226, 40);
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionar.TabIndex = 31;
+            this.btnSeleccionar.Text = "Seleccionar";
+            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
+            // 
             // FacturarPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 499);
+            this.Controls.Add(this.btnSeleccionar);
+            this.Controls.Add(this.txtVendedor);
             this.Controls.Add(this.btnPagar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtTitular);
@@ -361,7 +373,6 @@
             this.Controls.Add(this.dgvFacturasItems);
             this.Controls.Add(this.btnCalcular);
             this.Controls.Add(this.lblTotal);
-            this.Controls.Add(this.cmbVendedor);
             this.Controls.Add(this.lblVendedor);
             this.Controls.Add(this.cmbCompraHasta);
             this.Controls.Add(this.cmbCompraDesde);
@@ -387,7 +398,6 @@
         private System.Windows.Forms.ComboBox cmbCompraDesde;
         private System.Windows.Forms.ComboBox cmbCompraHasta;
         private System.Windows.Forms.Label lblVendedor;
-        private System.Windows.Forms.ComboBox cmbVendedor;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Button btnCalcular;
         private System.Windows.Forms.DataGridView dgvFacturasItems;
@@ -410,6 +420,8 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnPagar;
         private System.Windows.Forms.ErrorProvider epVendedor;
+        private System.Windows.Forms.Button btnSeleccionar;
+        private System.Windows.Forms.TextBox txtVendedor;
 
     }
 }

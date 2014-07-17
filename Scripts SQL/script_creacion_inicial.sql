@@ -839,45 +839,7 @@ where	g.Compra_Fecha is not NULL
 
 --VOLVEMOS A MODIFICAR LA TABLA CALIFICACIONES PARA QUE NO ADMITA NULL IDCOMPRA		
 ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NOT NULL;
------------------------------
-/* CASOS PARA CONTROLAR
-CodPublicacion = 31403 AND CALIF.Codigo = 48187
-CodPublicacion = 40365 AND CALIF.Codigo = 63809
 
-
-SELECT CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Codigo,G.Calificacion_Cant_Estrellas,COUNT(*)
---SELECT *
---SELECT comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
---SELECT *
-FROM BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
-INNER JOIN gd_esquema.Maestra g
-	ON CALIF.Codigo = G.Calificacion_Codigo
-	AND G.Calificacion_Codigo IS NOT NULL
-INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones pub
-	on pub.CodPublicacion = g.Publicacion_Cod
-Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
-	on g.Cli_Mail = usr.login
-INNER JOIN BAZINGUEANDO_EN_SLQ.Compras COMP
-	ON COMP.IdPublicacion = PUB.IdPublicacion
-	AND COMP.Fecha = G.Compra_Fecha
-	AND COMP.Cantidad = G.Compra_Cantidad
-	AND COMP.IdUsrComprador = USR.idUsuario
---inner join BAZINGUEANDO_EN_SLQ.Compras comp
---	on comp.IdPublicacion = pub.IdPublicacion
---	and comp.idUsrComprador = usr.idUsuario
---	AND COMP.Fecha = G.Compra_Fecha
-where	g.Compra_Fecha is not NULL 
-		and g.Calificacion_Codigo is NOT NULL
---		AND pUB.CodPublicacion = 40365 AND CALIF.Codigo = 63809
-		AND pUB.CodPublicacion = 31403 AND CALIF.Codigo = 48187
---AND pUB.CodPublicacion = 40365 AND CALIF.Codigo = 63809
-GROUP BY G.Calificacion_Codigo,	CALIF.Codigo,PUB.CodPublicacion,G.Calificacion_Cant_Estrellas
---GROUP BY comp.IdCompra,Calificacion_Codigo,Calificacion_Cant_Estrellas,Calificacion_Descripcion
-HAVING COUNT(*)>1
-
-SELECT * FROM gd_esquema.Maestra
-WHERE Publicacion_Cod = 31403 AND Calificacion_Codigo = 48187
-*/
 -----INSERT FACTURAS
 
 INSERT INTO BAZINGUEANDO_EN_SLQ.Facturas
@@ -1317,24 +1279,19 @@ GO
 
 --OBTENER COMPRAS A CALIFICAR
 CREATE PROCEDURE BAZINGUEANDO_EN_SLQ.SP_COMPRAS_A_CALIFICAR
-	@LOGIN VARCHAR(50)
+	@USR INT
 AS
-	BEGIN
-		DECLARE @USR INT
-	
-		SET @USR = (SELECT idUsuario FROM BAZINGUEANDO_EN_SLQ.Usuarios WHERE login = @LOGIN)
+	BEGIN		
 		
 		SELECT	COMP.IdCompra,
 				CONVERT(VARCHAR(10),P.CodPublicacion) + ' - ' + P.Descripcion Descripcion
 		FROM BAZINGUEANDO_EN_SLQ.Compras COMP
 		INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
 			ON COMP.IdPublicacion = P.IdPublicacion
-		--INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U
-		--	ON U.idUsuario = COMP.IdUsrComprador
 		LEFT JOIN BAZINGUEANDO_EN_SLQ.Calificaciones CALIF
 			ON COMP.IdCompra = CALIF.IdCompra		
 		WHERE	CALIF.IdCalificacion IS NULL
-				AND P.IdUsuario = @USR
+				AND COMP.IdUsrComprador = @USR
 	END
 GO
 

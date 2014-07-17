@@ -11,6 +11,7 @@ namespace FrbaCommerce.Controller
 {
     class Roles
     {
+        //INGRESAR UN NUEVO ROL
         public static void IngresarNuevoRol(String nombre,List<int> listaFunc)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
@@ -42,7 +43,7 @@ namespace FrbaCommerce.Controller
                 throw ex;                
             }
         }
-
+        //ACTUALIZAR UN ROL EXISTENTE
         public static void ActualizarRol(int id, String nombre, List<int> listaFunc)
         {
             SqlConnection conexion = DAL.Conexion.getConexion();
@@ -75,7 +76,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //ELIMINAR UN ROL EXISTENTE
         public static void EliminarRol(int id)
         {
             try

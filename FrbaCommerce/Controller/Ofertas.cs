@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Ofertas
     {
+        //GENERA UNA OFERTA
         public static void GenerarOferta(int ofertante, int publicacion, DateTime fecha, Double monto)
         {
             try
@@ -21,7 +22,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //GENERA EL HISTORIAL DE OFERTAS POR USUARIO
         public static DataTable HistorialOfertasPorUsuario(int usuario)
         {
             try

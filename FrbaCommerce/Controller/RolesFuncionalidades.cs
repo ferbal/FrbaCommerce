@@ -9,6 +9,7 @@ namespace FrbaCommerce.Controller
 {
     class RolesFuncionalidades
     {
+        //PARA UN USUARIO Y UN ROL PARTICULAR, DEVUELVE LAS FUNCIONALIDADES ASOCIADAS
         public static Dictionary<String, bool> getFuncionalidadesDisponibles(int usr,int rol)
         {
             Dictionary<String, bool> dic = new Dictionary<string, bool>();
@@ -32,7 +33,7 @@ namespace FrbaCommerce.Controller
             
             return dic;
         }
-
+        
         private Dictionary<String, bool> armarDiccionario()
         {
             Dictionary<String, bool> dic = new Dictionary<string, bool>();
@@ -40,7 +41,7 @@ namespace FrbaCommerce.Controller
 
             return dic;
         }
-
+        //OBTIENE LAS FUNCIONALIDADES DE UN ROL PARTICULAR
         public static DataTable ObtenerFuncionalidadesDeRol(int rol)
         {
             try

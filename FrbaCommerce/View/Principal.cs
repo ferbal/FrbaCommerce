@@ -27,8 +27,9 @@ namespace FrbaCommerce
             {
                 Dictionary<String, bool> dic = Controller.RolesFuncionalidades.getFuncionalidadesDisponibles(idUsuario, rol);
                 habilitarBotones(dic);
-
             }
+
+            VerificarEstadoUsuario();
         }
 
         public void cargarInfoUsuario(int usr, int rol, Form anterior)
@@ -40,6 +41,9 @@ namespace FrbaCommerce
 
         private void habilitarBotones(Dictionary<String,bool> dic)
         {
+            /*
+             * Inhabilito los botones segun la funcionalidad permitida
+             * 
             btnABMCliente.Enabled = dic["ABM de Cliente"];
             btnABMEmpresa.Enabled = dic["ABM de Empresa"];
             btnABMRol.Enabled =dic["ABM de Rol"];
@@ -53,6 +57,21 @@ namespace FrbaCommerce
             btnGestionarPreg.Enabled = dic["Gestión de Preg"];
             btnHistorialCli.Enabled = dic["Historial del cli"];
             btnListadoEstadistico.Enabled = dic["Listado Estadístico"];            
+             */
+
+            //Oculto los botones segun la funcionalidad permitida.
+            btnABMCliente.Visible = dic["ABM de Cliente"];
+            btnABMEmpresa.Visible = dic["ABM de Empresa"];
+            btnABMRol.Visible = dic["ABM de Rol"];
+            btnABMRubro.Visible = dic["ABM de Rubro"];
+            btnABMVisibilidad.Visible = dic["ABM visibilidad"];
+            btnCalificarVend.Visible = dic["Calificar al Vend"];
+            btnComprarOfertar.Visible = dic["Comprar/Ofertar"];            
+            btnFacturarPubli.Visible = dic["Facturar Publi"];
+            btnGenerarPubli.Visible = dic["Generar Publicación"];
+            btnGestionarPreg.Visible = dic["Gestión de Preg"];
+            btnHistorialCli.Visible = dic["Historial del cli"];
+            btnListadoEstadistico.Visible = dic["Listado Estadístico"];            
         }
 
         private void btnABMRol_Click(object sender, EventArgs e)
@@ -146,6 +165,23 @@ namespace FrbaCommerce
             vtnAdminVis.CargarDatos(this,this.idUsuario);
             vtnAdminVis.Visible = true;
             this.Visible = false;
+        }
+
+        private void VerificarEstadoUsuario()
+        {
+            if (Controller.Usuarios.ValidarEstadoDeUsuario(this.idUsuario, (int)Model.Usuarios.Estados.BloqueadoCompraOferta))
+            {
+                btnComprarOfertar.Enabled = false;
+            }
+            else
+            {
+                btnComprarOfertar.Enabled = true;
+            }
+        }
+
+        private void Principal_VisibleChanged(object sender, EventArgs e)
+        {
+            VerificarEstadoUsuario();
         }
     }
 }

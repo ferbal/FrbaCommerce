@@ -33,7 +33,8 @@ namespace FrbaCommerce.Model
         public enum Estados
         {
             Habilitado = 1,
-            Inhabilitado = 2
+            Inhabilitado = 2,
+            BloqueadoCompraOferta = 4
         }
 
     }

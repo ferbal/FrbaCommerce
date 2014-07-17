@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Publicaciones
     {
+        //GENERA UNA PUBLICACION NUEVA
         public static void IngresarPublicacionNueva(int tipoPubli,int cod,int rubro,int visibilidad,DateTime fechaInicio,DateTime fechaFin,String descripcion,int stock, Double precio, int idUsuario,Boolean preguntas)
         {
             try
@@ -23,7 +24,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //ACTUALIZA LOS DATOS DE UNA PUBLICACION EXISTENTE
         public static void ActualizarPublicacion(int idPublicacion,int tipoPubli, int cod, int rubro, int visibilidad, DateTime fechaInicio, DateTime fechaFin, String desc, int stock, Double precio, int idUsuario, bool preguntas)
         {
             try
@@ -37,7 +38,8 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //CALCULA LA FECHA DE FINALIZACION DE LA PUBLICACION EN FUNCION DE LA FECHA DE INICIO
+        //Y LA DURACION DE LA VISIBILIDAD
         public static DateTime calcularFechaFin(int visibilidad,String fechaInicio)
         {
             DateTime fechaFin;
@@ -54,7 +56,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //OBTIENE EL ULTIMO CODIGO DE PUBLICACION
         public static int UltimoCodigo()
         {
             try
@@ -77,7 +79,7 @@ namespace FrbaCommerce.Controller
             }
             
         }
-
+        //GENERA UN LISTADO DE PUBLICACIONES
         public static DataTable ListarPublicaciones(int desde,int codigo,String descrip, String vendedor, int tipoPub, int estado)
         {
             try
@@ -92,6 +94,7 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        //ACTUALIZA UNA PUBLICACION PARTICULAR A UN ESTADO PASADO POR PARAMETRO
         public static void ActualizarEstado(int estado, int publicacion)
         {
             try
@@ -105,7 +108,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //AL FINALIZAR UNA PUBLICACION, SELECCIONA LA OFERTA GANADORA Y GENERA LA COMPRA CORRESPONDIENTE
         public static void ConvertirOfertasEnCompras(int publicacion)
         {
             try
@@ -119,7 +122,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //GENERA UNA LISTA DE LOS ESTADOS DE LA PUBLICACION
         public static DataTable ObtenerListaEstados()
         {
             try
@@ -133,7 +136,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //OBTIENE LA CANTIDAD DE PUBLICACIONES EXISTENTES
         public static int CantidadDePublicaciones()
         {
             try
@@ -147,7 +150,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //OBTIENE UN LISTADO DE PUBLICACIONES PARA COMPRAR/OFERTAR
         public static DataTable CargarParaCompra(int desde, int rubro,String descripcion)
         {
             try
@@ -162,7 +165,7 @@ namespace FrbaCommerce.Controller
             }
 
         }
-
+        //OBTIENE LA CANTIDAD DE UBLICACIONES PARA COMPRAR/OFERTAR
         public static int CantidadPublicacionesParaComprarOFertar(int rubro,String descripcion)
         {
             try
@@ -177,7 +180,7 @@ namespace FrbaCommerce.Controller
             }
 
         }
-
+        //CARGA UNA PUBLICACION POR IDPUBLICACION
         public static Model.Publicaciones LoadById(int idPublicacion)
         {
             try

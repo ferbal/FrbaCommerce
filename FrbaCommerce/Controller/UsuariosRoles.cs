@@ -9,6 +9,7 @@ namespace FrbaCommerce.Controller
 {
     class UsuariosRoles
     {
+        //GENERA UN LISTADO DE ROLES DE UN USUARIO
         public static DataTable obtenerRoles(int idUsuario)
         {            
             try

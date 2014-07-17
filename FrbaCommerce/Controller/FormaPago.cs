@@ -8,6 +8,8 @@ namespace FrbaCommerce.Controller
 {
     class FormaPago
     {
+
+        //LISTA LAS FORMAS DE PAGO EXISTENTES
         public static DataTable ObtenerFormasPago()
         {
             try

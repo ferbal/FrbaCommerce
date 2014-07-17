@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Rubros
     {
+        //GENERA UN LISTADO DE LOS RUBROS EXISTENTES
         public static DataTable obtenerRubros()
         {
             try

@@ -31,45 +31,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbCompras = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.mtxtCalificacion = new System.Windows.Forms.MaskedTextBox();
             this.btnCalificar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.lblDetalle = new System.Windows.Forms.Label();
             this.txtDetalle = new System.Windows.Forms.TextBox();
+            this.epCalificacion = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.epCalificacion)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(21, 9);
+            this.lblTitulo.Location = new System.Drawing.Point(56, 9);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(237, 29);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Calificar al Vendedor";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 61);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Usuario (Login):";
-            // 
-            // txtLogin
-            // 
-            this.txtLogin.Location = new System.Drawing.Point(119, 58);
-            this.txtLogin.Name = "txtLogin";
-            this.txtLogin.Size = new System.Drawing.Size(121, 20);
-            this.txtLogin.TabIndex = 2;
             // 
             // label2
             // 
@@ -100,9 +84,11 @@
             // mtxtCalificacion
             // 
             this.mtxtCalificacion.Location = new System.Drawing.Point(119, 111);
+            this.mtxtCalificacion.Mask = "0";
             this.mtxtCalificacion.Name = "mtxtCalificacion";
             this.mtxtCalificacion.Size = new System.Drawing.Size(64, 20);
             this.mtxtCalificacion.TabIndex = 6;
+            this.mtxtCalificacion.TextChanged += new System.EventHandler(this.mtxtCalificacion_TextChanged);
             // 
             // btnCalificar
             // 
@@ -124,16 +110,6 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(264, 55);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 9;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
             // lblDetalle
             // 
             this.lblDetalle.AutoSize = true;
@@ -150,6 +126,10 @@
             this.txtDetalle.Size = new System.Drawing.Size(220, 20);
             this.txtDetalle.TabIndex = 11;
             // 
+            // epCalificacion
+            // 
+            this.epCalificacion.ContainerControl = this;
+            // 
             // CalificarVendedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,19 +137,17 @@
             this.ClientSize = new System.Drawing.Size(357, 201);
             this.Controls.Add(this.txtDetalle);
             this.Controls.Add(this.lblDetalle);
-            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnCalificar);
             this.Controls.Add(this.mtxtCalificacion);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbCompras);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtLogin);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitulo);
             this.Name = "CalificarVendedor";
             this.Text = "Calificar Al Vendedor";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.epCalificacion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,16 +156,14 @@
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtLogin;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbCompras;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox mtxtCalificacion;
         private System.Windows.Forms.Button btnCalificar;
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Label lblDetalle;
         private System.Windows.Forms.TextBox txtDetalle;
+        private System.Windows.Forms.ErrorProvider epCalificacion;
     }
 }

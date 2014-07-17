@@ -10,6 +10,7 @@ namespace FrbaCommerce.Controller
     {
         private static DateTime fechaSistema = DateTime.MinValue;
 
+        //MEDIANTE EL PATRON SINGLETON SE OBTIENE LA FECHA DEL SISTEMA.
         public static DateTime ObtenerFechaSistema()
         {
             if (fechaSistema == DateTime.MinValue)

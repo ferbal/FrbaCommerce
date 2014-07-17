@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Preguntas
     {
+        //GENERA UN LISTADO DE PREGUNTAS SIN RESPUESTA POR USUARIO
         public static DataTable ObtenerPregSinRespuesta(int usuario)
         {
             try
@@ -22,7 +23,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //GENERA UN LISTADO DE PREGUNTAS CON RESPUESTA POR USUARIO
         public static DataTable ObtenerPregConRespuesta(int usuario)
         {
             try
@@ -37,7 +38,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //GENERA UNA PREGUNTA NUEVA
         public static void GenerarPregunta(int usuario, int publicacion, String pregunta)
         {
             try

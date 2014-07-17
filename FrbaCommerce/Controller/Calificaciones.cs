@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Calificaciones
     {
+        //PERMITE INGRESAR LA CALIFICACION DE UNA COMPRA
         public static void IngresarCalificaciones(int idCompra,int calif, String detalle)
         {
             try
@@ -21,7 +22,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //OBTIENE EL HISTORIAL DE CALIFICACIONES REALIZADAS DE UN USUARIO
         public static DataTable HistorialCalificacionesPorUsuario(int usuario)
         {
             try
@@ -35,7 +36,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //OBTIENE EL HISTORIAL DE CALIFICACIONES RECIBIDAS POR UN USUARIO
         public static DataTable HistorialCalificacionesRecibidasPorUsuario(int usuario)
         {
             try

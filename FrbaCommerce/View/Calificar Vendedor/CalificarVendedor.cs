@@ -22,11 +22,12 @@ namespace FrbaCommerce.View.Calificar_Vendedor
         private void Form1_Load(object sender, EventArgs e)
         {
             CambiarEstadoObjetos(false);
+            CargarCMB();
         }
 
         private void CargarCMB()
         {      
-            DataTable dt = Controller.Compras.ObtenerComprasNoCalificadas(txtLogin.Text);
+            DataTable dt = Controller.Compras.ObtenerComprasNoCalificadas(this.idUsuario);
             cmbCompras.DataSource = dt;
             cmbCompras.DisplayMember = "Descripcion";
             cmbCompras.ValueMember = "IdCompra";
@@ -41,7 +42,14 @@ namespace FrbaCommerce.View.Calificar_Vendedor
                 dt.Rows.InsertAt(dr,0);
 
                 CambiarEstadoObjetos(false);
+
+                //Habilitar al Usuario
+                if (Controller.Usuarios.ValidarEstadoDeUsuario(this.idUsuario, (int)Model.Usuarios.Estados.BloqueadoCompraOferta))
+                    Controller.Usuarios.CambiarEstado(this.idUsuario,(int)Model.Usuarios.Estados.Habilitado);
+
             }
+            txtDetalle.Text = String.Empty;
+            mtxtCalificacion.Text = String.Empty;
             
         }
 
@@ -67,10 +75,15 @@ namespace FrbaCommerce.View.Calificar_Vendedor
 
         private Boolean ValidarDatos()
         {
-            if (Convert.ToInt32(mtxtCalificacion.Text) > 5)
-                return false;
+            Boolean result = true;
+
+            if (Convert.ToInt32(mtxtCalificacion.Text) > 5 && Convert.ToInt32(mtxtCalificacion.Text) <= 0)
+            {
+                epCalificacion.SetError(mtxtCalificacion,"La calificacion debe ser entre 1 y 5.");
+                result = false;
+            }                
          
-            return true;
+            return result;
         }
 
         private void CambiarEstadoObjetos(Boolean estado)
@@ -85,6 +98,11 @@ namespace FrbaCommerce.View.Calificar_Vendedor
         {
             this.vtnAnterior = vtn;
             this.idUsuario = usr;
+        }
+
+        private void mtxtCalificacion_TextChanged(object sender, EventArgs e)
+        {
+            epCalificacion.Clear();
         }
     }
 }

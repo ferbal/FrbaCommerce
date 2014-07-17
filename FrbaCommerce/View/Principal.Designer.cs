@@ -195,6 +195,7 @@ namespace FrbaCommerce
             this.Name = "Principal";
             this.Text = "Frba Commerce";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.VisibleChanged += new System.EventHandler(this.Principal_VisibleChanged);
             this.ResumeLayout(false);
 
         }

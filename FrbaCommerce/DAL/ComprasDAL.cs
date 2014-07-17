@@ -170,7 +170,7 @@ namespace FrbaCommerce.DAL
             }
         }
 
-        public DataTable ObtenerComprasNoCalificadas(String login)
+        public DataTable ObtenerComprasNoCalificadas(int IdUsuario)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace FrbaCommerce.DAL
                                                         @Usuario
                                                         ", conexion);
 
-                comando.Parameters.AddWithValue("@Usuario", login);
+                comando.Parameters.AddWithValue("@Usuario", IdUsuario);
 
                 dt.Load(comando.ExecuteReader());
 

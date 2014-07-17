@@ -14,6 +14,7 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
     {
         private Form vtnAnterior;
         private int idUsuario = -1;
+        private int idVendedorSeleccionado = -1;
 
         public FacturarPublicaciones()
         {
@@ -22,15 +23,18 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void FacturarPublicaciones_Load(object sender, EventArgs e)
         {
-            cargarCmbVendedores();
+            //cargarCmbVendedores();
             CargaCmbFormasPago();
             CambiarVisibilidadFormasPago(false);
 
             lblSubTotal1.Text = String.Empty;
             lblSubTotal2.Text = String.Empty;
             lblTotalGral.Text = String.Empty;
+            txtVendedor.Enabled = false;
         }
-
+        
+        /*
+         * CAMBIO EN MODO DE SELECCION DE VENDEDOR
         private void cargarCmbVendedores()
         {
             //CARGA DE COMBOBOX DE VENDEDORES
@@ -45,20 +49,20 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
             cmbVendedor.DisplayMember = "Descripcion";
             cmbVendedor.DataSource = dt;
         }
-
+        */
         private void CargarCmbCompras()
         {
             //CARGA DE COMBOBOX DE COMPRAS
-            if ((int)(cmbVendedor.SelectedValue) > 0)
+            if (this.idVendedorSeleccionado > 0)
             {                
-                cmbCompraHasta.DataSource = Controller.Compras.ArmarListaCompraHasta((int)cmbVendedor.SelectedValue);
+                cmbCompraHasta.DataSource = Controller.Compras.ArmarListaCompraHasta(this.idVendedorSeleccionado);
                 cmbCompraHasta.DisplayMember = "IdCompra";
                 cmbCompraHasta.ValueMember = "IdCompra";                
                 
                 
                 cmbCompraDesde.DisplayMember = "IdCompra";
                 cmbCompraDesde.ValueMember = "IdCompra";
-                cmbCompraDesde.DataSource = Controller.Compras.ArmarListaCompraDesde((int)cmbVendedor.SelectedValue);                
+                cmbCompraDesde.DataSource = Controller.Compras.ArmarListaCompraDesde(this.idVendedorSeleccionado);                
                 cmbCompraDesde.Enabled = false;
             }        
         }
@@ -70,10 +74,10 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
         
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            if ((int)cmbVendedor.SelectedValue != -1)
+            if (this.idVendedorSeleccionado != -1)
             {
-                dgvFacturasItems.DataSource = Controller.Compras.ArmarListaComprasAFacturar((int)cmbVendedor.SelectedValue, (int)cmbCompraHasta.SelectedValue);
-                dgvVisibilidades.DataSource = Controller.Compras.ObtenerGastosPorVisibilidad((int)cmbVendedor.SelectedValue, (int)cmbCompraHasta.SelectedValue);
+                dgvFacturasItems.DataSource = Controller.Compras.ArmarListaComprasAFacturar(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
+                dgvVisibilidades.DataSource = Controller.Compras.ObtenerGastosPorVisibilidad(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
                 Double sumaItems = dgvFacturasItems.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["COMISION"].Value));
                 Double sumaVisibilidad = dgvVisibilidades.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["PRECIO POR PUBLICAR"].Value));
                 Double suma = sumaItems + sumaVisibilidad;
@@ -114,7 +118,7 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
         private void btnPagar_Click(object sender, EventArgs e)
         {
 
-            if ((int)cmbVendedor.SelectedValue != -1)
+            if (this.idVendedorSeleccionado != -1)
             {
                 if (dgvFacturasItems.Rows.Count > 0 || dgvVisibilidades.Rows.Count > 0)
                 {                                     
@@ -135,14 +139,14 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
                          fecha = Convert.ToDateTime("2014-01-01");
                     }
                     
-                    Controller.FacturarPublicaciones.GenerarFactura((int)cmbVendedor.SelectedValue,(int)cmbCompraHasta.SelectedValue,(int)cmbFormasDePago.SelectedValue,mtxtNroTarjeta.Text,fecha,codSeg,txtTitular.Text);
+                    Controller.FacturarPublicaciones.GenerarFactura(this.idVendedorSeleccionado,(int)cmbCompraHasta.SelectedValue,(int)cmbFormasDePago.SelectedValue,mtxtNroTarjeta.Text,fecha,codSeg,txtTitular.Text);
                     
                     this.Dispose();
                 }
             }
             else
             {
-                epVendedor.SetError(cmbVendedor,"Debe Seleccionar un Vendedor.");
+                epVendedor.SetError(txtVendedor,"Debe Seleccionar un Vendedor.");
             }
         }
 
@@ -155,6 +159,25 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            View.Seleccion.SeleccionCliente vtnSeleccionC = new FrbaCommerce.View.Seleccion.SeleccionCliente();
+            vtnSeleccionC.CargarDatosVentana(this,2);
+            vtnSeleccionC.Visible = true;
+            this.Visible = false;
+        }
+
+        public void CargarSeleccion(int id, String seleccion)
+        {
+            this.idVendedorSeleccionado = id;
+            txtVendedor.Text = seleccion;
+        }
+
+        private void txtVendedor_TextChanged(object sender, EventArgs e)
+        {
+            CargarCmbCompras();
         }
 
     }

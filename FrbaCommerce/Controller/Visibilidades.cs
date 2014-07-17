@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class Visibilidades
     {
+        //GENERA UN LISTADO DE VISIBILIDADES
         public static DataTable ObtenerVisibilidades(int codigo,String descripcion)
         {
             try
@@ -20,7 +21,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //SE GENERA UN LISTADO DE VISIBILIDADES HABILITADAS
         public static DataTable ListarVisibilidadesHabilitadas()
         {
             try
@@ -33,7 +34,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //INGRESA UNA NUEVA VISIBILIDAD
         public static void InsertarVisibilidad(int codigo, String descripcion,int duracion,Double precioP, Double porcentajeVenta)
         {
             try
@@ -46,7 +47,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //ACTUALIZA UNA VISIBILIDAD EXISTENTE
         public static void ActualizarVisibilidad(int idVisibilidad,int codigo, String descripcion, int duracion, Double precioP, Double porcentajeVenta)
         {
             try
@@ -59,7 +60,7 @@ namespace FrbaCommerce.Controller
                 throw ex;
             }
         }
-
+        //CAMBIA EL ESTADO DE UNA VISIBILIDAD
         public static void CambiarEstadoVisibilidad(int idVisibilidad, int estado)
         {
             try

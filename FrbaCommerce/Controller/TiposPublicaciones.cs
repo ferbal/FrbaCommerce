@@ -8,6 +8,7 @@ namespace FrbaCommerce.Controller
 {
     class TiposPublicaciones
     {
+        //GENERA UN LISTADO DE LOS TIPOS DE PUBLICACIONES
         public static DataTable obtenerTiposPublicaciones()
         {
             try
