@@ -56,7 +56,8 @@ namespace FrbaCommerce.View.Abm_Visibilidad
                     msg = "La visibilidad se actualizo correctamente.";
                 }
 
-                View.Aviso vtnAviso = new Aviso(msg);
+                View.Aviso vtnAviso = new Aviso(this,msg);
+                this.Enabled = false;
                 vtnAviso.Visible = true;                
             }
         }

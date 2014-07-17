@@ -210,6 +210,12 @@
     <Compile Include="View\Generar Publicacion\AdminPublicaciones.Designer.cs">
       <DependentUpon>AdminPublicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Gestion de Preguntas\GenerarPreguntas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Gestion de Preguntas\GenerarPreguntas.Designer.cs">
+      <DependentUpon>GenerarPreguntas.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Gestion de Preguntas\GestionPreguntas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +318,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Generar Publicacion\GenerarPublicacion.resx">
       <DependentUpon>GenerarPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Gestion de Preguntas\GenerarPreguntas.resx">
+      <DependentUpon>GenerarPreguntas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Gestion de Preguntas\GestionPreguntas.resx">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>

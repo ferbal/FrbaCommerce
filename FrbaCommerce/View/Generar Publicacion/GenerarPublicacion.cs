@@ -22,20 +22,38 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void CargarClbRubros()
         {
-            clbRubros.DataSource = Controller.Rubros.obtenerRubros();
+            DataTable dt = Controller.Rubros.obtenerRubros();                                    
+            clbRubros.DataSource = dt;
             clbRubros.DisplayMember = "Descripcion";
             clbRubros.ValueMember = "IdRubro";
         }
         private void CargarCmbTipoPublicacion()
         {
-            cmbTiposPublicaciones.DataSource = Controller.TiposPublicaciones.obtenerTiposPublicaciones();
+            DataTable dt = Controller.TiposPublicaciones.obtenerTiposPublicaciones();
+            DataRow dr = dt.NewRow();
+
+            dr["IdTipoPublicacion"] = -1;
+            dr["Descripcion"] = "Seleccionar";
+            dt.Rows.InsertAt(dr, 0);        
+
             cmbTiposPublicaciones.DisplayMember = "Descripcion";
             cmbTiposPublicaciones.ValueMember = "IdTipoPublicacion";
+            cmbTiposPublicaciones.DataSource = dt;
         }
 
         private void CargarCmbVisibilidad()
         {
-            cmbTipoVisibilidad.Items.Add("Test");
+            cmbTipoVisibilidad.DisplayMember = "Descripcion";
+            cmbTipoVisibilidad.ValueMember = "IdVisibilidad";
+            
+            DataTable dt = Controller.Visibilidades.ListarVisibilidadesHabilitadas();
+            DataRow dr = dt.NewRow();
+            
+            dr["IdVisibilidad"] = -1;
+            dr["Descripcion"] = "Seleccionar";
+            dt.Rows.InsertAt(dr,0);           
+
+            cmbTipoVisibilidad.DataSource = dt;
         }
 
         public void cargarDatos(Form anterior, int usr)
@@ -141,7 +159,10 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void GenerarPublicacion_Load(object sender, EventArgs e)
         {
             CargarCmbTipoPublicacion();
-            CargarClbRubros();            
+            CargarClbRubros();
+            CargarCmbVisibilidad();
+            mcFecha.Visible = false;
+            mtxtFechaInicio.Enabled = false;
             mtxtFechaFin.Enabled = false;
             mtxtCodPubli.Enabled = false;
 
@@ -185,6 +206,17 @@ namespace FrbaCommerce.View.Generar_Publicacion
             mtxtFechaFin.Text = "";
             if(mtxtFechaInicio.Text.Length==10)
                 mtxtFechaFin.Text = Controller.Publicaciones.calcularFechaFin(1, mtxtFechaInicio.Text).ToString();
+        }
+
+        private void btnSeleccionarFecha_Click(object sender, EventArgs e)
+        {
+            mcFecha.Visible = true;
+        }
+
+        private void mcFecha_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            mtxtFechaInicio.Text = mcFecha.SelectionEnd.ToShortDateString();
+            mcFecha.Visible = false;
         }
 
     }

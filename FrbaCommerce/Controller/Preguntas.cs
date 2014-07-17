@@ -38,5 +38,20 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        public static void GenerarPregunta(int usuario, int publicacion, String pregunta)
+        {
+            try
+            {
+                DAL.PreguntasDAL pregDAL = new FrbaCommerce.DAL.PreguntasDAL();
+
+                pregDAL.IngresarNuevaPregunta(usuario,publicacion,pregunta,Controller.Validaciones.ObtenerFechaSistema());
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

@@ -31,7 +31,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void btnAlta_Click(object sender, EventArgs e)
         {
             View.Generar_Publicacion.GenerarPublicacion vtnGenerarPubli = new GenerarPublicacion();
-            vtnGenerarPubli.cargarDatos(this,7);
+            vtnGenerarPubli.cargarDatos(this,this.idUsuario);
             this.Visible = false;
             vtnGenerarPubli.Visible = true;
         }
@@ -278,6 +278,24 @@ namespace FrbaCommerce.View.Generar_Publicacion
         {
             this.paginaActual = this.ultimaPagina;
             cargarDgvPublicaciones();
+        }
+
+        private void btnPreguntar_Click(object sender, EventArgs e)
+        {
+            
+            DataGridViewSelectedRowCollection dgvRows = dgvPublicaciones.SelectedRows;
+            if (dgvRows.Count == 1)
+            {
+                int idPublicacion = Convert.ToInt32(dgvRows[0].Cells["IdPublicacion"].Value);
+                String codPubli = Convert.ToString(dgvRows[0].Cells["Codigo"].Value);
+                String descripcion = Convert.ToString(dgvRows[0].Cells["Descripcion"].Value);
+
+                View.Gestion_de_Preguntas.GenerarPreguntas vtnPreg = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();                                
+                vtnPreg.CargarDatos(this,this.idUsuario,idPublicacion,codPubli,descripcion);
+                vtnPreg.Visible = true;
+                this.Visible = false;
+            }
+            
         }
 
     }

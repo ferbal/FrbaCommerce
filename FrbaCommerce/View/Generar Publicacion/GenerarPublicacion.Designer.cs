@@ -58,6 +58,8 @@
             this.epRubros = new System.Windows.Forms.ErrorProvider(this.components);
             this.epDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
             this.mtxtStock = new System.Windows.Forms.MaskedTextBox();
+            this.mcFecha = new System.Windows.Forms.MonthCalendar();
+            this.btnSeleccionarFecha = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.epFechaInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epPrecio)).BeginInit();
@@ -273,11 +275,30 @@
             this.mtxtStock.TabIndex = 22;
             this.mtxtStock.ValidatingType = typeof(int);
             // 
+            // mcFecha
+            // 
+            this.mcFecha.Location = new System.Drawing.Point(236, 57);
+            this.mcFecha.Name = "mcFecha";
+            this.mcFecha.TabIndex = 23;
+            this.mcFecha.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcFecha_DateSelected);
+            // 
+            // btnSeleccionarFecha
+            // 
+            this.btnSeleccionarFecha.Location = new System.Drawing.Point(158, 57);
+            this.btnSeleccionarFecha.Name = "btnSeleccionarFecha";
+            this.btnSeleccionarFecha.Size = new System.Drawing.Size(75, 23);
+            this.btnSeleccionarFecha.TabIndex = 24;
+            this.btnSeleccionarFecha.Text = "Seleccionar";
+            this.btnSeleccionarFecha.UseVisualStyleBackColor = true;
+            this.btnSeleccionarFecha.Click += new System.EventHandler(this.btnSeleccionarFecha_Click);
+            // 
             // GenerarPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(519, 296);
+            this.ClientSize = new System.Drawing.Size(519, 301);
+            this.Controls.Add(this.btnSeleccionarFecha);
+            this.Controls.Add(this.mcFecha);
             this.Controls.Add(this.mtxtStock);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnGuardar);
@@ -340,5 +361,7 @@
         private System.Windows.Forms.ErrorProvider epRubros;
         private System.Windows.Forms.ErrorProvider epDescripcion;
         private System.Windows.Forms.MaskedTextBox mtxtStock;
+        private System.Windows.Forms.MonthCalendar mcFecha;
+        private System.Windows.Forms.Button btnSeleccionarFecha;
     }
 }

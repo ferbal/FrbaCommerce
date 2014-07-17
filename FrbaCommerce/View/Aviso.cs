@@ -11,9 +11,12 @@ namespace FrbaCommerce.View
 {
     public partial class Aviso : Form
     {
-        public Aviso(String msg)
+        private Form vtnAnterior;
+
+        public Aviso(Form vtn,String msg)
         {
             InitializeComponent();
+            this.vtnAnterior = vtn;
             lblMensaje.Text = msg;
         }
 

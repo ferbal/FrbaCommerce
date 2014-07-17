@@ -133,6 +133,7 @@ namespace FrbaCommerce
             this.btnABMVisibilidad.TabIndex = 11;
             this.btnABMVisibilidad.Text = "ABM Visibilidad";
             this.btnABMVisibilidad.UseVisualStyleBackColor = true;
+            this.btnABMVisibilidad.Click += new System.EventHandler(this.btnABMVisibilidad_Click);
             // 
             // btnABMRubro
             // 
@@ -192,7 +193,7 @@ namespace FrbaCommerce
             this.Controls.Add(this.btnHistorialCli);
             this.Controls.Add(this.btnABMRol);
             this.Name = "Principal";
-            this.Text = "Form1";
+            this.Text = "Frba Commerce";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

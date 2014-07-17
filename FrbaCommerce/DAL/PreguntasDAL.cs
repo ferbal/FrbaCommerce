@@ -55,6 +55,41 @@ namespace FrbaCommerce.DAL
             {
                 throw ex;
             }
-        }       
+        }
+
+        public void IngresarNuevaPregunta(int usuario,int publicacion,String pregunta,DateTime fecha)
+        {
+            try
+            {                
+                SqlConnection conexion = DAL.Conexion.getConexion();
+
+                SqlCommand comando = new SqlCommand(@"INSERT INTO BAZINGUEANDO_EN_SLQ.Preguntas
+                                                        (
+                                                            IdPublicacion,
+                                                            IdUsuario,
+                                                            Descripcion,
+                                                            Fecha
+                                                        )
+                                                        VALUES
+                                                        (
+                                                            @PUBLICACION,
+                                                            @USUARIO,
+                                                            @PREGUNTA,
+                                                            @FECHA
+                                                        )", conexion);
+
+                comando.Parameters.AddWithValue("@USUARIO", usuario);
+                comando.Parameters.AddWithValue("@PUBLICACION", publicacion);
+                comando.Parameters.AddWithValue("@PREGUNTA", pregunta);
+                comando.Parameters.AddWithValue("@FECHA", fecha);
+
+                comando.ExecuteNonQuery();                
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

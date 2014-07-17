@@ -61,7 +61,7 @@
             // lblCliente
             // 
             this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(13, 47);
+            this.lblCliente.Location = new System.Drawing.Point(24, 392);
             this.lblCliente.Name = "lblCliente";
             this.lblCliente.Size = new System.Drawing.Size(42, 13);
             this.lblCliente.TabIndex = 1;
@@ -69,14 +69,14 @@
             // 
             // txtCliente
             // 
-            this.txtCliente.Location = new System.Drawing.Point(61, 44);
+            this.txtCliente.Location = new System.Drawing.Point(72, 389);
             this.txtCliente.Name = "txtCliente";
             this.txtCliente.Size = new System.Drawing.Size(163, 20);
             this.txtCliente.TabIndex = 2;
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(230, 42);
+            this.btnSeleccionar.Location = new System.Drawing.Point(241, 387);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(75, 23);
             this.btnSeleccionar.TabIndex = 3;
@@ -135,6 +135,7 @@
             this.btnVolver.TabIndex = 8;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // epTipoHistorial
             // 
@@ -148,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 346);
+            this.ClientSize = new System.Drawing.Size(648, 342);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvHistorial);
             this.Controls.Add(this.btnBuscar);

@@ -44,12 +44,6 @@ namespace FrbaCommerce.View.Abm_Visibilidad
             txtDescripcion.Text = String.Empty;
         }
 
-        private void CargarDatos(Form vtn, int usr)
-        {
-            this.vtnAnterior = vtn;
-            this.idUsuario = usr;
-        }
-
         private void btnAlta_Click(object sender, EventArgs e)
         {
             View.Abm_Visibilidad.VisibilidadAM vtnAlta = new VisibilidadAM();
@@ -127,6 +121,13 @@ namespace FrbaCommerce.View.Abm_Visibilidad
 
                 CargarDGV();
             }
-        }        
+        }
+
+        public void CargarDatos(Form vtn, int usr)
+        {
+            this.vtnAnterior = vtn;
+            this.idUsuario = usr;
+        }
+
     }
 }

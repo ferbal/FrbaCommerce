@@ -21,6 +21,19 @@ namespace FrbaCommerce.Controller
             }
         }
 
+        public static DataTable ListarVisibilidadesHabilitadas()
+        {
+            try
+            {
+                DAL.VisibilidadesDAL visiDAL = new FrbaCommerce.DAL.VisibilidadesDAL();
+                return visiDAL.ListarVisibilidadesHabilitados();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public static void InsertarVisibilidad(int codigo, String descripcion,int duracion,Double precioP, Double porcentajeVenta)
         {
             try

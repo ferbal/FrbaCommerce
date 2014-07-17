@@ -139,5 +139,13 @@ namespace FrbaCommerce
             vtnHistCli.Visible = true;
             this.Visible = false;
         }
+
+        private void btnABMVisibilidad_Click(object sender, EventArgs e)
+        {
+            View.Abm_Visibilidad.AdminVisibilidad vtnAdminVis = new FrbaCommerce.View.Abm_Visibilidad.AdminVisibilidad();
+            vtnAdminVis.CargarDatos(this,this.idUsuario);
+            vtnAdminVis.Visible = true;
+            this.Visible = false;
+        }
     }
 }

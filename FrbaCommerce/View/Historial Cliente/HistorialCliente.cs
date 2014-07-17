@@ -102,16 +102,16 @@ namespace FrbaCommerce.View.Historial_Cliente
                 switch (Convert.ToInt32(cmbTipoHistorial.SelectedValue))
                 {
                     case (int)Historial_Cliente.HistorialCliente.Tipos.Compras:
-                        dgvHistorial.DataSource = Controller.Compras.HistorialComprasPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Compras.HistorialComprasPorUsuario(this.idUsuario);
                         break;
                     case (int)Historial_Cliente.HistorialCliente.Tipos.Ofertas:
-                        dgvHistorial.DataSource = Controller.Ofertas.HistorialOfertasPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Ofertas.HistorialOfertasPorUsuario(this.idUsuario);
                         break;
                     case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRealizadas:
-                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.idUsuario);
                         break;
                     case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRecibidas:
-                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesRecibidasPorUsuario(this.clienteSeleccionado);
+                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesRecibidasPorUsuario(this.idUsuario);
                         break;
                     default:
                         break;
@@ -133,14 +133,21 @@ namespace FrbaCommerce.View.Historial_Cliente
                 epTipoHistorial.SetError(cmbTipoHistorial, "Debe Seleccionar un tipo de Historial.");
                 result = false;
             }
-
+            
+            /*
             if (this.clienteSeleccionado == -1)
             {
                 epCliente.SetError(txtCliente,"Debe Seleccionar un Cliente");
                 result = false;
             }
+            */
 
             return result;
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

@@ -127,7 +127,7 @@ namespace FrbaCommerce.View.Registro_de_Usuario
                     
                     listaRoles.Add(Convert.ToInt32( indexRol.Row.ItemArray[0]));
                 }
-
+                 
                 if(validarDatos())                
                     result = Controller.Usuarios.AltaDeUsuario(txtNombre.Text,txtApellido.Text,Convert.ToInt32(cmbTipoDocumento.SelectedValue),NroDocumento,txtMail.Text,txtRazonSocial.Text,txtCuit.Text,txtNombreContacto.Text,txtTelefono.Text,txtCalle.Text,piso,depto,txtLocalidad.Text,codigoPostal,Convert.ToDateTime(txtFechaNac.Text),(int) cmbTiposPersona.SelectedValue,listaRoles);
 

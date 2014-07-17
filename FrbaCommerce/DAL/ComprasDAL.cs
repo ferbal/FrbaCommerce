@@ -19,20 +19,22 @@ namespace FrbaCommerce.DAL
                                                             IdUsrComprador,
                                                             IdPublicacion,
                                                             Fecha,
-                                                            Cantidad
+                                                            Cantidad,
+                                                            IdEstadoCompra
                                                         )
                                                         VALUES
                                                         (
                                                             @IdComprador,
                                                             @IdPublicacion,
                                                             @Fecha,
-                                                            @Cantidad
+                                                            @Cantidad,
+                                                            2
                                                         )",conexion);
                 
                 comando.Parameters.AddWithValue("@IdComprador",comprador);
                 comando.Parameters.AddWithValue("@IdPublicacion",publicacion);
                 comando.Parameters.AddWithValue("@Fecha",fecha);
-                comando.Parameters.AddWithValue("@Cantidad",cantidad);
+                comando.Parameters.AddWithValue("@Cantidad",cantidad);                
 
                 comando.ExecuteNonQuery();
             }

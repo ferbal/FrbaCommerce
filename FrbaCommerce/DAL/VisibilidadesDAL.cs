@@ -50,6 +50,29 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public DataTable ListarVisibilidadesHabilitados()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"SELECT    IdVisibilidad,
+                                                                Descripcion
+                                                        FROM BAZINGUEANDO_EN_SLQ.Visibilidades
+                                                        WHERE IdEstado <> 2
+                                                        ", conexion);
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void InsertarVisibilidad(int codigo, String descripcion,int duracion, Double precioP, Double porcentajeVenta, int estado)
         {
             try

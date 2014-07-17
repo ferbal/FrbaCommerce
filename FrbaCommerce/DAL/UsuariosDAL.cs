@@ -65,7 +65,12 @@ namespace FrbaCommerce.DAL
                 comando.Parameters.AddWithValue("@login", login);
                                 
                 dt.Load(comando.ExecuteReader());
-                
+
+                if (dt.Rows.Count == 0)
+                {
+                    throw new Exception("El usuario ingresado no existe.");
+                }
+
                 return llenarUsuario(dt.Rows[0]);                
             }
             catch (Exception ex)
