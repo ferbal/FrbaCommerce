@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace FrbaCommerce.Controller
 {
@@ -16,6 +17,31 @@ namespace FrbaCommerce.Controller
                 DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
 
                 cmpDAL.InsertarCompra(comprador,publicacion,fecha,cant);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //OBTENER DATOS DEL VENDEDOR
+        public static String ObtenerDatosVendedor(int publicacion)
+        {
+            try
+            {
+                DAL.ComprasDAL cmpDAL = new FrbaCommerce.DAL.ComprasDAL();
+
+                DataTable dt = cmpDAL.ObtenerVendedor(publicacion);
+
+                if (dt.Rows.Count == 1)
+                {
+                    return ("\n\rNombre: "+ dt.Rows[0]["DESCRIPCION"].ToString()+ " \n\r Mail: " + dt.Rows[0]["MAIL"].ToString());
+                }
+                else
+                {
+                    return String.Empty;
+                }
+
+
             }
             catch (Exception ex)
             {

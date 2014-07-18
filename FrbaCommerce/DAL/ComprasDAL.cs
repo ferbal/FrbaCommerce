@@ -64,6 +64,45 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public DataTable ObtenerVendedor(int vendedor)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+                SqlCommand comando = new SqlCommand(@"  SELECT C.Apellido+', '+C.Nombre DESCRIPCION, 
+		                                                        C.Mail MAIL
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones P
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U
+	                                                        ON U.idUsuario = P.IdUsuario
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Clientes C
+	                                                        ON U.idUsuario = C.IdCliente
+                                                        WHERE P.IdPublicacion = 3
+
+                                                        UNION ALL
+
+                                                        SELECT E.RazonSocial DESCRIPCION,
+		                                                        E.Mail MAIL
+                                                        FROM BAZINGUEANDO_EN_SLQ.Publicaciones P
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios U
+	                                                        ON U.idUsuario = P.IdUsuario
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Empresas E
+	                                                        ON U.idUsuario = E.IdEmpresa
+                                                        WHERE P.IdPublicacion = @IdPublicacion
+                                                        ", conexion);
+
+                comando.Parameters.AddWithValue("@IdPublicacion", vendedor);
+
+                dt.Load(comando.ExecuteReader());
+
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable ListarComprasHasta(int vendedor)
         {
             try

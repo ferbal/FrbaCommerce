@@ -158,8 +158,8 @@ namespace FrbaCommerce.View.Comprar_Ofertar
                     if (Convert.ToInt32(mtxtStock.Text) >= cant)
                     {
                         Controller.Compras.GenerarCompra(this.idUsuario, this.idPublicacion, DateTime.Now, cant);
-
-                        View.Aviso vtnAviso = new Aviso(this, "La Compra se ha generado correctamente");
+                        String str = Controller.Compras.ObtenerDatosVendedor(this.idPublicacion);
+                        View.Aviso vtnAviso = new Aviso(this, "La Compra se ha generado correctamente."+str);
                         vtnAviso.Visible = true;
                         this.Enabled = false;
                     }
