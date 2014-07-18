@@ -247,6 +247,7 @@ CREATE TABLE BAZINGUEANDO_EN_SLQ.Publicaciones
 	IdRubro INT NOT NULL,
 	IdUsuario INT NOT NULL,
 	PermiteRealizarPreguntas BIT NOT NULL DEFAULT(1),
+	Facturada BIT NOT NULL DEFAULT(0),
 	CONSTRAINT PK_Publicaciones PRIMARY KEY (IdPublicacion),
 	CONSTRAINT FK_Publicaciones_Usuarios FOREIGN KEY (IdUsuario) REFERENCES BAZINGUEANDO_EN_SLQ.Usuarios(IdUsuario),
 	CONSTRAINT FK_Publicaciones_TipoPublicaciones FOREIGN KEY (IdTipoPublicacion) REFERENCES BAZINGUEANDO_EN_SLQ.TiposPublicaciones(IdTipoPublicacion),
@@ -712,7 +713,8 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
 		--Oferta_Monto,
 		IdRubro,
 		IdUsuario,
-		PermiteRealizarPreguntas
+		PermiteRealizarPreguntas,
+		Facturada
 	)
 	select	Publicacion_Cod,
 			(select TiposPublicaciones.IdTipoPublicacion  
@@ -736,7 +738,9 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
 			(select Usuarios.idUsuario 
 				from BAZINGUEANDO_EN_SLQ.Usuarios 
 				where (Publ_Empresa_Mail like Usuarios.login or Publ_Cli_Mail like Usuarios.login))IdUsuario,
-			'1' PermiteRealizarPreguntas
+			'1' PermiteRealizarPreguntas,
+			'1' Facturada
+
 	from gd_esquema.Maestra 
 	group by	Publicacion_Cod,
 				Publicacion_Tipo,
