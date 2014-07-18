@@ -834,7 +834,7 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Compras
 		--g.Publicacion_Stock,
 		g.Compra_Fecha,
 		g.Compra_Cantidad,
-		2 IdEstadoCompra--NO FACTUDADA
+		1 IdEstadoCompra--FACTURADA
 		--select Publicacion_Cod,Publicacion_Stock,Cli_Dni,Oferta_Fecha ,Compra_Fecha,Compra_Cantidad,g.Calificacion_Codigo
 	from gd_esquema.Maestra g
 	where	g.Compra_Fecha is not NULL 
@@ -883,11 +883,14 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Calificaciones
 UPDATE BAZINGUEANDO_EN_SLQ.Calificaciones
 SET IdCompra = (SELECT MIN(COMP.IdCompra)
 				FROM BAZINGUEANDO_EN_SLQ.Compras COMP			
-				WHERE	CALIF.IdCompra IS NULL
-						AND COMP.IdPublicacion= PUB.IdPublicacion
+				WHERE	
+						COMP.IdPublicacion= PUB.IdPublicacion
 						AND COMP.Fecha = G.Compra_Fecha
 						AND COMP.IdUsrComprador = USR.idUsuario					
 						AND COMP.Cantidad = G.Compra_Cantidad
+						AND COMP.IdCompra not in (select ISNULL(CALIF2.IdCompra,0)
+						from BAZINGUEANDO_EN_SLQ.Calificaciones CALIF2)
+ 				
 				GROUP BY COMP.IdPublicacion), 
 	Calificacion=G.Calificacion_Cant_Estrellas, 
 	Detalle= G.Calificacion_Descripcion
@@ -900,10 +903,12 @@ INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones pub
 Inner join BAZINGUEANDO_EN_SLQ.Usuarios usr
 	on g.Cli_Mail = usr.login
 where	g.Compra_Fecha is not NULL 
-		and g.Calificacion_Codigo is NOT NULL		
+		and g.Calificacion_Codigo is NOT NULL
+		and CALIF.IdCompra IS NULL		
 
 --VOLVEMOS A MODIFICAR LA TABLA CALIFICACIONES PARA QUE NO ADMITA NULL IDCOMPRA		
 ALTER TABLE BAZINGUEANDO_EN_SLQ.CALIFICACIONES ALTER COLUMN IDCOMPRA INT NOT NULL;
+
 
 -----INSERT FACTURAS
 
