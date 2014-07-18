@@ -756,6 +756,67 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.Publicaciones
 				Publ_Cli_Mail
 	order by Publicacion_Cod
 
+go
+------------------------------------------------------------
+--CREACION DE TRIGGER PARA ACTUALIZAR STOCK DE PUBLICACION--
+------------------------------------------------------------
+go
+
+CREATE TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
+  ON BAZINGUEANDO_EN_SLQ.COMPRAS
+  AFTER INSERT
+  AS
+	begin
+		
+			
+			DECLARE @IDPUBLICACION INT, @STOCK INT,@CANTIDAD INT,@TIPO_PUBLI INT
+			
+			DECLARE CURSOR_COMPRAS CURSOR FOR
+			SELECT inserted.IdPublicacion,inserted.Cantidad FROM inserted
+			
+			OPEN CURSOR_COMPRAS
+
+
+			FETCH NEXT FROM CURSOR_COMPRAS
+			INTO @IDPUBLICACION, @CANTIDAD
+			
+			WHILE @@FETCH_STATUS=0								
+			BEGIN
+			
+			BEGIN TRANSACTION
+			
+			
+			UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+			SET Stock = Stock - @CANTIDAD
+			WHERE IdPublicacion = @IDPUBLICACION
+			
+			SELECT @STOCK= Stock ,
+					@TIPO_PUBLI = IdTipoPublicacion
+			FROM BAZINGUEANDO_EN_SLQ.Publicaciones
+			WHERE IdPublicacion = @IDPUBLICACION
+			
+			IF (@STOCK <= 0 AND @TIPO_PUBLI = 1) 
+			BEGIN
+			
+				UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+				SET IdEstado = 4
+				WHERE IdPublicacion = @IDPUBLICACION
+				
+			END
+			COMMIT
+			FETCH NEXT FROM CURSOR_COMPRAS
+			INTO @IDPUBLICACION, @CANTIDAD
+			END	
+			
+	CLOSE CURSOR_COMPRAS
+
+	DEALLOCATE CURSOR_COMPRAS
+		
+	end
+GO
+
+
+
 
 ------ INSERT COMPRAS
 
@@ -892,61 +953,7 @@ INSERT INTO BAZINGUEANDO_EN_SLQ.FacturasItems
 	where Factura_Nro is not NULL 
 	order by Factura_Nro
 
-------------------------------------------------------------
---CREACION DE TRIGGER PARA ACTUALIZAR STOCK DE PUBLICACION--
-------------------------------------------------------------
-GO
-CREATE TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
-  ON BAZINGUEANDO_EN_SLQ.COMPRAS
-  AFTER INSERT
-  AS
-	begin
-		BEGIN TRANSACTION
-			
-			DECLARE @IDPUBLICACION INT, @STOCK INT,@CANTIDAD INT,@TIPO_PUBLI INT
-			
-			DECLARE CURSOR_COMPRAS CURSOR FOR
-			SELECT IdPublicacion,Cantidad FROM inserted
-			
-			OPEN CURSOR_COMPRAS
-
-
-			FETCH NEXT FROM CURSOR_COMPRAS
-			INTO @IDPUBLICACION, @CANTIDAD
-			WHILE @@FETCH_STATUS=0								
-			BEGIN
-			
-			
-			
-			
-			UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
-			SET Stock = Stock - @CANTIDAD
-			WHERE IdPublicacion = @IDPUBLICACION
-			
-			SELECT @STOCK= Stock ,
-					@TIPO_PUBLI = IdTipoPublicacion
-			FROM BAZINGUEANDO_EN_SLQ.Publicaciones
-			WHERE IdPublicacion = @IDPUBLICACION
-			
-			IF (@STOCK <= 0 AND @IDPUBLICACION = 1) 
-			BEGIN
-			
-				UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
-				SET IdEstado = 4
-				WHERE IdPublicacion = @IDPUBLICACION
-				
-			END
-			COMMIT
-			FETCH NEXT FROM CURSOR_COMPRAS
-			INTO @IDPUBLICACION, @CANTIDAD
-			END	
-			
-	CLOSE CURSOR_COMPRAS
-
-	DEALLOCATE CURSOR_COMPRAS
-		
-	end
-GO
+go
 
 ------------------------------------------------------------
 --CREACION DE TRIGGER PARA CONTROLAR COMPRAS SIN CALIFICAR--
