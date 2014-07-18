@@ -477,7 +477,7 @@ select  Publ_Empresa_Razon_Social,
 		Publ_Empresa_Cod_Postal,
 		Publ_Empresa_Fecha_Creacion,
 		inserted.IdUsuario,
-		'3' IdEstado
+		'1' IdEstado
 	FROM gd_esquema.Maestra,inserted
 	WHERE Publ_Empresa_Mail=inserted.login
 	group by	Publ_Empresa_Cuit,
