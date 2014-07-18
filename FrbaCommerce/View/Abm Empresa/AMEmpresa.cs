@@ -199,11 +199,14 @@ namespace FrbaCommerce.View.ABM_Empresa
                 estado = false;
             }
 
-            epCuit.Dispose();
-            if(!ValidaCuit(txtCuit.Text))
+            if (!String.Equals(this.Text, "Baja de Empresa"))
             {
-                epCuit.SetError(txtCuit, "El CUIT no es valido.");
-                estado = false;
+                epCuit.Dispose();
+                if(!ValidaCuit(txtCuit.Text))
+                {
+                    epCuit.SetError(txtCuit, "El CUIT no es valido.");
+                    estado = false;
+                }
             }
 
             return estado;

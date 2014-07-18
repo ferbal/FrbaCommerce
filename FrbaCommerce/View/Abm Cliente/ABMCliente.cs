@@ -206,11 +206,14 @@ namespace FrbaCommerce.View.ABM_Cliente
                 estado = false;
             }
 
-            epCuil.Dispose();
-            if (!ValidaCuit(txtcuil.Text))
+            if (!String.Equals(this.Text, "Baja de Cliente"))
             {
-                epCuil.SetError(txtcuil, "El CUIT no es valido.");
-                estado = false;
+                epCuil.Dispose();
+                if (!ValidaCuit(txtcuil.Text))
+                {
+                    epCuil.SetError(txtcuil, "El CUIT no es valido.");
+                    estado = false;
+                }
             }
 
             return estado;
