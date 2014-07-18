@@ -18,22 +18,7 @@ namespace FrbaCommerce
         {
             //String password = Controller.Usuarios.encriptarPassword("12345678");
             Application.EnableVisualStyles();
-<<<<<<< Updated upstream
             Application.SetCompatibleTextRenderingDefault(false);                       
-            
-            //Application.Run(new Principal());
-            //Application.Run(new View.Generar_Publicacion.AdminPublicaciones());
-=======
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            //Application.Run(new View.ABM_Empresa.AdminEmpresa());
-            //Application.Run(new View.ABM_Cliente.AdminCliente());
-            //Application.Run(new Principal());
-            Application.Run(new View.Login.LoginForm());
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
             View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
             vtnLogin.cargarDatos(Convert.ToDateTime(LeerFechaArchConfig()));
@@ -45,11 +30,9 @@ namespace FrbaCommerce
             String str = String.Empty;
 
             StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\config.txt");
-<<<<<<< Updated upstream
-=======
 
             str = or.ReadLine();
->>>>>>> Stashed changes
+
 
             str = or.ReadLine();
 

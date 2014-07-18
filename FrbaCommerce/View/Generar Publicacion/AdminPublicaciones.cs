@@ -24,7 +24,6 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
             RefreshControles();
-<<<<<<< Updated upstream
             /*
             int codigo = -1;
             int tipoPubli = -1;
@@ -46,8 +45,6 @@ namespace FrbaCommerce.View.Generar_Publicacion
             this.ultimaPagina = this.ultimaPagina / 10;
             this.ActualizarEtiquetaPaginas();
              * */
-=======
->>>>>>> Stashed changes
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -278,6 +275,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
         {
             try
             {
+                this.paginaActual = 0;
                 cargarDgvPublicaciones();
                 ActualizarEtiquetaPaginas();
             }
@@ -330,8 +328,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             if (cmbEstado.SelectedValue != null)
                 estado = (int)cmbEstado.SelectedValue;
 
-            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones(this.paginaActual, codigo, descripcion, usrVend, tipoPubli, estado);
-            this.ultimaPagina = this.ultimaPagina / 10;
+            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones(-1, codigo, descripcion, usrVend, tipoPubli, estado);
+            this.ultimaPagina = (this.ultimaPagina / 10)+1;
 
             lblPagina.Text = "Pagina " + (this.paginaActual+1).ToString() + " de " + (this.ultimaPagina+1).ToString();
         }

@@ -233,7 +233,7 @@ namespace FrbaCommerce.DAL
                 if (estado != -1)
                     where = where + " AND PUB.IdEstado = " + estado.ToString();
 
-                if (pDesde != null)
+                if (pDesde != -1)
                     where = where + " AND PUB.IdPublicacion NOT IN (SELECT TOP " + pDesde.ToString()
                                     + " IdPublicacion FROM BAZINGUEANDO_EN_SLQ.Publicaciones)";
 

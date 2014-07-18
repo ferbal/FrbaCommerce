@@ -139,6 +139,7 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         {
             try
             {
+                this.paginaActual = 0;
                 cargarDGV();
                 CargarPaginas();
             }
@@ -152,7 +153,7 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         private void CargarPaginas()
         {
             this.ultimaPagina = Controller.Publicaciones.CantidadPublicacionesParaComprarOFertar(Convert.ToInt32(cmbRubro.SelectedValue),txtDescripcion.Text);
-            this.ultimaPagina = this.ultimaPagina / 10;            
+            this.ultimaPagina = (this.ultimaPagina / 10)+1;            
             this.paginaActual = 0;
             ArmarEtiquetaPaginas();
         }

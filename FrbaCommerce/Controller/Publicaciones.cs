@@ -143,7 +143,7 @@ namespace FrbaCommerce.Controller
             {
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
 
-                return pubDAL.obtenerCantidadPublicacionesPaginada(pDesde*10,codigo,descripcion,vendedor,tipoPub,estado);
+                return pubDAL.obtenerCantidadPublicacionesPaginada(pDesde,codigo,descripcion,vendedor,tipoPub,estado);
             }
             catch (Exception ex)
             {
