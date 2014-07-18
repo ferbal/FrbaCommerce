@@ -24,9 +24,27 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
             RefreshControles();
-            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones();
+            /*
+            int codigo = -1;
+            int tipoPubli = -1;
+            int estado = -1;
+
+            String descripcion = txtDescripcion.Text;
+
+            if (!String.IsNullOrEmpty(txtCodigo.Text))
+                codigo = Convert.ToInt32(txtCodigo.Text);
+
+            String usrVend = txtVendedor.Text;
+
+            if (cmbTipoPublicacion.SelectedValue != null)
+                tipoPubli = (int)cmbTipoPublicacion.SelectedValue;
+
+            if (cmbEstado.SelectedValue != null)
+                estado = (int)cmbEstado.SelectedValue;
+            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones(this.paginaActual, codigo, descripcion, usrVend, tipoPubli, estado);
             this.ultimaPagina = this.ultimaPagina / 10;
             this.ActualizarEtiquetaPaginas();
+             * */
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -220,6 +238,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             this.cargarDgvPublicaciones();
             this.cargarCmbEstados();
             this.cargarCmbTipoPublicacion();
+
+            this.ActualizarEtiquetaPaginas();
         }
 
         private void cargarCmbTipoPublicacion()
@@ -277,8 +297,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             {
                 if ((this.paginaActual + 1) <= this.ultimaPagina)
                     this.paginaActual = this.paginaActual + 1;
-                cargarDgvPublicaciones();
 
+                cargarDgvPublicaciones();
                 
             }
             catch (Exception ex)
@@ -290,6 +310,26 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void ActualizarEtiquetaPaginas()
         {
+            int codigo = -1;
+            int tipoPubli = -1;
+            int estado = -1;
+
+            String descripcion = txtDescripcion.Text;
+
+            if (!String.IsNullOrEmpty(txtCodigo.Text))
+                codigo = Convert.ToInt32(txtCodigo.Text);
+
+            String usrVend = txtVendedor.Text;
+
+            if (cmbTipoPublicacion.SelectedValue != null)
+                tipoPubli = (int)cmbTipoPublicacion.SelectedValue;
+
+            if (cmbEstado.SelectedValue != null)
+                estado = (int)cmbEstado.SelectedValue;
+
+            this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones(this.paginaActual, codigo, descripcion, usrVend, tipoPubli, estado);
+            this.ultimaPagina = this.ultimaPagina / 10;
+
             lblPagina.Text = "Pagina " + (this.paginaActual+1).ToString() + " de " + (this.ultimaPagina+1).ToString();
         }
 

@@ -210,11 +210,66 @@ namespace FrbaCommerce.DAL
             }
         }
 
+        public int obtenerCantidadPublicacionesPaginada(int pDesde, int codigo, String descripcion, String vendedor, int tipoPub, int estado)
+        {
+            try
+            {
+                String where = String.Empty;
+                DataTable dt = new DataTable();
+                SqlConnection conexion = DAL.Conexion.getConexion();
+
+                if (codigo != -1)
+                    where = " AND CodPublicacion = " + codigo.ToString();
+
+                if (!String.IsNullOrEmpty(descripcion))
+                    where = where + " AND PUB.Descripcion LIKE '%" + descripcion + "%'";
+
+                if (!String.IsNullOrEmpty(vendedor))
+                    where = where + " AND USR.Login LIKE '%" + vendedor + "%'";
+
+                if (tipoPub != -1)
+                    where = where + " AND PUB.IdTipoPublicacion = " + tipoPub.ToString();
+
+                if (estado != -1)
+                    where = where + " AND PUB.IdEstado = " + estado.ToString();
+
+                if (pDesde != null)
+                    where = where + " AND PUB.IdPublicacion NOT IN (SELECT TOP " + pDesde.ToString()
+                                    + " IdPublicacion FROM BAZINGUEANDO_EN_SLQ.Publicaciones)";
+
+
+                if (!String.IsNullOrEmpty(where))
+                    where = "WHERE " + where.Substring(4);
+
+                SqlCommand comando = new SqlCommand(@"   SELECT COUNT(*)
+                                                         FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
+                                                            ON PUB.IdTipoPublicacion = TP.IdTipoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EST
+                                                            ON PUB.IdEstado = EST.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Rubros RUB
+                                                            ON RUB.IdRubro = PUB.IdRubro
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+                                                            ON V.IdVisibilidad = PUB.IdVisibilidad
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
+                                                            ON USR.IdUsuario = PUB.IdUsuario
+                                                        " + where, conexion);
+                dt.Load(comando.ExecuteReader());
+
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable listarPublicacionesPaginadas(int pDesde,int codigo, String descripcion, String vendedor, int tipoPub, int estado)
         {
             try
             {
                 String where = String.Empty;
+                String whereTOP = String.Empty;
                 DataTable dt = new DataTable();
                 SqlConnection conexion = DAL.Conexion.getConexion();
                 
@@ -233,9 +288,22 @@ namespace FrbaCommerce.DAL
                 if (estado != -1)
                     where = where + " AND PUB.IdEstado = " + estado.ToString();
 
-                if (pDesde != null)
+                if (!String.IsNullOrEmpty(where))
+                    whereTOP = "WHERE " + where.Substring(4);
+
+                if (pDesde != 0)
                     where = where + " AND PUB.IdPublicacion NOT IN (SELECT TOP " + pDesde.ToString()
-                                    + " IdPublicacion FROM BAZINGUEANDO_EN_SLQ.Publicaciones)";
+                                    + @" IdPublicacion FROM BAZINGUEANDO_EN_SLQ.Publicaciones PUB
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
+                                                            ON PUB.IdTipoPublicacion = TP.IdTipoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.EstadosPublicacion EST
+                                                            ON PUB.IdEstado = EST.IdEstadoPublicacion
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Rubros RUB
+                                                            ON RUB.IdRubro = PUB.IdRubro
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+                                                            ON V.IdVisibilidad = PUB.IdVisibilidad
+                                                        INNER JOIN BAZINGUEANDO_EN_SLQ.Usuarios USR
+                                                            ON USR.IdUsuario = PUB.IdUsuario "+ whereTOP + ")";
                
 
                 if (!String.IsNullOrEmpty(where))

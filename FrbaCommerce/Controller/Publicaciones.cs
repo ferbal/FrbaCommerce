@@ -137,13 +137,13 @@ namespace FrbaCommerce.Controller
             }
         }
         //OBTIENE LA CANTIDAD DE PUBLICACIONES EXISTENTES
-        public static int CantidadDePublicaciones()
+        public static int CantidadDePublicaciones(int pDesde, int codigo, String descripcion, String vendedor, int tipoPub, int estado)
         {
             try
             {
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
 
-                return pubDAL.obtenerCantidadPublicaciones();
+                return pubDAL.obtenerCantidadPublicacionesPaginada(pDesde*10,codigo,descripcion,vendedor,tipoPub,estado);
             }
             catch (Exception ex)
             {
