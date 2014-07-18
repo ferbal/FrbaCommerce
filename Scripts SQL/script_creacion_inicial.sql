@@ -901,11 +901,28 @@ CREATE TRIGGER BAZINGUEANDO_EN_SLQ.TGR_COMPRAS
   AFTER INSERT
   AS
 	begin
-		UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
-		SET Stock = Stock - (SELECT Cantidad FROM inserted)
-		WHERE IdPublicacion = (SELECT IdPublicacion FROM inserted)
+		BEGIN TRANSACTION
+			DECLARE @IDPUBLICACION INT, @STOCK INT
+			SET @IDPUBLICACION = (SELECT IdPublicacion FROM inserted)
+			
+			UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+			SET Stock = Stock - (SELECT Cantidad FROM inserted)
+			WHERE IdPublicacion = @IDPUBLICACION
+			
+			SET @STOCK = (SELECT Stock 
+							FROM BAZINGUEANDO_EN_SLQ.Publicaciones
+							WHERE IdPublicacion = @IDPUBLICACION)
+			
+			IF (@STOCK <= 0) 
+			BEGIN
+			
+				UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+				SET IdEstado = 4
+				WHERE IdPublicacion = @IDPUBLICACION
+				
+			END
+		COMMIT
 	end
-;
 GO
 
 ------------------------------------------------------------
@@ -1092,6 +1109,7 @@ AS
 	ORDER BY C.IdCompra
 
 GO
+
 --GENERAR FACTURA
 CREATE PROCEDURE [BAZINGUEANDO_EN_SLQ].[SP_GENERAR_FACTURA]
 	@VENDEDOR INT,
@@ -1114,13 +1132,14 @@ BEGIN
 	------------------------
 	BEGIN TRANSACTION
 
-	SET @SUBTOTAL_VI = ( SELECT	SUM(V.PrecioPorPublicar) [PRECIO POR PUBLICAR]
+	SET @SUBTOTAL_VI = ( SELECT	ISNULL(SUM(V.PrecioPorPublicar),0) [PRECIO POR PUBLICAR]
 						FROM BAZINGUEANDO_EN_SLQ.Compras C
 						INNER JOIN BAZINGUEANDO_EN_SLQ.Publicaciones P
 							ON P.IdPublicacion = C.IdPublicacion
 						INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
 							ON V.IdVisibilidad = P.IdVisibilidad
 						WHERE	P.IdUsuario = @VENDEDOR
+								AND P.Facturada = 0
 								AND C.IdCompra <= @COMPRA_HASTA
 								AND C.IdEstadoCompra = 2)
 
@@ -1206,9 +1225,24 @@ BEGIN
 	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
 		ON V.IdVisibilidad = P.IdVisibilidad
 	WHERE	P.IdUsuario = @VENDEDOR
+			AND P.Facturada = 0
 			AND C.IdCompra <= @COMPRA_HASTA
 			AND C.IdEstadoCompra = 2
 	ORDER BY C.IdCompra
+	
+	--SETEO LAS PUBLICACIONES A FACTURADA PARA NO CONTABILIZAR NUEVAMENTE LA VISIBILIDAD DE ESA PUBLICACION.
+	UPDATE BAZINGUEANDO_EN_SLQ.Publicaciones
+	SET Facturada = 1
+	FROM BAZINGUEANDO_EN_SLQ.Publicaciones P
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Compras C
+		ON P.IdPublicacion = C.IdPublicacion
+	INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
+		ON V.IdVisibilidad = P.IdVisibilidad
+	WHERE	P.IdUsuario = @VENDEDOR
+			AND P.Facturada = 0
+			AND C.IdCompra <= @COMPRA_HASTA
+			AND C.IdEstadoCompra = 2
+	
 
 	--------------------------------
 	--ACTUALIZAR ESTADO DE COMPRAS--

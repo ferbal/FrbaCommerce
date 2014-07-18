@@ -47,6 +47,8 @@
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.lblPaginas = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.txtCodigoPubli = new System.Windows.Forms.TextBox();
+            this.lblCodigoPubli = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -158,7 +160,7 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(78, 71);
+            this.txtDescripcion.Location = new System.Drawing.Point(77, 70);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(276, 20);
             this.txtDescripcion.TabIndex = 11;
@@ -173,9 +175,9 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(628, 68);
+            this.btnBuscar.Location = new System.Drawing.Point(614, 68);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(74, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(88, 23);
             this.btnBuscar.TabIndex = 13;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -183,7 +185,7 @@
             // 
             // btnLimpiarFiltros
             // 
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(534, 68);
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(614, 43);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(88, 23);
             this.btnLimpiarFiltros.TabIndex = 14;
@@ -210,11 +212,29 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // txtCodigoPubli
+            // 
+            this.txtCodigoPubli.Location = new System.Drawing.Point(479, 46);
+            this.txtCodigoPubli.Name = "txtCodigoPubli";
+            this.txtCodigoPubli.Size = new System.Drawing.Size(89, 20);
+            this.txtCodigoPubli.TabIndex = 17;
+            // 
+            // lblCodigoPubli
+            // 
+            this.lblCodigoPubli.AutoSize = true;
+            this.lblCodigoPubli.Location = new System.Drawing.Point(372, 49);
+            this.lblCodigoPubli.Name = "lblCodigoPubli";
+            this.lblCodigoPubli.Size = new System.Drawing.Size(101, 13);
+            this.lblCodigoPubli.TabIndex = 18;
+            this.lblCodigoPubli.Text = "Codigo Publicacion:";
+            // 
             // AdminCompraOferta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 474);
+            this.Controls.Add(this.lblCodigoPubli);
+            this.Controls.Add(this.txtCodigoPubli);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblPaginas);
             this.Controls.Add(this.btnLimpiarFiltros);
@@ -259,5 +279,7 @@
         private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.Label lblPaginas;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.TextBox txtCodigoPubli;
+        private System.Windows.Forms.Label lblCodigoPubli;
     }
 }

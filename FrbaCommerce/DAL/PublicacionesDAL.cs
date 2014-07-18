@@ -320,15 +320,16 @@ namespace FrbaCommerce.DAL
             }
         }
 
-        public DataTable ListarParaCompraOferta(int desde, int rubro, String descripcion)
+        public DataTable ListarParaCompraOferta(int desde, int rubro, String descripcion,int codigo)
         {
             try
             {
                 String where = String.Empty;
-                //String whereRubro = String.Empty;
+               
                 DataTable dt = new DataTable();
                 SqlConnection conexion = DAL.Conexion.getConexion();
-
+                if (codigo != -1)
+                    where = where + " AND PUB.CodPublicacion = " + codigo.ToString();
                 if (rubro != -1)
                     where = where + " AND PUB.IdRubro = " + rubro.ToString();
 
@@ -345,7 +346,7 @@ namespace FrbaCommerce.DAL
 	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
                                                         WHERE	PUB.IdEstado = 2
                                                                 AND FechaInicio <= @FechaActual
-		                                                        AND FechaFin >= @FechaActual
+		                                                        AND FechaFin >= @FechaActual                                                            
 		                                                        AND ((PUB.IdTipoPublicacion = 1 AND PUB.Stock>0) OR PUB.IdTipoPublicacion = 2)"
                                                         + where + @"
                                                         ORDER BY    V.PrecioPorPublicar DESC,

@@ -155,6 +155,7 @@ namespace FrbaCommerce.DAL
 	                                                    WHERE	P.IdUsuario = @VENDEDOR
 			                                                    AND C.IdCompra <= @COMPRA_HASTA
                                                                 AND C.IdEstadoCompra = 2
+                                                                AND P.Facturada = 0
 	                                                    GROUP BY P.IdPublicacion", conexion);
 
                 comando.Parameters.AddWithValue("@VENDEDOR", vendedor);

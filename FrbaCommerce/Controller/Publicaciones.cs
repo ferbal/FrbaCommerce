@@ -151,13 +151,13 @@ namespace FrbaCommerce.Controller
             }
         }
         //OBTIENE UN LISTADO DE PUBLICACIONES PARA COMPRAR/OFERTAR
-        public static DataTable CargarParaCompra(int desde, int rubro,String descripcion)
+        public static DataTable CargarParaCompra(int desde, int rubro,String descripcion,int codigo)
         {
             try
             {
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
 
-                return pubDAL.ListarParaCompraOferta(desde*10,rubro,descripcion);
+                return pubDAL.ListarParaCompraOferta(desde*10,rubro,descripcion,codigo);
             }
             catch (Exception ex)
             {

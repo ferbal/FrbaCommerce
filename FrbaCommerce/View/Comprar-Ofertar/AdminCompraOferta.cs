@@ -48,8 +48,16 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void cargarDGV()
         {
+            int codigo = -1;
+            if (!String.IsNullOrEmpty(txtCodigoPubli.Text))
+            {
+                if (!Int32.TryParse(txtCodigoPubli.Text, out codigo))
+                {
+                    codigo = -1;
+                }                                    
+            }
             dgvPublicaciones.Refresh();
-            dgvPublicaciones.DataSource = Controller.Publicaciones.CargarParaCompra(this.paginaActual,Convert.ToInt32(cmbRubro.SelectedValue),txtDescripcion.Text);
+            dgvPublicaciones.DataSource = Controller.Publicaciones.CargarParaCompra(this.paginaActual, Convert.ToInt32(cmbRubro.SelectedValue), txtDescripcion.Text, codigo);
             dgvPublicaciones.Columns["IdPublicacion"].Visible = false;
             ArmarEtiquetaPaginas();
         }
@@ -118,6 +126,7 @@ namespace FrbaCommerce.View.Comprar_Ofertar
             {
                 cargarCMB();
                 txtDescripcion.Text = String.Empty;
+                txtCodigoPubli.Text = String.Empty;
             }
             catch (Exception ex)
             {
