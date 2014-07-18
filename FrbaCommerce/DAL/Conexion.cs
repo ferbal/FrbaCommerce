@@ -34,7 +34,7 @@ namespace FrbaCommerce.DAL
         {
             String str = String.Empty;
 
-            StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\config.txt");
+            StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"..\\..\\config.txt");
             str = or.ReadLine();
 
             if (!String.IsNullOrEmpty(str))
@@ -45,8 +45,6 @@ namespace FrbaCommerce.DAL
                     
                 }
             }
-
-
             return str;
         }
     }
