@@ -56,6 +56,7 @@
             this.btnPrimera = new System.Windows.Forms.Button();
             this.btnPreguntar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.lblPagina = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -299,11 +300,21 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // lblPagina
+            // 
+            this.lblPagina.AutoSize = true;
+            this.lblPagina.Location = new System.Drawing.Point(414, 105);
+            this.lblPagina.Name = "lblPagina";
+            this.lblPagina.Size = new System.Drawing.Size(61, 13);
+            this.lblPagina.TabIndex = 25;
+            this.lblPagina.Text = "Pagina   de";
+            // 
             // AdminPublicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 497);
+            this.Controls.Add(this.lblPagina);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnPreguntar);
             this.Controls.Add(this.btnPrimera);
@@ -366,5 +377,6 @@
         private System.Windows.Forms.DataGridView dgvPublicaciones;
         private System.Windows.Forms.Button btnPreguntar;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label lblPagina;
     }
 }

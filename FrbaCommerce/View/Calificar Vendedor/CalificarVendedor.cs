@@ -21,8 +21,16 @@ namespace FrbaCommerce.View.Calificar_Vendedor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            CambiarEstadoObjetos(false);
-            CargarCMB();
+            try
+            {
+                CambiarEstadoObjetos(false);
+                CargarCMB();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void CargarCMB()
@@ -55,21 +63,45 @@ namespace FrbaCommerce.View.Calificar_Vendedor
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CargarCMB();
+            try
+            {
+                CargarCMB();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            if (ValidarDatos())
+            try
             {
-                Controller.Calificaciones.IngresarCalificaciones((int)cmbCompras.SelectedValue, Convert.ToInt32(mtxtCalificacion.Text), "");
-                CambiarEstadoObjetos(false);
-                CargarCMB();
+                if (ValidarDatos())
+                {
+                    Controller.Calificaciones.IngresarCalificaciones((int)cmbCompras.SelectedValue, Convert.ToInt32(mtxtCalificacion.Text), "");
+                    CambiarEstadoObjetos(false);
+                    CargarCMB();
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
@@ -102,7 +134,15 @@ namespace FrbaCommerce.View.Calificar_Vendedor
 
         private void mtxtCalificacion_TextChanged(object sender, EventArgs e)
         {
-            epCalificacion.Clear();
+            try
+            {
+                epCalificacion.Clear();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
     }
 }

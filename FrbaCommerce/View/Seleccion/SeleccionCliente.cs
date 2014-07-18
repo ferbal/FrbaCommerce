@@ -74,7 +74,15 @@ namespace FrbaCommerce.View.Seleccion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CargarDGV();
+            try
+            {
+                CargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void CargarDGV()
@@ -85,18 +93,27 @@ namespace FrbaCommerce.View.Seleccion
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rows = dgvSeleccion.SelectedRows;
-            if (rows.Count == 1)
+            try
             {
-                DataGridViewCellCollection cell = rows[0].Cells;
-                if (idVentanaFrom == 1)
-                    vtn1.CargarSeleccion(Convert.ToInt32(cell["IdUsuario"].Value), Convert.ToString(cell["Descripcion"].Value));
+                DataGridViewSelectedRowCollection rows = dgvSeleccion.SelectedRows;
+                if (rows.Count == 1)
+                {
+                    DataGridViewCellCollection cell = rows[0].Cells;
+                    if (idVentanaFrom == 1)
+                        vtn1.CargarSeleccion(Convert.ToInt32(cell["IdUsuario"].Value), Convert.ToString(cell["Descripcion"].Value));
 
-                if (idVentanaFrom == 2)
-                    vtn2.CargarSeleccion(Convert.ToInt32(cell["IdUsuario"].Value), Convert.ToString(cell["Descripcion"].Value));
+                    if (idVentanaFrom == 2)
+                        vtn2.CargarSeleccion(Convert.ToInt32(cell["IdUsuario"].Value), Convert.ToString(cell["Descripcion"].Value));
+                }
+
+                this.Dispose();
             }
-            
-            this.Dispose();
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
+
         }
 
         public void CargarDatosVentana(Form vtn, int id)

@@ -25,7 +25,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
         {
             RefreshControles();
             this.ultimaPagina = Controller.Publicaciones.CantidadDePublicaciones();
-            this.ultimaPagina = this.ultimaPagina / 10;            
+            this.ultimaPagina = this.ultimaPagina / 10;
+            this.ActualizarEtiquetaPaginas();
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
@@ -65,7 +66,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             dgvPublicaciones.Columns["IdRubro"].Visible = false;
             dgvPublicaciones.Columns["IdVisibilidad"].Visible = false;
             dgvPublicaciones.Columns["IdTipoPublicacion"].Visible = false;
-            
+
+            ActualizarEtiquetaPaginas();
         }
 
         private void AdminPublicaciones_VisibleChanged(object sender, EventArgs e)
@@ -251,7 +253,16 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            cargarDgvPublicaciones();
+            try
+            {
+                cargarDgvPublicaciones();
+                ActualizarEtiquetaPaginas();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         public void CargarDatos(Form anterior, int usuario)
@@ -262,56 +273,110 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if ((this.paginaActual + 1) <= this.ultimaPagina)
-                this.paginaActual = this.paginaActual + 1;
-            cargarDgvPublicaciones();
+            try
+            {
+                if ((this.paginaActual + 1) <= this.ultimaPagina)
+                    this.paginaActual = this.paginaActual + 1;
+                cargarDgvPublicaciones();
+
+                
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
+        }
+
+        private void ActualizarEtiquetaPaginas()
+        {
+            lblPagina.Text = "Pagina " + (this.paginaActual+1).ToString() + " de " + (this.ultimaPagina+1).ToString();
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            if ((this.paginaActual - 1) >= 0)
-                this.paginaActual = this.paginaActual - 1;
-            cargarDgvPublicaciones();
+            try
+            {
+
+                if ((this.paginaActual - 1) >= 0)
+                    this.paginaActual = this.paginaActual - 1;
+                cargarDgvPublicaciones();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnPrimera_Click(object sender, EventArgs e)
         {
-            this.paginaActual = 0;
-            cargarDgvPublicaciones();
+            try
+            {
+                this.paginaActual = 0;
+                cargarDgvPublicaciones();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnUltimo_Click(object sender, EventArgs e)
         {
-            this.paginaActual = this.ultimaPagina;
-            cargarDgvPublicaciones();
+            try
+            {
+                this.paginaActual = this.ultimaPagina;
+                cargarDgvPublicaciones();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnPreguntar_Click(object sender, EventArgs e)
         {
-            
-            DataGridViewSelectedRowCollection dgvRows = dgvPublicaciones.SelectedRows;
-            
-            if (dgvRows.Count == 1)
-            {                
-                int idPublicacion = Convert.ToInt32(dgvRows[0].Cells["IdPublicacion"].Value);
-                String codPubli = Convert.ToString(dgvRows[0].Cells["Codigo"].Value);
-                String descripcion = Convert.ToString(dgvRows[0].Cells["Descripcion"].Value);
+            try
+            {
+                DataGridViewSelectedRowCollection dgvRows = dgvPublicaciones.SelectedRows;
 
-                View.Gestion_de_Preguntas.GenerarPreguntas vtnPreg = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();                                
-                vtnPreg.CargarDatos(this,this.idUsuario,idPublicacion,codPubli,descripcion);
-                vtnPreg.Visible = true;
-                this.Visible = false;
+                if (dgvRows.Count == 1)
+                {
+                    int idPublicacion = Convert.ToInt32(dgvRows[0].Cells["IdPublicacion"].Value);
+                    String codPubli = Convert.ToString(dgvRows[0].Cells["Codigo"].Value);
+                    String descripcion = Convert.ToString(dgvRows[0].Cells["Descripcion"].Value);
+
+                    View.Gestion_de_Preguntas.GenerarPreguntas vtnPreg = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();
+                    vtnPreg.CargarDatos(this, this.idUsuario, idPublicacion, codPubli, descripcion);
+                    vtnPreg.Visible = true;
+                    this.Visible = false;
+                }
             }
-            
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtCodigo.Text = String.Empty;
-            txtDescripcion.Text = String.Empty;
-            txtVendedor.Text = String.Empty;
-            cargarCmbEstados();
-            cargarCmbTipoPublicacion();
+            try
+            {
+                txtCodigo.Text = String.Empty;
+                txtDescripcion.Text = String.Empty;
+                txtVendedor.Text = String.Empty;
+                cargarCmbEstados();
+                cargarCmbTipoPublicacion();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
     }

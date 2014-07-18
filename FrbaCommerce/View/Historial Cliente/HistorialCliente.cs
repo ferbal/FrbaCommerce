@@ -52,8 +52,16 @@ namespace FrbaCommerce.View.Historial_Cliente
 
         private void HistorialCliente_Load(object sender, EventArgs e)
         {
-            txtCliente.Enabled = false;
-            ArmarCmbTiposHistoriales();
+            try
+            {
+                txtCliente.Enabled = false;
+                ArmarCmbTiposHistoriales();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void ArmarCmbTiposHistoriales()
@@ -95,27 +103,34 @@ namespace FrbaCommerce.View.Historial_Cliente
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            
-            if (ValidarDatos())
+            try
             {
-
-                switch (Convert.ToInt32(cmbTipoHistorial.SelectedValue))
+                if (ValidarDatos())
                 {
-                    case (int)Historial_Cliente.HistorialCliente.Tipos.Compras:
-                        dgvHistorial.DataSource = Controller.Compras.HistorialComprasPorUsuario(this.idUsuario);
-                        break;
-                    case (int)Historial_Cliente.HistorialCliente.Tipos.Ofertas:
-                        dgvHistorial.DataSource = Controller.Ofertas.HistorialOfertasPorUsuario(this.idUsuario);
-                        break;
-                    case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRealizadas:
-                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.idUsuario);
-                        break;
-                    case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRecibidas:
-                        dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesRecibidasPorUsuario(this.idUsuario);
-                        break;
-                    default:
-                        break;
+
+                    switch (Convert.ToInt32(cmbTipoHistorial.SelectedValue))
+                    {
+                        case (int)Historial_Cliente.HistorialCliente.Tipos.Compras:
+                            dgvHistorial.DataSource = Controller.Compras.HistorialComprasPorUsuario(this.idUsuario);
+                            break;
+                        case (int)Historial_Cliente.HistorialCliente.Tipos.Ofertas:
+                            dgvHistorial.DataSource = Controller.Ofertas.HistorialOfertasPorUsuario(this.idUsuario);
+                            break;
+                        case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRealizadas:
+                            dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesPorUsuario(this.idUsuario);
+                            break;
+                        case (int)Historial_Cliente.HistorialCliente.Tipos.CalificacionesRecibidas:
+                            dgvHistorial.DataSource = Controller.Calificaciones.HistorialCalificacionesRecibidasPorUsuario(this.idUsuario);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 

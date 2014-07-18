@@ -23,14 +23,22 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void FacturarPublicaciones_Load(object sender, EventArgs e)
         {
-            //cargarCmbVendedores();
-            CargaCmbFormasPago();
-            CambiarVisibilidadFormasPago(false);
+            try
+            {
+                //cargarCmbVendedores();
+                CargaCmbFormasPago();
+                CambiarVisibilidadFormasPago(false);
 
-            lblSubTotal1.Text = String.Empty;
-            lblSubTotal2.Text = String.Empty;
-            lblTotalGral.Text = String.Empty;
-            txtVendedor.Enabled = false;
+                lblSubTotal1.Text = String.Empty;
+                lblSubTotal2.Text = String.Empty;
+                lblTotalGral.Text = String.Empty;
+                txtVendedor.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
         
         /*
@@ -69,21 +77,37 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void cmbVendedor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarCmbCompras();
+            try
+            {
+                CargarCmbCompras();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
         
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            if (this.idVendedorSeleccionado != -1)
+            try
             {
-                dgvFacturasItems.DataSource = Controller.Compras.ArmarListaComprasAFacturar(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
-                dgvVisibilidades.DataSource = Controller.Compras.ObtenerGastosPorVisibilidad(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
-                Double sumaItems = dgvFacturasItems.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["COMISION"].Value));
-                Double sumaVisibilidad = dgvVisibilidades.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["PRECIO POR PUBLICAR"].Value));
-                Double suma = sumaItems + sumaVisibilidad;
-                lblSubTotal1.Text = "$ " + sumaItems.ToString();
-                lblSubTotal2.Text = "$ " + sumaVisibilidad.ToString();
-                lblTotalGral.Text = "$ " + suma.ToString();
+                if (this.idVendedorSeleccionado != -1)
+                {
+                    dgvFacturasItems.DataSource = Controller.Compras.ArmarListaComprasAFacturar(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
+                    dgvVisibilidades.DataSource = Controller.Compras.ObtenerGastosPorVisibilidad(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue);
+                    Double sumaItems = dgvFacturasItems.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["COMISION"].Value));
+                    Double sumaVisibilidad = dgvVisibilidades.Rows.Cast<DataGridViewRow>().Sum(x => Convert.ToDouble(x.Cells["PRECIO POR PUBLICAR"].Value));
+                    Double suma = sumaItems + sumaVisibilidad;
+                    lblSubTotal1.Text = "$ " + sumaItems.ToString();
+                    lblSubTotal2.Text = "$ " + sumaVisibilidad.ToString();
+                    lblTotalGral.Text = "$ " + suma.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
@@ -108,45 +132,60 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void cmbFormasDePago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((int)cmbFormasDePago.SelectedValue != 1)
-                CambiarVisibilidadFormasPago(true);
+            try
+            {
+                if ((int)cmbFormasDePago.SelectedValue != 1)
+                    CambiarVisibilidadFormasPago(true);
 
-            if ((int)cmbFormasDePago.SelectedValue == 1)
-                CambiarVisibilidadFormasPago(false);
+                if ((int)cmbFormasDePago.SelectedValue == 1)
+                    CambiarVisibilidadFormasPago(false);
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnPagar_Click(object sender, EventArgs e)
         {
-
-            if (this.idVendedorSeleccionado != -1)
+            try
             {
-                if (dgvFacturasItems.Rows.Count > 0 || dgvVisibilidades.Rows.Count > 0)
-                {                                     
-                    DateTime fecha;
-                    int codSeg;
-                    
-                    if (String.IsNullOrEmpty(mtxtCodSeguridad.Text))
+                if (this.idVendedorSeleccionado != -1)
+                {
+                    if (dgvFacturasItems.Rows.Count > 0 || dgvVisibilidades.Rows.Count > 0)
                     {
-                        codSeg = 0;
-                    }
-                    else
-                    {
-                        codSeg = Convert.ToInt32(mtxtCodSeguridad.Text);
-                    }
+                        DateTime fecha;
+                        int codSeg;
 
-                    if (!DateTime.TryParse(mtxtFechaVenc.Text,out fecha))
-                    {
-                         fecha = Convert.ToDateTime("2014-01-01");
+                        if (String.IsNullOrEmpty(mtxtCodSeguridad.Text))
+                        {
+                            codSeg = 0;
+                        }
+                        else
+                        {
+                            codSeg = Convert.ToInt32(mtxtCodSeguridad.Text);
+                        }
+
+                        if (!DateTime.TryParse(mtxtFechaVenc.Text, out fecha))
+                        {
+                            fecha = Convert.ToDateTime("2014-01-01");
+                        }
+
+                        Controller.FacturarPublicaciones.GenerarFactura(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue, (int)cmbFormasDePago.SelectedValue, mtxtNroTarjeta.Text, fecha, codSeg, txtTitular.Text);
+
+                        this.Dispose();
                     }
-                    
-                    Controller.FacturarPublicaciones.GenerarFactura(this.idVendedorSeleccionado,(int)cmbCompraHasta.SelectedValue,(int)cmbFormasDePago.SelectedValue,mtxtNroTarjeta.Text,fecha,codSeg,txtTitular.Text);
-                    
-                    this.Dispose();
+                }
+                else
+                {
+                    epVendedor.SetError(txtVendedor, "Debe Seleccionar un Vendedor.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                epVendedor.SetError(txtVendedor,"Debe Seleccionar un Vendedor.");
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
@@ -158,15 +197,31 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            View.Seleccion.SeleccionCliente vtnSeleccionC = new FrbaCommerce.View.Seleccion.SeleccionCliente();
-            vtnSeleccionC.CargarDatosVentana(this,2);
-            vtnSeleccionC.Visible = true;
-            this.Visible = false;
+            try
+            {
+                View.Seleccion.SeleccionCliente vtnSeleccionC = new FrbaCommerce.View.Seleccion.SeleccionCliente();
+                vtnSeleccionC.CargarDatosVentana(this, 2);
+                vtnSeleccionC.Visible = true;
+                this.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         public void CargarSeleccion(int id, String seleccion)
@@ -177,7 +232,15 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
         private void txtVendedor_TextChanged(object sender, EventArgs e)
         {
-            CargarCmbCompras();
+            try
+            {
+                CargarCmbCompras();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
     }

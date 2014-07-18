@@ -21,7 +21,15 @@ namespace FrbaCommerce.View.Abm_Visibilidad
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            CargarDGV();
+            try
+            {
+                CargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void CargarDGV()
@@ -40,86 +48,140 @@ namespace FrbaCommerce.View.Abm_Visibilidad
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            txtCodigo.Text = String.Empty;
-            txtDescripcion.Text = String.Empty;
+            try
+            {
+                txtCodigo.Text = String.Empty;
+                txtDescripcion.Text = String.Empty;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            View.Abm_Visibilidad.VisibilidadAM vtnAlta = new VisibilidadAM();
-            vtnAlta.CargarDatos(this,this.idUsuario,"Alta de Visibilidad");
-            vtnAlta.Visible = true;
-            this.Visible = false;
+            try
+            {
+                View.Abm_Visibilidad.VisibilidadAM vtnAlta = new VisibilidadAM();
+                vtnAlta.CargarDatos(this, this.idUsuario, "Alta de Visibilidad");
+                vtnAlta.Visible = true;
+                this.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            View.Abm_Visibilidad.VisibilidadAM vtnModV = new VisibilidadAM();
-            vtnModV.CargarDatos(this,this.idUsuario,"Modificar Visibilidad");
-
-            DataGridViewSelectedRowCollection rows = dgvVisibilidades.SelectedRows;
-            Model.Visibilidad v = new FrbaCommerce.Model.Visibilidad();
-            if (rows.Count == 1)
+            try
             {
-                DataGridViewCellCollection cell = rows[0].Cells;
+                View.Abm_Visibilidad.VisibilidadAM vtnModV = new VisibilidadAM();
+                vtnModV.CargarDatos(this, this.idUsuario, "Modificar Visibilidad");
 
-                v.IdVisibilidad = Convert.ToInt32(cell["IdVisibilidad"].Value);
-                v.Codigo = Convert.ToInt32(cell["Codigo"].Value);
-                v.Descripcion = cell["Descripcion"].Value.ToString();
-                v.Duracion = Convert.ToInt32(cell["Duracion"].Value);
-                v.PrecioPorPublicar = Convert.ToDouble(cell["Precio por Publicar"].Value);
-                v.PorcentajeVenta = Convert.ToDouble(cell["Porcentaje de Venta"].Value);
-                v.IdEstado = Convert.ToInt32(cell["IdEstado"].Value);
+                DataGridViewSelectedRowCollection rows = dgvVisibilidades.SelectedRows;
+                Model.Visibilidad v = new FrbaCommerce.Model.Visibilidad();
+                if (rows.Count == 1)
+                {
+                    DataGridViewCellCollection cell = rows[0].Cells;
 
-                vtnModV.CargarVisibilidadAModificar(v);    
+                    v.IdVisibilidad = Convert.ToInt32(cell["IdVisibilidad"].Value);
+                    v.Codigo = Convert.ToInt32(cell["Codigo"].Value);
+                    v.Descripcion = cell["Descripcion"].Value.ToString();
+                    v.Duracion = Convert.ToInt32(cell["Duracion"].Value);
+                    v.PrecioPorPublicar = Convert.ToDouble(cell["Precio por Publicar"].Value);
+                    v.PorcentajeVenta = Convert.ToDouble(cell["Porcentaje de Venta"].Value);
+                    v.IdEstado = Convert.ToInt32(cell["IdEstado"].Value);
+
+                    vtnModV.CargarVisibilidadAModificar(v);
+                }
+
+                vtnModV.Visible = true;
+                this.Visible = false;
             }
-
-            vtnModV.Visible = true;
-            this.Visible = false;
-
-            
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void AdminVisibilidad_VisibleChanged(object sender, EventArgs e)
         {
-            txtCodigo.Text = String.Empty;
-            txtDescripcion.Text = String.Empty;
-            CargarDGV();
+            try
+            {
+                txtCodigo.Text = String.Empty;
+                txtDescripcion.Text = String.Empty;
+                CargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void AdminVisibilidad_Load(object sender, EventArgs e)
         {
-            CargarDGV();
+            try
+            {
+                CargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            int id = -1, estado = -1;
-            DataGridViewSelectedRowCollection rows = dgvVisibilidades.SelectedRows;
-            
-            if (rows.Count == 1)
+            try
             {
-                DataGridViewCellCollection cell = rows[0].Cells;
+                int id = -1, estado = -1;
+                DataGridViewSelectedRowCollection rows = dgvVisibilidades.SelectedRows;
 
-                id = Convert.ToInt32(cell["IdVisibilidad"].Value);
-                
-                estado = Convert.ToInt32(cell["IdEstado"].Value);
-
-                if (estado == (int)Model.Visibilidad.Estados.Habilitado)
+                if (rows.Count == 1)
                 {
-                    Controller.Visibilidades.CambiarEstadoVisibilidad(id,(int)Model.Visibilidad.Estados.Deshabilitado);
-                }
-                else
-                {
-                    Controller.Visibilidades.CambiarEstadoVisibilidad(id, (int)Model.Visibilidad.Estados.Habilitado);
-                }
+                    DataGridViewCellCollection cell = rows[0].Cells;
 
-                CargarDGV();
+                    id = Convert.ToInt32(cell["IdVisibilidad"].Value);
+
+                    estado = Convert.ToInt32(cell["IdEstado"].Value);
+
+                    if (estado == (int)Model.Visibilidad.Estados.Habilitado)
+                    {
+                        Controller.Visibilidades.CambiarEstadoVisibilidad(id, (int)Model.Visibilidad.Estados.Deshabilitado);
+                    }
+                    else
+                    {
+                        Controller.Visibilidades.CambiarEstadoVisibilidad(id, (int)Model.Visibilidad.Estados.Habilitado);
+                    }
+
+                    CargarDGV();
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 

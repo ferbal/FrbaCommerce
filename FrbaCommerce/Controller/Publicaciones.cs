@@ -86,7 +86,7 @@ namespace FrbaCommerce.Controller
             {
                 DAL.PublicacionesDAL pubDAL = new FrbaCommerce.DAL.PublicacionesDAL();
                 
-                return pubDAL.listarPublicacionesPaginadas(desde,codigo,descrip,vendedor,tipoPub,estado);
+                return pubDAL.listarPublicacionesPaginadas(desde*10,codigo,descrip,vendedor,tipoPub,estado);
             }
             catch (Exception ex)
             {

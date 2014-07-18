@@ -73,7 +73,15 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -165,59 +173,74 @@ namespace FrbaCommerce.View.Generar_Publicacion
             
         private void GenerarPublicacion_Load(object sender, EventArgs e)
         {
-            CargarCmbTipoPublicacion();
-            CargarClbRubros();
-            CargarCmbVisibilidad();
-            //Seteo los datos del Calendario con la fecha del sistema
-            mcFecha.Visible = false;            
-            mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
-            mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
-            mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
-            mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
+            try
+            {
+                CargarCmbTipoPublicacion();
+                CargarClbRubros();
+                CargarCmbVisibilidad();
+                //Seteo los datos del Calendario con la fecha del sistema
+                mcFecha.Visible = false;
+                mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
 
-            mtxtFechaInicio.Enabled = false;
-            mtxtFechaFin.Enabled = false;
-            mtxtCodPubli.Enabled = false;
+                mtxtFechaInicio.Enabled = false;
+                mtxtFechaFin.Enabled = false;
+                mtxtCodPubli.Enabled = false;
 
-            if (this.publicacion == null)
-            {                
-                mtxtCodPubli.Text = (Controller.Publicaciones.UltimoCodigo() + 1).ToString();                
-            }
-            else
-            {                
-                mtxtCodPubli.Text = this.publicacion.CodPublicacion.ToString();
-                mtxtFechaFin.Text = this.publicacion.FechaFin.ToString();
-                mtxtFechaInicio.Text = this.publicacion.FechaInicio.ToString();
-                mtxtPrecio.Text = this.publicacion.Precio.ToString();
-                mtxtStock.Text = this.publicacion.Stock.ToString();
-                rtxtDescripcion.Text = this.publicacion.Descripcion.ToString();
-                chbPreguntas.Checked = Convert.ToBoolean(this.publicacion.PermiteRealizarPreguntas);
-                cmbTiposPublicaciones.SelectedValue = this.publicacion.IdTipoPublicacion;                
-                cmbRubros.SelectedValue = this.publicacion.IdRubro;
-                cmbTipoVisibilidad.SelectedValue = this.publicacion.IdVisibilidad;
-
-                if (publicacion.IdTipoPublicacion == (int)Model.TiposPublicaciones.Tipos.Compra_Inmediata 
-                    && publicacion.IdEstado == (int) Model.Publicaciones.Estados.Activa)
+                if (this.publicacion == null)
                 {
-                    mtxtFechaInicio.Enabled = false;
-                    btnSeleccionarFecha.Enabled = false;                
-                    mtxtPrecio.Enabled = false;                    
-                    chbPreguntas.Enabled = false;
-                    cmbRubros.Enabled = false;
-                    cmbTiposPublicaciones.Enabled = false;
-                    cmbTipoVisibilidad.Enabled = false;
+                    mtxtCodPubli.Text = (Controller.Publicaciones.UltimoCodigo() + 1).ToString();
                 }
+                else
+                {
+                    mtxtCodPubli.Text = this.publicacion.CodPublicacion.ToString();
+                    mtxtFechaFin.Text = this.publicacion.FechaFin.ToString();
+                    mtxtFechaInicio.Text = this.publicacion.FechaInicio.ToString();
+                    mtxtPrecio.Text = this.publicacion.Precio.ToString();
+                    mtxtStock.Text = this.publicacion.Stock.ToString();
+                    rtxtDescripcion.Text = this.publicacion.Descripcion.ToString();
+                    chbPreguntas.Checked = Convert.ToBoolean(this.publicacion.PermiteRealizarPreguntas);
+                    cmbTiposPublicaciones.SelectedValue = this.publicacion.IdTipoPublicacion;
+                    cmbRubros.SelectedValue = this.publicacion.IdRubro;
+                    cmbTipoVisibilidad.SelectedValue = this.publicacion.IdVisibilidad;
 
+                    if (publicacion.IdTipoPublicacion == (int)Model.TiposPublicaciones.Tipos.Compra_Inmediata
+                        && publicacion.IdEstado == (int)Model.Publicaciones.Estados.Activa)
+                    {
+                        mtxtFechaInicio.Enabled = false;
+                        btnSeleccionarFecha.Enabled = false;
+                        mtxtPrecio.Enabled = false;
+                        chbPreguntas.Enabled = false;
+                        cmbRubros.Enabled = false;
+                        cmbTiposPublicaciones.Enabled = false;
+                        cmbTipoVisibilidad.Enabled = false;
+                    }
+
+                }
             }
-
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
 
         }
 
         private void mtxtFechaInicio_TextChanged(object sender, EventArgs e)
-        {                       
-            if ((int)cmbTipoVisibilidad.SelectedValue != -1)
+        {
+            try
             {
-                ActualizarFechaFin();
+                if ((int)cmbTipoVisibilidad.SelectedValue != -1)
+                {
+                    ActualizarFechaFin();
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
@@ -229,19 +252,45 @@ namespace FrbaCommerce.View.Generar_Publicacion
 
         private void btnSeleccionarFecha_Click(object sender, EventArgs e)
         {
-            mcFecha.Visible = true;
+            try
+            {
+
+                mcFecha.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void mcFecha_DateSelected(object sender, DateRangeEventArgs e)
         {
-            mtxtFechaInicio.Text = mcFecha.SelectionEnd.ToShortDateString();
-            mcFecha.Visible = false;
+            try
+            {
+                mtxtFechaInicio.Text = mcFecha.SelectionEnd.ToShortDateString();
+                mcFecha.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
+        
         }
 
         private void cmbTipoVisibilidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(mtxtFechaInicio.Text))
-                ActualizarFechaFin();
+            try
+            {
+                if (!String.IsNullOrEmpty(mtxtFechaInicio.Text))
+                    ActualizarFechaFin();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void mtxtPrecio_KeyPress(object sender, KeyPressEventArgs e)

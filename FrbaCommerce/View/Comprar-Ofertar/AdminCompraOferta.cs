@@ -32,10 +32,18 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if ((this.paginaActual + 1) <= this.ultimaPagina)
-                this.paginaActual = paginaActual + 1;
-            
-            this.cargarDGV();
+            try
+            {
+                if ((this.paginaActual + 1) <= this.ultimaPagina)
+                    this.paginaActual = paginaActual + 1;
+
+                this.cargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void cargarDGV()
@@ -62,34 +70,74 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void btnAnterior_Click(object sender, EventArgs e)
         {
-            if ((this.paginaActual - 1) >= 0)
-                this.paginaActual = this.paginaActual - 1;
+            try
+            {
+                if ((this.paginaActual - 1) >= 0)
+                    this.paginaActual = this.paginaActual - 1;
 
-            this.cargarDGV();
+                this.cargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnUltima_Click(object sender, EventArgs e)
         {
-            this.paginaActual = this.ultimaPagina;
-            cargarDGV();
+            try
+            {
+                this.paginaActual = this.ultimaPagina;
+                cargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnPrimera_Click(object sender, EventArgs e)
         {
-            this.paginaActual = 0;
-            cargarDGV();
+            try
+            {
+                this.paginaActual = 0;
+                cargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
-            cargarCMB();
-            txtDescripcion.Text = String.Empty;
+            try
+            {
+                cargarCMB();
+                txtDescripcion.Text = String.Empty;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            cargarDGV();
-            CargarPaginas();
+            try
+            {
+                cargarDGV();
+                CargarPaginas();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void CargarPaginas()
@@ -107,20 +155,36 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void btnComprarOfertar_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
-            if (rows.Count == 1)
+            try
             {
-                View.Comprar_Ofertar.CompraOferta vtnComprarOfertar = new View.Comprar_Ofertar.CompraOferta();
-                vtnComprarOfertar.CargarValoresVentana(this, this.idUsuario, Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value));
-                vtnComprarOfertar.Visible = true;
-                this.Visible = false;
-            }            
+                DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
+                if (rows.Count == 1)
+                {
+                    View.Comprar_Ofertar.CompraOferta vtnComprarOfertar = new View.Comprar_Ofertar.CompraOferta();
+                    vtnComprarOfertar.CargarValoresVentana(this, this.idUsuario, Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value));
+                    vtnComprarOfertar.Visible = true;
+                    this.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void AdminCompraOferta_VisibleChanged(object sender, EventArgs e)
         {
-            if (this.Visible)
-                this.cargarDGV();
+            try
+            {
+                if (this.Visible)
+                    this.cargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         public void CargarDatos(Form vtn, int idUsr)
@@ -131,23 +195,39 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnPreguntar_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
-            if (rows.Count == 1)
-            {                                
-                int idPublicacion = Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value);
-                String descripcion = Convert.ToString(rows[0].Cells["Publicacion"].Value);
-                String codigo = Convert.ToString(rows[0].Cells["Codigo Publicacion"].Value);
-                
-                View.Gestion_de_Preguntas.GenerarPreguntas vtnPregunta = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();
-                vtnPregunta.CargarDatos(this, this.idUsuario, idPublicacion, codigo, descripcion); //this, this.idUsuario, Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value));
-                vtnPregunta.Visible = true;
-                this.Visible = false;
-            }            
+            try
+            {
+                DataGridViewSelectedRowCollection rows = dgvPublicaciones.SelectedRows;
+                if (rows.Count == 1)
+                {
+                    int idPublicacion = Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value);
+                    String descripcion = Convert.ToString(rows[0].Cells["Publicacion"].Value);
+                    String codigo = Convert.ToString(rows[0].Cells["Codigo Publicacion"].Value);
+
+                    View.Gestion_de_Preguntas.GenerarPreguntas vtnPregunta = new FrbaCommerce.View.Gestion_de_Preguntas.GenerarPreguntas();
+                    vtnPregunta.CargarDatos(this, this.idUsuario, idPublicacion, codigo, descripcion); //this, this.idUsuario, Convert.ToInt32(rows[0].Cells["IdPublicacion"].Value));
+                    vtnPregunta.Visible = true;
+                    this.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
     }
 }

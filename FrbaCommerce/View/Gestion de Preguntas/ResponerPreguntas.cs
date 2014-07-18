@@ -35,13 +35,21 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(txtRespuesta.Text))
+            try
             {
-                Controller.Respuestas.ResponderPregunta(this.idPregunta, txtRespuesta.Text);
+                if (!String.IsNullOrEmpty(txtRespuesta.Text))
+                {
+                    Controller.Respuestas.ResponderPregunta(this.idPregunta, txtRespuesta.Text);
+                }
+                else
+                {
+                    epRespuesta.SetError(txtRespuesta, "Debe escribir una respuesta.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                epRespuesta.SetError(txtRespuesta,"Debe escribir una respuesta.");
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 

@@ -22,23 +22,39 @@ namespace FrbaCommerce.View.Comprar_Ofertar
 
         private void btnOfertar_Click(object sender, EventArgs e)
         {
-            Double precio;
-            if (Double.TryParse(mtxtPrecioOferta.Text, out precio))
+            try
             {
-                Controller.Ofertas.GenerarOferta(this.idUsuario, this.idPublicacion, DateTime.Now, precio);
-                this.Dispose();
+                Double precio;
+                if (Double.TryParse(mtxtPrecioOferta.Text, out precio))
+                {
+                    Controller.Ofertas.GenerarOferta(this.idUsuario, this.idPublicacion, DateTime.Now, precio);
+                    this.Dispose();
+                }
+                else
+                {
+                    epPrecioOferta.SetError(mtxtPrecioOferta, "El precio ingresado no es valido.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                epPrecioOferta.SetError(mtxtPrecioOferta,"El precio ingresado no es valido.");
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
         private void CompraOferta_Load(object sender, EventArgs e)
         {
-            CargarCMB();            
-            CargarDatosPublicacion();
-            InhabilitarControles();
+            try
+            {
+                CargarCMB();
+                CargarDatosPublicacion();
+                InhabilitarControles();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         public void CargarValoresVentana(Form vtn, int usr,int publicacion)
@@ -117,34 +133,58 @@ namespace FrbaCommerce.View.Comprar_Ofertar
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
-        {        
-            this.Dispose();
+        {
+            try
+            {
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            int cant;
-            if (Int32.TryParse(mtxtCantidad.Text.ToString(), out cant))
+            try
             {
-                if (Convert.ToInt32(mtxtStock.Text) >= cant)
+                int cant;
+                if (Int32.TryParse(mtxtCantidad.Text.ToString(), out cant))
                 {
-                    Controller.Compras.GenerarCompra(this.idUsuario, this.idPublicacion, DateTime.Now, cant);
-                    this.Dispose();
+                    if (Convert.ToInt32(mtxtStock.Text) >= cant)
+                    {
+                        Controller.Compras.GenerarCompra(this.idUsuario, this.idPublicacion, DateTime.Now, cant);
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        epCantidad.SetError(mtxtCantidad, "La Cantidad es superior al Stock Disponible.");
+                    }
                 }
                 else
                 {
-                    epCantidad.SetError(mtxtCantidad,"La Cantidad es superior al Stock Disponible.");
+                    epCantidad.SetError(mtxtCantidad, "La Cantidad no es Correcta.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                epCantidad.SetError(mtxtCantidad,"La Cantidad no es Correcta.");
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
         private void mtxtCantidad_TextChanged(object sender, EventArgs e)
         {
-            epCantidad.Clear();
+            try
+            {
+                epCantidad.Clear();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
 

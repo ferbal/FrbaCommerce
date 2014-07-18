@@ -83,25 +83,42 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(cmbTipoOperacion.SelectedValue) != -1)
+            try
             {
-                CargarDGV();
+                if (Convert.ToInt32(cmbTipoOperacion.SelectedValue) != -1)
+                {
+                    CargarDGV();
+                }
+                else
+                {
+                    epTipoOperacion.SetError(cmbTipoOperacion, "Debe Seleccionar un tipo de Operacion.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                epTipoOperacion.SetError(cmbTipoOperacion,"Debe Seleccionar un tipo de Operacion.");
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
             }
         }
 
         private void btnResponder_Click(object sender, EventArgs e)
         {
-            DataGridViewRowCollection rows = dgvGestionPreguntas.Rows;
-            DataGridViewCellCollection cells = rows[0].Cells;
+            try
+            {
 
-            View.Gestion_de_Preguntas.ResponerPreguntas vtnRespuesta = new ResponerPreguntas();
-            vtnRespuesta.CargarDatos(this,this.idUsuario,Convert.ToInt32(cells["IdPregunta"].Value),cells["Pregunta"].Value.ToString());
-            vtnRespuesta.Visible = true;
-            this.Visible = false;
+                DataGridViewRowCollection rows = dgvGestionPreguntas.Rows;
+                DataGridViewCellCollection cells = rows[0].Cells;
+
+                View.Gestion_de_Preguntas.ResponerPreguntas vtnRespuesta = new ResponerPreguntas();
+                vtnRespuesta.CargarDatos(this, this.idUsuario, Convert.ToInt32(cells["IdPregunta"].Value), cells["Pregunta"].Value.ToString());
+                vtnRespuesta.Visible = true;
+                this.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
 
         private void CargarDGV()
@@ -124,7 +141,15 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
 
         private void GestionPreguntas_VisibleChanged(object sender, EventArgs e)
         {
-            CargarDGV();
+            try
+            {
+                CargarDGV();
+            }
+            catch (Exception ex)
+            {
+                View.Error.ErrorForm vtnError = new FrbaCommerce.View.Error.ErrorForm(ex.Message);
+                vtnError.Visible = true;
+            }
         }
     }
 }
