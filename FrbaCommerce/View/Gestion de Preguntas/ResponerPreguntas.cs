@@ -45,6 +45,9 @@ namespace FrbaCommerce.View.Gestion_de_Preguntas
                 {
                     epRespuesta.SetError(txtRespuesta, "Debe escribir una respuesta.");
                 }
+                View.Aviso vtnAviso = new Aviso(this,"La Respuesta se ha generado correctamente");
+                vtnAviso.Visible = true;
+                this.Enabled = false;
             }
             catch (Exception ex)
             {

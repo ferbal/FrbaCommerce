@@ -28,7 +28,10 @@ namespace FrbaCommerce.View.Comprar_Ofertar
                 if (Double.TryParse(mtxtPrecioOferta.Text, out precio))
                 {
                     Controller.Ofertas.GenerarOferta(this.idUsuario, this.idPublicacion, DateTime.Now, precio);
-                    this.Dispose();
+
+                    View.Aviso vtnAviso = new Aviso(this, "La Oferta se ha generado correctamente");
+                    vtnAviso.Visible = true;
+                    this.Enabled = false;
                 }
                 else
                 {
@@ -155,7 +158,10 @@ namespace FrbaCommerce.View.Comprar_Ofertar
                     if (Convert.ToInt32(mtxtStock.Text) >= cant)
                     {
                         Controller.Compras.GenerarCompra(this.idUsuario, this.idPublicacion, DateTime.Now, cant);
-                        this.Dispose();
+
+                        View.Aviso vtnAviso = new Aviso(this, "La Compra se ha generado correctamente");
+                        vtnAviso.Visible = true;
+                        this.Enabled = false;
                     }
                     else
                     {

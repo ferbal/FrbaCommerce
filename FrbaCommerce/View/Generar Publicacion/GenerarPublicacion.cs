@@ -104,8 +104,10 @@ namespace FrbaCommerce.View.Generar_Publicacion
                     {
                         Controller.Publicaciones.ActualizarPublicacion(publicacion.IdPublicacion, (int)cmbTiposPublicaciones.SelectedValue, cod, (int)cmbRubros.SelectedValue, 1, Convert.ToDateTime(mtxtFechaInicio.Text), Convert.ToDateTime(mtxtFechaFin.Text), rtxtDescripcion.Text, stock, precio, idUsuario, chbPreguntas.Checked);
                     }
-                    
-                    this.Dispose();
+
+                    View.Aviso vtnAviso = new Aviso(this,"La publicacion se ha generado correctamente");
+                    vtnAviso.Visible = true;
+                    this.Enabled = false;
                 }
                 
             }
@@ -182,7 +184,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
                 mcFecha.Visible = false;
                 mcFecha.SelectionRange.Start = Controller.Validaciones.ObtenerFechaSistema();
                 mcFecha.SelectionRange.End = Controller.Validaciones.ObtenerFechaSistema();
-                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema();
+                mcFecha.MaxDate = Controller.Validaciones.ObtenerFechaSistema().AddMonths(1);
                 mcFecha.TodayDate = Controller.Validaciones.ObtenerFechaSistema();
 
                 mtxtFechaInicio.Enabled = false;

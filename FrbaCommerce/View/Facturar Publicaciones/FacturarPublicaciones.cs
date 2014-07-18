@@ -174,7 +174,9 @@ namespace FrbaCommerce.View.Facturar_Publicaciones
 
                         Controller.FacturarPublicaciones.GenerarFactura(this.idVendedorSeleccionado, (int)cmbCompraHasta.SelectedValue, (int)cmbFormasDePago.SelectedValue, mtxtNroTarjeta.Text, fecha, codSeg, txtTitular.Text);
 
-                        this.Dispose();
+                        View.Aviso vtnAviso = new Aviso(this, "La publicacion se ha generado correctamente");
+                        vtnAviso.Visible = true;
+                        this.Enabled = false;
                     }
                 }
                 else
