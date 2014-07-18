@@ -30,6 +30,9 @@ namespace FrbaCommerce
             //Application.Run(new View.ABM_Cliente.AdminCliente());
             //Application.Run(new Principal());
             Application.Run(new View.Login.LoginForm());
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
             View.Login.LoginForm vtnLogin = new FrbaCommerce.View.Login.LoginForm();
@@ -42,6 +45,11 @@ namespace FrbaCommerce
             String str = String.Empty;
 
             StreamReader or = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\config.txt");
+<<<<<<< Updated upstream
+=======
+
+            str = or.ReadLine();
+>>>>>>> Stashed changes
 
             str = or.ReadLine();
 

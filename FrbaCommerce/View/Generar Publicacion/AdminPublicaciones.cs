@@ -24,6 +24,7 @@ namespace FrbaCommerce.View.Generar_Publicacion
         private void AdminPublicaciones_Load(object sender, EventArgs e)
         {
             RefreshControles();
+<<<<<<< Updated upstream
             /*
             int codigo = -1;
             int tipoPubli = -1;
@@ -45,6 +46,8 @@ namespace FrbaCommerce.View.Generar_Publicacion
             this.ultimaPagina = this.ultimaPagina / 10;
             this.ActualizarEtiquetaPaginas();
              * */
+=======
+>>>>>>> Stashed changes
         }
 
         private void btnAlta_Click(object sender, EventArgs e)
