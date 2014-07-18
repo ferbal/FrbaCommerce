@@ -344,7 +344,8 @@ namespace FrbaCommerce.DAL
                                                         INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
 	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
                                                         WHERE	PUB.IdEstado = 2
-		                                                        AND FechaFin > @FechaActual
+                                                                AND FechaInicio <= @FechaActual
+		                                                        AND FechaFin >= @FechaActual
 		                                                        AND ((PUB.IdTipoPublicacion = 1 AND PUB.Stock>0) OR PUB.IdTipoPublicacion = 2)"
                                                         + where + @"
                                                         ORDER BY    V.PrecioPorPublicar DESC,
@@ -370,7 +371,8 @@ namespace FrbaCommerce.DAL
                                                         INNER JOIN BAZINGUEANDO_EN_SLQ.TiposPublicaciones TP
                                                             ON TP.IdTipoPublicacion = PUB.IdTipoPublicacion
                                                         WHERE	PUB.IdEstado = 2
-		                                                        AND FechaFin > @FechaActual
+                                                                AND FechaInicio <= @FechaActual
+		                                                        AND FechaFin >= @FechaActual                                                                
 		                                                        AND ((PUB.IdTipoPublicacion = 1 AND PUB.Stock>0) OR PUB.IdTipoPublicacion = 2)
                                                         " + where +@"
                                                         ORDER BY    V.PrecioPorPublicar DESC,
@@ -413,7 +415,8 @@ namespace FrbaCommerce.DAL
                                                         INNER JOIN BAZINGUEANDO_EN_SLQ.Visibilidades V
 	                                                        ON PUB.IdVisibilidad = V.IdVisibilidad
                                                         WHERE	PUB.IdEstado = 2
-		                                                        AND FechaFin > @FechaActual
+                                                                AND FechaInicio <= @FechaActual
+		                                                        AND FechaFin >= @FechaActual
 		                                                        AND (PUB.IdTipoPublicacion = 1 AND PUB.Stock>0)                  
                                                         " + where, conexion);
 
